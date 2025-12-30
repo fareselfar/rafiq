@@ -1,0 +1,9 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/Rafiq_logo.png
+  #branding: assets/dart.png
+  #branding_bottom_padding: 24
+  android_12:
+    color: "#FFFFFF"
+    image: assets/images/Rafiq_logo.png
+    icon_background_color: "#FFFFFF"
