@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rafiq/features/onbording/onbording_screens.dart';
+import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
+import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'routes.dart';
@@ -22,10 +23,10 @@ class AppRouter {
           OnboardingScreen(selectedUserType: userType),
           settings,
         );
-
+      case Routes.login:
+        return _buildRoute(const LoginScreen(), settings);
       case Routes.home:
         return _buildRoute(const HomeScreen(), settings);
-
       default:
         return _buildRoute(
           Scaffold(
