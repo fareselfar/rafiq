@@ -31,12 +31,11 @@ class AppTheme {
       // AppBar Theme
       appBarTheme: AppBarTheme(
         elevation: 0,
-        centerTitle: true,
         backgroundColor: AppColors.backGround,
         foregroundColor: AppColors.textPrimary,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         titleTextStyle: AppTypography.subTitelStyle.copyWith(
-          color: AppColors.textPrimary,
+          color: AppColors.selectedText,
         ),
       ),
 
@@ -86,7 +85,7 @@ class AppTheme {
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
-          vertical: 16,
+          vertical: 12,
         ),
       ),
 

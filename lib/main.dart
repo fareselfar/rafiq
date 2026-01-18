@@ -52,7 +52,7 @@ class Rafiq extends StatelessWidget {
           theme: AppTheme.lightTheme,
           //darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.light,
-          initialRoute: Routes.userTypeScreen,
+          initialRoute: Routes.doctorsScreen,
           onGenerateRoute: AppRouter.generateRoute,
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,

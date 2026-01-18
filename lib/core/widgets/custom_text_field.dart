@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -13,6 +14,7 @@ class CustomTextField extends StatelessWidget {
   final int maxLines;
   final bool enabled;
   final ValueChanged<String>? onChanged;
+  final TextDirection? textDirection;
 
   const CustomTextField({
     super.key,
@@ -27,6 +29,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLines = 1,
     this.enabled = true,
     this.onChanged,
+    this.textDirection = TextDirection.rtl,
   });
 
   @override
@@ -37,10 +40,10 @@ class CustomTextField extends StatelessWidget {
         if (label != null) ...[
           Text(
             label!,
-            style: const TextStyle(
-              fontSize: 14,
+            style: GoogleFonts.cairo(
+              fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
+              color: AppColors.textLabel,
             ),
           ),
           const SizedBox(height: 8),
@@ -53,12 +56,18 @@ class CustomTextField extends StatelessWidget {
           maxLines: maxLines,
           enabled: enabled,
           onChanged: onChanged,
-          style: const TextStyle(fontSize: 16, color: AppColors.textPrimary),
+          style: const TextStyle(
+            fontSize: 16,
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w600,
+          ),
           decoration: InputDecoration(
+            hintTextDirection: textDirection,
             hintText: hint,
-            hintStyle: TextStyle(
+            hintStyle: GoogleFonts.cairo(
               color: AppColors.textSecondary.withOpacity(0.6),
-              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
             ),
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
