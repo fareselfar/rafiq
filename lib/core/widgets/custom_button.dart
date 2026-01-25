@@ -63,10 +63,10 @@ class CustomButton extends StatelessWidget {
 
     // Icon
     this.svgIconPath,
-    this.iconSize = 22,
+    this.iconSize = 24,
     this.iconColor,
     this.iconSpacing = 8,
-    this.textStyle, 
+    this.textStyle,
   });
 
   @override
@@ -119,9 +119,9 @@ class CustomButton extends StatelessWidget {
         if (svgIconPath != null)
           SvgPicture.asset(
             svgIconPath!,
-            width: iconSize,
-            height: iconSize,
-            color: iconColor ?? textColor,
+            width: iconSize.sp,
+            height: iconSize.sp,
+            
           ),
         if (svgIconPath != null) SizedBox(width: iconSpacing),
         Text(

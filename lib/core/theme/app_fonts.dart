@@ -1,3 +1,4 @@
 class AppFonts {
-  static String mainFontName = 'Changa';
+  static String mainFontName = 'Cairo';
+  static String secondaryFontName = 'Changa';
 }

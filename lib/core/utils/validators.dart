@@ -1,21 +1,20 @@
 /// Form Validators
-/// Provides validation functions for common form fields
+/// توفر وظائف التحقق من صحة حقول الإدخال الشائعة
 class Validators {
-  // Private constructor to prevent instantiation
   Validators._();
 
-  /// Validates if field is not empty
+  /// التحقق مما إذا كان الحقل فارغاً
   static String? required(String? value, {String? fieldName}) {
     if (value == null || value.trim().isEmpty) {
-      return '${fieldName ?? 'This field'} is required';
+      return 'حقل ${fieldName ?? "الإدخال"} مطلوب';
     }
     return null;
   }
 
-  /// Validates email format
+  /// التحقق من صيغة البريد الإلكتروني
   static String? email(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email is required';
+      return 'البريد الإلكتروني مطلوب';
     }
 
     final emailRegex = RegExp(
@@ -23,195 +22,123 @@ class Validators {
     );
 
     if (!emailRegex.hasMatch(value)) {
-      return 'Please enter a valid email address';
+      return 'يرجى إدخال بريد إلكتروني صحيح';
     }
 
     return null;
   }
 
-  /// Validates password strength
+  /// التحقق من قوة كلمة المرور
   static String? password(String? value, {int minLength = 8}) {
     if (value == null || value.isEmpty) {
-      return 'Password is required';
+      return 'كلمة المرور مطلوبة';
     }
 
     if (value.length < minLength) {
-      return 'Password must be at least $minLength characters';
+      return 'يجب أن تتكون كلمة المرور من $minLength أحرف على الأقل';
     }
 
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter';
+      return 'يجب أن تحتوي على حرف كبير واحد على الأقل';
     }
 
     if (!value.contains(RegExp(r'[a-z]'))) {
-      return 'Password must contain at least one lowercase letter';
+      return 'يجب أن تحتوي على حرف صغير واحد على الأقل';
     }
 
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Password must contain at least one number';
+      return 'يجب أن تحتوي على رقم واحد على الأقل';
     }
 
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Password must contain at least one special character';
+      return 'يجب أن تحتوي على رمز خاص واحد على الأقل';
     }
 
     return null;
   }
 
-  /// Validates if passwords match
+  /// التحقق من تطابق كلمات المرور
   static String? confirmPassword(String? value, String? password) {
     if (value == null || value.isEmpty) {
-      return 'Please confirm your password';
+      return 'يرجى تأكيد كلمة المرور';
     }
 
     if (value != password) {
-      return 'Passwords do not match';
+      return 'كلمات المرور غير متطابقة';
     }
 
     return null;
   }
 
-  /// Validates phone number
+  /// التحقق من رقم الهاتف
   static String? phone(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Phone number is required';
+      return 'رقم الهاتف مطلوب';
     }
 
     final phoneRegex = RegExp(r'^\+?[0-9]{10,15}$');
 
     if (!phoneRegex.hasMatch(value.replaceAll(RegExp(r'[\s-]'), ''))) {
-      return 'Please enter a valid phone number';
+      return 'يرجى إدخال رقم هاتف صحيح';
     }
 
     return null;
   }
 
-  /// Validates minimum length
+  /// التحقق من الحد الأدنى للطول
   static String? minLength(String? value, int length, {String? fieldName}) {
     if (value == null || value.isEmpty) {
-      return '${fieldName ?? 'This field'} is required';
+      return 'حقل ${fieldName ?? "الإدخال"} مطلوب';
     }
 
     if (value.length < length) {
-      return '${fieldName ?? 'This field'} must be at least $length characters';
+      return 'يجب أن يكون ${fieldName ?? "هذا الحقل"} بطول $length أحرف على الأقل';
     }
 
     return null;
   }
 
-  /// Validates maximum length
-  static String? maxLength(String? value, int length, {String? fieldName}) {
-    if (value == null || value.isEmpty) {
-      return null;
-    }
-
-    if (value.length > length) {
-      return '${fieldName ?? 'This field'} must not exceed $length characters';
-    }
-
-    return null;
+  static String? emailOrPhone(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'البريد الإلكتروني أو رقم الهاتف مطلوب';
   }
 
-  /// Validates numeric input
-  static String? numeric(String? value, {String? fieldName}) {
-    if (value == null || value.isEmpty) {
-      return '${fieldName ?? 'This field'} is required';
-    }
+  // Regex للإيميل
+  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  // Regex لرقم الهاتف (يقبل من 10 لـ 15 رقم)
+  final phoneRegex = RegExp(r'^\+?[0-9]{10,15}$');
 
-    if (double.tryParse(value) == null) {
-      return '${fieldName ?? 'This field'} must be a number';
-    }
-
-    return null;
+  // بنختبر القيمة: لو هي مش إيميل "و" مش رقم تليفون، يبقى فيه غلط
+  if (!emailRegex.hasMatch(value) && !phoneRegex.hasMatch(value.replaceAll(RegExp(r'[\s-]'), ''))) {
+    return 'يرجى إدخال بريد إلكتروني أو رقم هاتف صحيح';
   }
 
-  /// Validates URL format
-  static String? url(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'URL is required';
-    }
+  return null;
+}
 
-    final urlRegex = RegExp(
-      r'^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$',
-    );
-
-    if (!urlRegex.hasMatch(value)) {
-      return 'Please enter a valid URL';
-    }
-
-    return null;
-  }
-
-  /// Validates credit card number
-  static String? creditCard(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Credit card number is required';
-    }
-
-    final cardNumber = value.replaceAll(RegExp(r'[\s-]'), '');
-
-    if (cardNumber.length < 13 || cardNumber.length > 19) {
-      return 'Please enter a valid credit card number';
-    }
-
-    // Luhn algorithm
-    int sum = 0;
-    bool alternate = false;
-
-    for (int i = cardNumber.length - 1; i >= 0; i--) {
-      int digit = int.parse(cardNumber[i]);
-
-      if (alternate) {
-        digit *= 2;
-        if (digit > 9) {
-          digit = (digit % 10) + 1;
-        }
-      }
-
-      sum += digit;
-      alternate = !alternate;
-    }
-
-    if (sum % 10 != 0) {
-      return 'Please enter a valid credit card number';
-    }
-
-    return null;
-  }
-
-  /// Validates date format (dd/MM/yyyy)
+  /// التحقق من صحة التاريخ (dd/MM/yyyy)
   static String? date(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Date is required';
+      return 'التاريخ مطلوب';
     }
 
     final dateRegex = RegExp(r'^\d{2}/\d{2}/\d{4}$');
 
     if (!dateRegex.hasMatch(value)) {
-      return 'Please enter date in format dd/MM/yyyy';
+      return 'يرجى إدخال التاريخ بصيغة يوم/شهر/سنة';
     }
 
     final parts = value.split('/');
     final day = int.tryParse(parts[0]);
     final month = int.tryParse(parts[1]);
-    final year = int.tryParse(parts[2]);
 
-    if (day == null || month == null || year == null) {
-      return 'Invalid date';
-    }
-
-    if (month < 1 || month > 12) {
-      return 'Invalid month';
-    }
-
-    if (day < 1 || day > 31) {
-      return 'Invalid day';
-    }
+    if (month == null || month < 1 || month > 12) return 'شهر غير صحيح';
+    if (day == null || day < 1 || day > 31) return 'يوم غير صحيح';
 
     return null;
   }
 
-  /// Combines multiple validators
+  /// دمج أكثر من محقق
   static String? Function(String?) combine(
     List<String? Function(String?)> validators,
   ) {
