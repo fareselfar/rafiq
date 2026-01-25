@@ -9,7 +9,7 @@ class AppColors {
 
   // ================= BACKGROUND =================
   static const Color backGround = Color(0xFFF7FBFF);
-  static const Color surface = Colors.white; //لون الحاجات اللي فوق الخلفيه
+  static const Color surface = Color(0xFFFFFFFF); //لون الحاجات اللي فوق الخلفيه
 
   // ================= TEXT =================
   static const Color textPrimary = Color(0xFF468EEC);
@@ -17,7 +17,9 @@ class AppColors {
   static const Color textDisabled = Color(0xFF9E9E9E);
   static const Color selectedText = Color(0xFF000000);
   static const Color unSelectedText = Color(0xFFC7C7C7);
+  static const Color hintStyle = Color(0xFF9E9E9E);
   static const Color textLabel = Color(0xFF000000);
+  static const Color inputTextFormStyle = Color(0xFF5B5B5B);
   static const Color textOnPrimary = Colors.white;
 
   // ================= STATES =================
@@ -38,7 +40,5 @@ class AppColors {
   );
 
   // ================  الوان تانيه =================
-    static const Color selectedDoctor =  Color(0xFF00CCBB);
-
-
+  static const Color selectedDoctor = Color(0xFF00CCBB);
 }
