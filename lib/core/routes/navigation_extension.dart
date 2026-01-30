@@ -1,18 +1,38 @@
 import 'package:flutter/widgets.dart';
 
 extension NavigationExtension on BuildContext {
+
   /// Navigator.pushNamed
-  void navigateTo(String routeName, {Object? arguments}) {
-    Navigator.pushNamed(this, routeName, arguments: arguments);
+  void navigateTo(
+    String routeName, {
+    Object? arguments,
+  }) {
+    Navigator.pushNamed(
+      this,
+      routeName,
+      arguments: arguments,
+    );
   }
 
   /// Navigator.pushReplacementNamed
-  void navigateAndReplace(String routeName, {Object? arguments}) {
-    Navigator.pushReplacementNamed(this, routeName, arguments: arguments);
+  /// Replaces the current route by pushing the given route and then disposing the previous route once the new route has finished animating in. 
+  void navigateAndReplace(
+    String routeName, {
+    Object? arguments,
+  }) {
+    Navigator.pushReplacementNamed(
+      this,
+      routeName,
+      arguments: arguments,
+    );
   }
 
   /// Navigator.pushNamedAndRemoveUntil
-  void navigateAndRemoveUntil(String routeName, {Object? arguments}) {
+  /// Push the given route onto the navigator, and then remove all the previous routes until the predicate returns true.
+  void navigateAndRemoveUntil(
+    String routeName, {
+    Object? arguments,
+  }) {
     Navigator.pushNamedAndRemoveUntil(
       this,
       routeName,
@@ -22,6 +42,7 @@ extension NavigationExtension on BuildContext {
   }
 
   /// Navigator.pop
+  
   void goBack() {
     if (Navigator.canPop(this)) {
       Navigator.pop(this);

@@ -1,82 +1,146 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/theme/app_text_styles.dart';
 import '../theme/app_colors.dart';
+import 'password_visibility_icon.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String? label;
   final String? hint;
+
   final TextEditingController? controller;
-  final bool obscureText;
   final TextInputType? keyboardType;
   final FormFieldValidator<String>? validator;
+
+  final TextStyle? inputStyle;
+  final TextStyle? hintStyle;
+
   final Widget? prefixIcon;
   final Widget? suffixIcon;
-  final int maxLines;
+  final Color? iconColor;
+
+  final bool isPassword;
   final bool enabled;
+  final int maxLines;
+
   final ValueChanged<String>? onChanged;
-  final TextDirection? textDirection;
+  final TextDirection textDirection;
+
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final Iterable<String>? autofillHints;
+  final VoidCallback? onFieldSubmitted;
 
   const CustomTextField({
     super.key,
     this.label,
     this.hint,
     this.controller,
-    this.obscureText = false,
     this.keyboardType,
     this.validator,
+    this.inputStyle,
+    this.hintStyle,
     this.prefixIcon,
     this.suffixIcon,
-    this.maxLines = 1,
+    this.iconColor,
+    this.isPassword = false,
     this.enabled = true,
+    this.maxLines = 1,
     this.onChanged,
-    this.textDirection = TextDirection.rtl,
+    this.textDirection = TextDirection.ltr,
+    this.focusNode,
+    this.textInputAction,
+    this.onFieldSubmitted,
+    this.autofillHints,
   });
+
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  late bool _obscure;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscure = widget.isPassword;
+  }
+
+  void _togglePassword() {
+    setState(() {
+      _obscure = !_obscure;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label != null) ...[
+        if (widget.label != null) ...[
           Text(
-            label!,
-            style: GoogleFonts.cairo(
-              fontSize: 18,
+            widget.label!,
+            style: const TextStyle(
+              fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: AppColors.textLabel,
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(height: 8),
         ],
+
         TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          keyboardType: keyboardType,
-          validator: validator,
-          maxLines: maxLines,
-          enabled: enabled,
-          onChanged: onChanged,
-          style: const TextStyle(
-            fontSize: 16,
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w600,
-          ),
+          controller: widget.controller,
+          focusNode: widget.focusNode,
+          autofillHints: widget.autofillHints,
+          textDirection: widget.textDirection,
+          onTapOutside: (event) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          keyboardType: widget.keyboardType,
+          validator: widget.validator,
+          enabled: widget.enabled,
+          onChanged: widget.onChanged,
+          textInputAction: widget.textInputAction,
+          onFieldSubmitted: (_) => widget.onFieldSubmitted?.call(),
+
+          obscureText: widget.isPassword ? _obscure : false,
+          maxLines: widget.isPassword ? 1 : widget.maxLines,
+
+          style: widget.inputStyle ?? AppTypography.inputTextFormStyle,
+
           decoration: InputDecoration(
-            hintTextDirection: textDirection,
-            hintText: hint,
-            hintStyle: GoogleFonts.cairo(
-              color: AppColors.textSecondary.withOpacity(0.6),
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
             filled: true,
             fillColor: AppColors.surface,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 18,
+
+            hintText: widget.hint,
+            hintStyle:
+                widget.hintStyle ??
+                TextStyle(
+                  color: AppColors.hintStyle.withOpacity(0.6),
+                  fontSize: 14,
+                ),
+
+            prefixIcon: widget.prefixIcon,
+
+            // prefixIconConstraints: BoxConstraints(
+            //   minWidth: 48.w,
+            //   minHeight: 48.h,
+            // ),
+            suffixIcon: widget.isPassword
+                ? PasswordVisibilityIcon(
+                    isPasswordHidden: _obscure,
+                    toggleVisibility: _togglePassword,
+                    iconColor: widget.iconColor ?? AppColors.primary,
+                  )
+                : widget.suffixIcon,
+
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 8.w,
+              vertical: 8.h,
             ),
+
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(color: AppColors.border),
