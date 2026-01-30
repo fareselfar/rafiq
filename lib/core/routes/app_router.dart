@@ -3,20 +3,16 @@ import 'package:rafiq/features/authentication/presentation/screens/forget_passwo
 import 'package:rafiq/features/authentication/presentation/screens/get_start.dart';
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
 
-import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
-import 'package:rafiq/features/chatbot/presentation/pages/chatBot.dart';
-import 'package:rafiq/features/home_layout/presentation/pages/home_layout_screen.dart';
-
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
-import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
 import 'routes.dart';
 import '../../features/user_type/user_type_screen.dart';
+import '../../features/home/views/home_screen.dart';
 
 /// Application Router
-abstract class AppRouter {
+class AppRouter {
   AppRouter._();
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -44,10 +40,6 @@ abstract class AppRouter {
         return _buildRoute(const RegisterScreen(), settings);
       case Routes.home:
         return _buildRoute(const HomeScreen(), settings);
-      case Routes.chatBotScreen:
-        return _buildRoute(const ChatbotTab(), settings);
-      case Routes.specializationScreen:
-        return _buildRoute(SpecializationsScreen(), settings);
       default:
         return _buildRoute(
           Scaffold(

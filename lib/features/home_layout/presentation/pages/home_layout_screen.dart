@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
-import 'package:rafiq/features/chatbot/presentation/pages/chatBot.dart';
-import 'package:rafiq/features/doctors/presentation/pages/doctor.dart';
+import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
+import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
+
 import 'package:rafiq/features/home/presentation/pages/home_tab.dart';
-import 'package:rafiq/features/profile/presentation/pages/profile.dart';
-import 'package:rafiq/features/ticket/presentation/pages/ticket.dart';
+import 'package:rafiq/features/profile/presentation/pages/profile_page.dart';
+import 'package:rafiq/features/ticket/presentation/pages/ticket_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
