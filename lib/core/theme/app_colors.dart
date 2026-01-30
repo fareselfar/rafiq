@@ -41,4 +41,12 @@ class AppColors {
 
   // ================  الوان تانيه =================
   static const Color selectedDoctor = Color(0xFF00CCBB);
+  static const Color greenWhite = Color(0xFFF0FDF4);
+  static const Color pinkWhite = Color(0xFFFDF2F8);
+  static const Color redWhite = Color(0xFFFEF2F2);
+  static const Color pink = Color(0xffDb2777);
+  static const Color red = Color(0xffDc2626);
+  static const Color darkBlue = Color(0xff003B88);
+  static const Color blue = Color(0xff1DA1F2);
+  static const Color darkRed = Color(0xffEF4444);
 }
