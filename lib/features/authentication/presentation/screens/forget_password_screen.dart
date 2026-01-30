@@ -78,15 +78,9 @@ class _ForgetPasswordScreenState extends State<ForgetPassword> {
                   ),
                 ),
                 HeightSpace(20),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'البريد الإلكتروني',
-                    style: AppTypography.inputLabel,
-                  ),
-                ),
-                HeightSpace(8),
+
                 CustomTextField(
+                  label: 'البريد الإلكتروني',
                   controller: emailController,
                   hint: 'example@mail.com',
                   prefixIcon: const Icon(Icons.email_outlined),
