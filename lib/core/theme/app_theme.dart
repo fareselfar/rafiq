@@ -31,7 +31,7 @@ class AppTheme {
       // AppBar Theme
       appBarTheme: AppBarTheme(
         elevation: 0,
-        backgroundColor: AppColors.backGround,
+        backgroundColor: AppColors.surface,
         foregroundColor: AppColors.textPrimary,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         titleTextStyle: AppTypography.subTitelStyle.copyWith(

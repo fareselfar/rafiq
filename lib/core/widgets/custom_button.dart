@@ -127,11 +127,13 @@ class CustomButton extends StatelessWidget {
         if (svgIconPath != null) SizedBox(width: iconSpacing),
         Text(
           text,
-          style: GoogleFonts.cairo(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w600,
-            height: 1.h,
-          ),
+          style:
+              textStyle ??
+              GoogleFonts.cairo(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600,
+                height: 1.h,
+              ),
         ),
       ],
     );
