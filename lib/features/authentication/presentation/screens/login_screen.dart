@@ -82,17 +82,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                'البريد الالكتروني او رقم الهاتف',
-                                style: AppTypography.inputLabel,
-                              ),
-                            ),
-                            HeightSpace(8),
-
                             CustomTextField(
                               controller: emailController,
+                              label: 'البريد الالكتروني او رقم الهاتف',
                               hint: 'ادخل البريد الالكتروني او رقم الهاتف',
                               inputStyle: AppTypography.inputTextFormStyle,
                               prefixIcon: Icon(
@@ -112,17 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             HeightSpace(16),
 
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                'كلمة المرور',
-                                style: AppTypography.inputLabel,
-                              ),
-                            ),
-                            HeightSpace(8),
-
                             CustomTextField(
                               controller: passwordController,
+                              label: 'كلمة المرور',
                               hint: 'ادخل كلمة المرور',
                               inputStyle: AppTypography.inputTextFormStyle,
                               isPassword: true,
