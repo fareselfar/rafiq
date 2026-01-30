@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_colors.dart';
 
 enum ButtonType { filled, outlined }
@@ -66,7 +67,7 @@ class CustomButton extends StatelessWidget {
     this.iconSize = 22,
     this.iconColor,
     this.iconSpacing = 8,
-    this.textStyle, 
+    this.textStyle,
   });
 
   @override
@@ -127,16 +128,12 @@ class CustomButton extends StatelessWidget {
         Text(
           text,
           style:
-              (textStyle ??
-                      const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ))
-                  .copyWith(
-                    color: type == ButtonType.outlined
-                        ? borderColor
-                        : textColor,
-                  ),
+              textStyle ??
+              GoogleFonts.cairo(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600,
+                height: 1.h,
+              ),
         ),
       ],
     );

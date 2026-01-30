@@ -3,5 +3,9 @@ class OnboardingModel {
   final String description;
   final String imagePath;
 
-  OnboardingModel({required this.title, required this.description, required this.imagePath});
+  OnboardingModel({
+    required this.title,
+    required this.description,
+    required this.imagePath,
+  });
 }

@@ -174,9 +174,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _navigateToAuth() {
-    context.navigateAndReplace(
-      Routes.login,
-    );
+    context.navigateAndReplace(Routes.login);
   }
 
   // void _navigateToAuth() {
