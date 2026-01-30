@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rafiq/features/authentication/presentation/screens/forget_password_screen.dart';
+import 'package:rafiq/features/authentication/presentation/screens/get_start.dart';
+import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
 
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatBot.dart';
@@ -8,6 +11,7 @@ import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
+import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
 import 'routes.dart';
 import '../../features/user_type/user_type_screen.dart';
 
@@ -27,6 +31,15 @@ abstract class AppRouter {
           OnboardingScreen(selectedUserType: userType),
           settings,
         );
+      case Routes.getStart:
+        return _buildRoute(const GetStart(), settings);
+      case Routes.login:
+        return _buildRoute(const LoginScreen(), settings);
+      case Routes.forgetPassword:
+        final String? email = settings.arguments as String?;
+        return _buildRoute(ForgetPassword(email: email), settings);
+      case Routes.otpScreen:
+        return _buildRoute(const OtpScreen(), settings);
       case Routes.register:
         return _buildRoute(const RegisterScreen(), settings);
       case Routes.home:
@@ -63,38 +76,5 @@ abstract class AppRouter {
       },
       transitionDuration: const Duration(milliseconds: 300),
     );
-  }
-
-  static void navigateTo(
-    BuildContext context,
-    String routeName, {
-    Object? arguments,
-  }) {
-    Navigator.pushNamed(context, routeName, arguments: arguments);
-  }
-
-  static void navigateAndReplace(
-    BuildContext context,
-    String routeName, {
-    Object? arguments,
-  }) {
-    Navigator.pushReplacementNamed(context, routeName, arguments: arguments);
-  }
-
-  static void navigateAndRemoveUntil(
-    BuildContext context,
-    String routeName, {
-    Object? arguments,
-  }) {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      routeName,
-      (route) => false,
-      arguments: arguments,
-    );
-  }
-
-  static void goBack(BuildContext context) {
-    Navigator.pop(context);
   }
 }
