@@ -13,119 +13,115 @@ class DoctorsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 010),
-      child: Container(
-        height: 246.h,
-
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(16.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.15),
-              blurRadius: 20.r,
-              spreadRadius: 2.r,
-              offset: const Offset(0, 10),
+    return Container(
+    
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            blurRadius: 20.r,
+            spreadRadius: 2.r,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: REdgeInsets.all(16),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage(doctorModel.image),
+                    radius: 40.r,
+                  ),
+                  WidthSpace(16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        doctorModel.doctorName,
+                        style: GoogleFonts.cairo(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.selectedText,
+                        ),
+                      ),
+                      HeightSpace(8),
+                      Text(
+                        doctorModel.doctorSpecialization,
+                        style: GoogleFonts.cairo(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            HeightSpace(10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(IconManger.doctor, height: 20.h),
+                WidthSpace(5.5),
+                Padding(
+                  padding: REdgeInsets.only(left: 20),
+                  child: Text(
+                    doctorModel.doctorRate,
+                    style: GoogleFonts.cairo(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.selectedText,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            HeightSpace(12),
+            Row(
+              children: [
+                Image.asset(IconManger.locationIcon, height: 20.h),
+                WidthSpace(4),
+                Text(
+                  doctorModel.doctorLocation,
+                  style: GoogleFonts.cairo(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.selectedText,
+                  ),
+                ),
+                Spacer(),
+                Image.asset(IconManger.walletIcon, height: 25.h),
+                WidthSpace(4),
+                Text(
+                  doctorModel.doctorPrice,
+                  style: GoogleFonts.cairo(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.selectedText,
+                  ),
+                ),
+              ],
+            ),
+            HeightSpace(12),
+            SizedBox(
+              width: double.infinity,
+              child: GestureDetector(
+                onTap: doctorModel.onTap,
+                child: CustomButton(
+                  text: 'احجز الآن',
+                  onPressed: () {},
+                  height: 45.h,
+                ),
+              ),
             ),
           ],
-        ),
-        child: Padding(
-          padding: REdgeInsets.all(16),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage(doctorModel.image),
-                      radius: 40.r,
-                    ),
-                    WidthSpace(16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          doctorModel.doctorName,
-                          style: GoogleFonts.cairo(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.selectedText,
-                          ),
-                        ),
-                        HeightSpace(8),
-                        Text(
-                          doctorModel.doctorSpecialization,
-                          style: GoogleFonts.cairo(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              HeightSpace(10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(IconManger.doctor, height: 20.h),
-                  WidthSpace(5.5),
-                  Padding(
-                    padding: REdgeInsets.only(left: 20),
-                    child: Text(
-                      doctorModel.doctorRate,
-                      style: GoogleFonts.cairo(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.selectedText,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              HeightSpace(12),
-              Row(
-                children: [
-                  Image.asset(IconManger.locationIcon, height: 20.h),
-                  WidthSpace(4),
-                  Text(
-                    doctorModel.doctorLocation,
-                    style: GoogleFonts.cairo(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.selectedText,
-                    ),
-                  ),
-                  Spacer(),
-                  Image.asset(IconManger.walletIcon, height: 25.h),
-                  WidthSpace(4),
-                  Text(
-                    doctorModel.doctorPrice,
-                    style: GoogleFonts.cairo(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.selectedText,
-                    ),
-                  ),
-                ],
-              ),
-              HeightSpace(12),
-              SizedBox(
-                width: double.infinity,
-                child: GestureDetector(
-                  onTap: doctorModel.onTap,
-                  child: CustomButton(
-                    text: 'احجز الآن',
-                    onPressed: () {},
-                    height: 45.h,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

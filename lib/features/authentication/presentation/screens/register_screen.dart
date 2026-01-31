@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_fonts.dart';
-import 'package:rafiq/core/widgets/password_visibility_icon.dart';
+import 'package:rafiq/core/theme/app_text_styles.dart';
+import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/core/widgets/widgets.dart';
 
@@ -16,13 +17,21 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late TextEditingController _nameControler;
-  late TextEditingController _emailControler;
-  late TextEditingController _phoneControler;
-  late TextEditingController _passwordControler;
-  late TextEditingController _rePasswordControler;
-  bool isPasswordHidden = true;
-  bool isRePasswordHidden = true;
+  final TextEditingController namecontroller = TextEditingController();
+  final TextEditingController emailControler = TextEditingController();
+  final TextEditingController phoneControler = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController rePasswordController = TextEditingController();
+  @override
+
+  void dispose() {
+    namecontroller.dispose();
+    emailControler.dispose();
+    phoneControler.dispose();
+    passwordController.dispose();
+    rePasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,54 +115,53 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         CustomTextField(
                           label: 'الاسم بالكامل ',
                           hint: 'مثال:  محمد علي عبد العزيز',
-                          controller: _nameControler,
+                          controller: namecontroller,
                         ),
                         HeightSpace(18),
                         CustomTextField(
                           label: 'البريد الالكتروني ',
                           hint: 'example@mail.com',
-                          controller: _emailControler,
+                          controller: emailControler,
+                          validator: (value) => Validators.email(value),
                         ),
                         HeightSpace(18),
                         CustomTextField(
                           label: 'رقم الهاتف',
                           hint: '+20 0XX XXXXX XXX',
                           textDirection: TextDirection.ltr,
-                          controller: _phoneControler,
+                          controller: phoneControler,
+                          validator: (value) => Validators.phone(value),
                         ),
                         HeightSpace(18),
                         CustomTextField(
-                          obscureText: isPasswordHidden,
-                          controller: _passwordControler,
-                          label: 'كلمة المرور',
-                          hint: '*************',
-                          suffixIcon: PasswordVisibilityIcon(
-                            isPasswordHidden: isPasswordHidden,
-                            toggleVisibility: () {
-                              setState(() {
-                                isPasswordHidden = !isPasswordHidden;
-                              });
-                            },
+                              controller: passwordController,
+                              label: 'كلمة المرور',
+                              hint: 'ادخل كلمة المرور',
+                              inputStyle: AppTypography.inputTextFormStyle,
+                              isPassword: true,
 
-                            iconColor: AppColors.textSecondary,
-                          ),
-                        ),
+                              prefixIcon: const Icon(Icons.lock),
+                              iconColor: AppColors.primary,
+
+                              autofillHints: const [AutofillHints.password],
+                              textInputAction: TextInputAction.done,
+
+                              keyboardType: TextInputType.visiblePassword,
+                              validator: (value) => Validators.password(value),
+                            ),
                         HeightSpace(18),
                         CustomTextField(
-                          obscureText: isRePasswordHidden,
-                          controller: _rePasswordControler,
+                          isPassword: true,
+                          controller: rePasswordController,
                           label: 'تأكيد كلمة المرور',
                           hint: '*************',
-                          suffixIcon: PasswordVisibilityIcon(
-                            isPasswordHidden: isRePasswordHidden,
-                            toggleVisibility: () {
-                              setState(() {
-                                isRePasswordHidden = !isRePasswordHidden;
-                              });
-                            },
-
-                            iconColor: AppColors.textSecondary,
-                          ),
+                          prefixIcon: const Icon(Icons.lock),
+                          iconColor: AppColors.primary,
+                          autofillHints: const [AutofillHints.password],
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (value) => Validators.confirmPassword(
+                              passwordController.text, value),
                         ),
                         HeightSpace(16),
                         Align(

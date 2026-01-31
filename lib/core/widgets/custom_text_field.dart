@@ -84,7 +84,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
+              color: AppColors.textLabel,
             ),
           ),
           const SizedBox(height: 8),

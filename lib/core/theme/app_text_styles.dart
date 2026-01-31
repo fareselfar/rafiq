@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_fonts.dart';
 
-
 /// Application Typography
 /// Centralized text style definitions
 class AppTypography {
@@ -52,7 +51,7 @@ class AppTypography {
     fontFamily: _fontFamily,
     fontSize: 16.sp,
     fontWeight: FontWeight.w700,
-    color: AppColors.textDisabled,
+    color: AppColors.textOnPrimary,
   );
 
   // Label Text Styles

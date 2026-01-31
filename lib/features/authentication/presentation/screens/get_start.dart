@@ -21,7 +21,12 @@ class GetStart extends StatelessWidget {
             ),
             HeightSpace(40),
 
-            CustomButton(onPressed: () {}, text: 'انشاء حساب'),
+            CustomButton(
+              onPressed: () {
+                context.navigateAndReplace('/register');
+              },
+              text: 'انشاء حساب',
+            ),
             HeightSpace(16),
             CustomButton(
               onPressed: () {

@@ -15,8 +15,8 @@ import 'package:rafiq/features/home/presentation/widgets/gradient_card.dart';
 import 'package:rafiq/features/home/presentation/widgets/patient_time.dart';
 import 'package:rafiq/features/onbording/models/doctor_model.dart';
 
-class HomeTab extends StatelessWidget {
-  const HomeTab({super.key});
+class Home extends StatelessWidget {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -18,44 +18,46 @@ class DoctorTab extends StatelessWidget {
         leadingWidth: 30.w,
         iconTheme: IconThemeData(size: 33),
       ),
-      body: Padding(
-        padding: REdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        child: Column(
-          children: [
-            CustomSearchField(
-              hint: 'البحث',
-              prefixIcon: Icon(Icons.search),
-              suffixIcon: Icon(Icons.filter_list),
-            ),
-            HeightSpace(10),
-            Image.asset(AssetsManger.search, height: 240.h),
-            HeightSpace(8),
-            Text(
-              'ابدأ البحث عن طبيب أو تخصص',
-              style: GoogleFonts.cairo(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.info,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+          child: Column(
+            children: [
+              CustomSearchField(
+                hint: 'البحث',
+                prefixIcon: Icon(Icons.search),
+                suffixIcon: Icon(Icons.filter_list),
               ),
-            ),
-            HeightSpace(8),
-            Text(
-              'اكتب اسم الطبيب او التخصص للعثور على',
-              style: GoogleFonts.cairo(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.selectedText,
+              HeightSpace(10),
+              Image.asset(AssetsManger.search, height: 240.h),
+              HeightSpace(8),
+              Text(
+                'ابدأ البحث عن طبيب أو تخصص',
+                style: GoogleFonts.cairo(
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.info,
+                ),
               ),
-            ),
-            Text(
-              'ما يناسبك بسرعة وسهولة',
-              style: GoogleFonts.cairo(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.selectedText,
+              HeightSpace(8),
+              Text(
+                'اكتب اسم الطبيب او التخصص للعثور على',
+                style: GoogleFonts.cairo(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.selectedText,
+                ),
               ),
-            ),
-          ],
+              Text(
+                'ما يناسبك بسرعة وسهولة',
+                style: GoogleFonts.cairo(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.selectedText,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -5,7 +5,7 @@ import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
 
-import 'package:rafiq/features/home/presentation/pages/home_tab.dart';
+import 'package:rafiq/features/home/presentation/pages/home.dart';
 import 'package:rafiq/features/profile/presentation/pages/profile_page.dart';
 import 'package:rafiq/features/ticket/presentation/pages/ticket_page.dart';
 
@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Widget> tabs = [
-    HomeTab(),
+    Home(),
     ChatbotTab(),
     DoctorTab(),
     TicketTab(),

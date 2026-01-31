@@ -140,7 +140,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             CustomButton(
                               onPressed: () {
                                 setState(() => _submitted = true);
-                                if (formKey.currentState!.validate()) {}
+                                if (formKey.currentState!.validate()) {
+                                  context.navigateAndRemoveUntil('/home');
+                                }
                               },
                               text: 'تسجيل الدخول',
                             ),
