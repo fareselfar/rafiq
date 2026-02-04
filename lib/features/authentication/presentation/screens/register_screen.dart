@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_fonts.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/core/widgets/widgets.dart';
+import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -23,7 +25,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController rePasswordController = TextEditingController();
   @override
-
   void dispose() {
     namecontroller.dispose();
     emailControler.dispose();
@@ -134,21 +135,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         HeightSpace(18),
                         CustomTextField(
-                              controller: passwordController,
-                              label: 'كلمة المرور',
-                              hint: 'ادخل كلمة المرور',
-                              inputStyle: AppTypography.inputTextFormStyle,
-                              isPassword: true,
+                          controller: passwordController,
+                          label: 'كلمة المرور',
+                          hint: 'ادخل كلمة المرور',
+                          inputStyle: AppTypography.inputTextFormStyle,
+                          isPassword: true,
 
-                              prefixIcon: const Icon(Icons.lock),
-                              iconColor: AppColors.primary,
+                          prefixIcon: const Icon(Icons.lock),
+                          iconColor: AppColors.primary,
 
-                              autofillHints: const [AutofillHints.password],
-                              textInputAction: TextInputAction.done,
+                          autofillHints: const [AutofillHints.password],
+                          textInputAction: TextInputAction.done,
 
-                              keyboardType: TextInputType.visiblePassword,
-                              validator: (value) => Validators.password(value),
-                            ),
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (value) => Validators.password(value),
+                        ),
                         HeightSpace(18),
                         CustomTextField(
                           isPassword: true,
@@ -161,7 +162,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.visiblePassword,
                           validator: (value) => Validators.confirmPassword(
-                              passwordController.text, value),
+                            passwordController.text,
+                            value,
+                          ),
                         ),
                         HeightSpace(16),
                         Align(
@@ -176,28 +179,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
 
                         HeightSpace(16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'لديك حساب بالفعل؟',
-                              style: GoogleFonts.cairo(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.selectedText,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Text(
-                                ' تسجيل الدخول',
-                                style: GoogleFonts.cairo(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ],
+                        CustomFooterText(
+                          textTitel: 'مستخدم جديد؟ ',
+                          onTap: () {
+                            context.navigateAndReplace('/login');
+                          },
+                          linkTitel: "انشاء حساب الان",
                         ),
                       ],
                     ),

@@ -1,18 +1,14 @@
-import '../models/chatbot_model.dart';
+import '../models/message_model.dart';
 
-abstract class ChatbotRemoteDataSource {
-  Future<List<ChatbotModel>> getChatbots();
-  Future<ChatbotModel> getChatbotById(String id);
+abstract class ChatRemoteDataSource {
+  Future<MessageModel> getChatResponse(String message);
 }
 
-class ChatbotRemoteDataSourceImpl implements ChatbotRemoteDataSource {
+class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   @override
-  Future<List<ChatbotModel>> getChatbots() async {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ChatbotModel> getChatbotById(String id) async {
-    throw UnimplementedError();
+  Future<MessageModel> getChatResponse(String message) async {
+    // هنا مستقبلاً هتستخدم Dio لطلب الـ API
+    await Future.delayed(const Duration(seconds: 2)); 
+    return MessageModel(text: "رد تجريبي من الـ AI", sender: "bot", time: DateTime.now());
   }
 }
