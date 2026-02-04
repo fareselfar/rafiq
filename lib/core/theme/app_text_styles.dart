@@ -74,6 +74,22 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     color: AppColors.textDisabled,
   );
+  static TextStyle appBarTitelStyle = TextStyle(
+    fontFamily: _secondaryFontFamily,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.selectedText,
+  );
+  static TextStyle profileNameStyle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textLabel,
+  );
+  static TextStyle profileRoleStyle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 10.sp,
+    fontWeight: FontWeight.w600,
 
   static TextStyle bubbleMessage = TextStyle(
     fontFamily: _fontFamily,
