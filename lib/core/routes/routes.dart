@@ -17,4 +17,5 @@ class Routes {
   static const String specializationScreen = '/specialization';
   static const String doctorsScreen = '/doctorscreen';
   static const String chatBotScreen = '/chatBotScreen';
+  static const String doctorDetailsScreen = '/doctorDetailsScreen';
 }
