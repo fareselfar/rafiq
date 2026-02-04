@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
-import 'package:rafiq/core/theme/assets_manger.dart';
+import 'package:rafiq/core/utils/assets_manger.dart';
 import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/doctors/presentation/widgets/doctors_widget.dart';
@@ -15,8 +15,8 @@ import 'package:rafiq/features/home/presentation/widgets/gradient_card.dart';
 import 'package:rafiq/features/home/presentation/widgets/patient_time.dart';
 import 'package:rafiq/features/onbording/models/doctor_model.dart';
 
-class HomeTab extends StatelessWidget {
-  const HomeTab({super.key});
+class Home extends StatelessWidget {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {

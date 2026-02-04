@@ -51,7 +51,7 @@ class AppTypography {
     fontFamily: _fontFamily,
     fontSize: 16.sp,
     fontWeight: FontWeight.w700,
-    color: AppColors.textDisabled,
+    color: AppColors.textOnPrimary,
   );
 
   // Label Text Styles
@@ -90,5 +90,11 @@ class AppTypography {
     fontFamily: _fontFamily,
     fontSize: 10.sp,
     fontWeight: FontWeight.w600,
+
+  static TextStyle bubbleMessage = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    height: 1.5.h,
   );
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
-import 'package:rafiq/core/widgets/custom_text_field.dart';
+import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/authentication/presentation/widgets/custom_divider.dart';
 import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
@@ -82,17 +81,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                'البريد الالكتروني او رقم الهاتف',
-                                style: AppTypography.inputLabel,
-                              ),
-                            ),
-                            HeightSpace(8),
-
                             CustomTextField(
                               controller: emailController,
+                              label: 'البريد الالكتروني او رقم الهاتف',
                               hint: 'ادخل البريد الالكتروني او رقم الهاتف',
                               inputStyle: AppTypography.inputTextFormStyle,
                               prefixIcon: Icon(
@@ -112,17 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             HeightSpace(16),
 
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                'كلمة المرور',
-                                style: AppTypography.inputLabel,
-                              ),
-                            ),
-                            HeightSpace(8),
-
                             CustomTextField(
                               controller: passwordController,
+                              label: 'كلمة المرور',
                               hint: 'ادخل كلمة المرور',
                               inputStyle: AppTypography.inputTextFormStyle,
                               isPassword: true,
@@ -156,7 +139,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             CustomButton(
                               onPressed: () {
                                 setState(() => _submitted = true);
-                                if (formKey.currentState!.validate()) {}
+                                if (formKey.currentState!.validate()) {
+                                  context.navigateAndRemoveUntil('/home');
+                                }
                               },
                               text: 'تسجيل الدخول',
                             ),
@@ -177,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             CustomFooterText(
                               textTitel: 'مستخدم جديد؟ ',
                               onTap: () {
-                                context.pushNamed('register');
+                                context.navigateTo('/register');
                               },
                               linkTitel: "انشاء حساب الان",
                             ),

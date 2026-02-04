@@ -43,7 +43,7 @@ class AppRouter {
       case Routes.home:
         return _buildRoute(const HomeScreen(), settings);
       case Routes.specializationScreen:
-        return _buildRoute(SpecializationsScreen(), settings);
+        return _buildRoute( SpecializationsScreen(), settings);
       default:
         return _buildRoute(
           Scaffold(
