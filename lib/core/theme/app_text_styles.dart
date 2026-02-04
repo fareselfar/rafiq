@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_fonts.dart';
 
-
 /// Application Typography
 /// Centralized text style definitions
 class AppTypography {
@@ -74,5 +73,22 @@ class AppTypography {
     fontSize: 16.sp,
     fontWeight: FontWeight.w600,
     color: AppColors.textDisabled,
+  );
+  static TextStyle appBarTitelStyle = TextStyle(
+    fontFamily: _secondaryFontFamily,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.selectedText,
+  );
+  static TextStyle profileNameStyle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textLabel,
+  );
+  static TextStyle profileRoleStyle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 10.sp,
+    fontWeight: FontWeight.w600,
   );
 }
