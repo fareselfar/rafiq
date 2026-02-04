@@ -12,6 +12,7 @@ abstract class AssetsManger {
   static const String search = '${base}img_search@2x.png';
   static const String smileBot = '${base}SmileBot.png';
   static const String article = '${base}article.png';
+  static const String rafiqChatBot = '${base}rafiq_chat_bot.png';
 }
 
 abstract class IconManger {

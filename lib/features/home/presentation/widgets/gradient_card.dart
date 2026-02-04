@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 
 class GradientCard extends StatelessWidget {
-  GradientCard({super.key, required this.child});
-  Widget child;
+  const GradientCard({super.key, required this.child});
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return Container(

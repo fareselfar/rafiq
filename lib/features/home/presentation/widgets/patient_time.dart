@@ -8,8 +8,8 @@ import 'package:rafiq/features/home/data/models/patient_time_model.dart';
 import 'package:rafiq/features/home/presentation/widgets/gradient_card.dart';
 
 class PatientTime extends StatelessWidget {
-  PatientTime({super.key, required this.patientTimeModel});
-  PatientTimeModel patientTimeModel;
+  const PatientTime({super.key, required this.patientTimeModel});
+  final PatientTimeModel patientTimeModel;
   @override
   Widget build(BuildContext context) {
     return GradientCard(

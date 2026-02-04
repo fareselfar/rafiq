@@ -1,24 +1,13 @@
-part of 'chatbot_cubit.dart';
+import 'package:rafiq/features/chatbot/domain/entities/message_entity.dart';
 
-abstract class ChatbotState extends Equatable {
-  const ChatbotState();
-
-  @override
-  List<Object> get props => [];
+abstract class ChatState {}
+class ChatInitial extends ChatState {}
+class ChatLoading extends ChatState {}
+class ChatActive extends ChatState {
+  final List<MessageEntity> messages;
+  ChatActive(this.messages);
 }
-
-class ChatbotInitial extends ChatbotState {
-  const ChatbotInitial();
-}
-
-class ChatbotLoading extends ChatbotState {}
-
-class ChatbotLoaded extends ChatbotState {}
-
-class ChatbotError extends ChatbotState {
+class ChatError extends ChatState {
   final String message;
-  const ChatbotError(this.message);
-
-  @override
-  List<Object> get props => [message];
+  ChatError(this.message);
 }

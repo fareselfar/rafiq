@@ -74,4 +74,11 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     color: AppColors.textDisabled,
   );
+
+  static TextStyle bubbleMessage = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    height: 1.5.h,
+  );
 }
