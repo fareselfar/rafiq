@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/onbording/models/specialization_model.dart';
+import 'package:rafiq/features/specialization/data/models/specialization_model.dart';
 
 class SpecializationWidget extends StatelessWidget {
   const SpecializationWidget({super.key, required this.specializationModel});

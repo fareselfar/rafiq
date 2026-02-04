@@ -79,14 +79,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.label != null) ...[
-          Text(
-            widget.label!,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textPrimary,
-            ),
-          ),
+          Text(widget.label!, style: AppTypography.inputLabel),
           const SizedBox(height: 8),
         ],
 

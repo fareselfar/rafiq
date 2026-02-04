@@ -41,23 +41,15 @@ class _OtpScreenState extends State<OtpScreen> {
       ),
     );
 
-    // 2. ثيم التركيز (Focused) - شاشة OTP2 و OTP4
     final focusedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
-        border: Border.all(
-          color: AppColors.primary, // اللون الأزرق في التصميم
-          width: 1.5.w, // زيادة بسيطة للتمييز
-        ),
+        border: Border.all(color: AppColors.primary, width: 1.5.w),
       ),
     );
 
-    // 3. ثيم الخطأ (Error) - شاشة OTP5
     final errorPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
-        border: Border.all(
-          color: AppColors.error, // اللون الأحمر في OTP5
-          width: 1.5.w,
-        ),
+        border: Border.all(color: AppColors.error, width: 1.5.w),
       ),
     );
 
@@ -82,11 +74,11 @@ class _OtpScreenState extends State<OtpScreen> {
                   Text(
                     'أدخل رمز التحقق',
                     style: AppTypography.primaryHeadLinesStyle.copyWith(
-                      fontSize: 40.sp,
+                      fontSize: 32.sp,
                     ),
                   ),
 
-                  HeightSpace(20),
+                  const HeightSpace(20),
 
                   Text(
                     'لقد أرسلنا رمز تحقق مكون من 4 أرقام\nإلى بريدك الإلكتروني',
@@ -94,7 +86,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     style: AppTypography.bodyLarge,
                   ),
 
-                  HeightSpace(20),
+                  const HeightSpace(32),
 
                   Directionality(
                     textDirection: TextDirection.ltr,
@@ -104,29 +96,36 @@ class _OtpScreenState extends State<OtpScreen> {
                         length: 4,
                         controller: _pinController,
                         defaultPinTheme: defaultPinTheme,
-
                         focusedPinTheme: focusedPinTheme,
                         errorPinTheme: errorPinTheme,
+                        autofocus: true,
+                        keyboardType: TextInputType.number,
                         separatorBuilder: (_) => SizedBox(width: 12.w),
-                        validator: (value) =>
-                            value!.length == 4 ? null : 'أدخل الرمز كامل',
+                        validator: (value) {
+                          if (value == null || value.length < 4) {
+                            return 'الرمز غير مكتمل';
+                          }
+                          return null;
+                        },
+                        pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                        showCursor: true,
                         errorTextStyle: const TextStyle(height: 0, fontSize: 0),
                       ),
                     ),
                   ),
 
-                  HeightSpace(20),
+                  const HeightSpace(40),
 
                   CustomButton(
                     text: 'تحقق',
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        debugPrint('OTP: ${_pinController.text}');
+                        debugPrint('OTP Entered: ${_pinController.text}');
                       }
                     },
                   ),
 
-                  HeightSpace(20),
+                  const HeightSpace(24),
 
                   CustomFooterText(
                     textTitel: 'لم يصلك الرمز؟ ',

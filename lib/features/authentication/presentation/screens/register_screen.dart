@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
-import 'package:rafiq/core/theme/app_fonts.dart';
-import 'package:rafiq/core/widgets/password_visibility_icon.dart';
+import 'package:rafiq/core/theme/app_text_styles.dart';
+import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/core/widgets/widgets.dart';
+import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -16,13 +19,24 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late TextEditingController _nameControler;
-  late TextEditingController _emailControler;
-  late TextEditingController _phoneControler;
-  late TextEditingController _passwordControler;
-  late TextEditingController _rePasswordControler;
+  final TextEditingController _namecontroller = TextEditingController();
+  final TextEditingController _emailControler = TextEditingController();
+  final TextEditingController _phoneControler = TextEditingController();
+  final TextEditingController _passwordControler = TextEditingController();
+  final TextEditingController _rePasswordControler = TextEditingController();
   bool isPasswordHidden = true;
   bool isRePasswordHidden = true;
+  @override
+  @override
+  void dispose() {
+    _namecontroller.dispose();
+    _emailControler.dispose();
+    _phoneControler.dispose();
+    _passwordControler.dispose();
+    _rePasswordControler.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,42 +50,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  "!أهلاً بك",
-                  style: TextStyle(
-                    fontSize: 32.sp,
-                    fontFamily: AppFonts.mainFontName,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  "أهلاً بك!\nلنبدأ رحلتك معنا",
+                  style: AppTypography.primaryHeadLinesStyle,
                 ),
-                Text(
-                  'لنبدأ رحلتك معنا',
-                  style: TextStyle(
-                    fontSize: 32.sp,
-                    fontFamily: AppFonts.mainFontName,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+
                 Padding(
                   padding: REdgeInsets.only(right: 16),
                   child: Text(
-                    'أدخل بياناتك الشخصية والمهنية',
-                    style: GoogleFonts.cairo(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textSecondary,
-                    ),
+                    "أدخل بياناتك الشخصية والمهنية\n          للانضمام إلى منصتنا",
+                    style: AppTypography.subTitelStyle,
                   ),
                 ),
-                Center(
-                  child: Text(
-                    'للانضمام إلى منصتنا',
-                    style: GoogleFonts.cairo(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textSecondary,
-                    ),
-                  ),
-                ),
+
                 HeightSpace(16),
                 Container(
                   padding: REdgeInsets.symmetric(horizontal: 16, vertical: 36),
@@ -106,13 +96,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         CustomTextField(
                           label: 'الاسم بالكامل ',
                           hint: 'مثال:  محمد علي عبد العزيز',
-                          controller: _nameControler,
+                          controller: _namecontroller,
                         ),
                         HeightSpace(18),
                         CustomTextField(
                           label: 'البريد الالكتروني ',
                           hint: 'example@mail.com',
                           controller: _emailControler,
+                          validator: (value) => Validators.email(value),
                         ),
                         HeightSpace(18),
                         CustomTextField(
@@ -120,41 +111,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hint: '+20 0XX XXXXX XXX',
                           textDirection: TextDirection.ltr,
                           controller: _phoneControler,
+                          validator: (value) => Validators.phone(value),
                         ),
                         HeightSpace(18),
                         CustomTextField(
-                          obscureText: isPasswordHidden,
                           controller: _passwordControler,
                           label: 'كلمة المرور',
                           hint: '*************',
-                          suffixIcon: PasswordVisibilityIcon(
-                            isPasswordHidden: isPasswordHidden,
-                            toggleVisibility: () {
-                              setState(() {
-                                isPasswordHidden = !isPasswordHidden;
-                              });
-                            },
+                          inputStyle: AppTypography.inputTextFormStyle,
+                          isPassword: true,
 
-                            iconColor: AppColors.textSecondary,
-                          ),
+                          iconColor: AppColors.textSecondary,
+
+                          autofillHints: const [AutofillHints.password],
+                          textInputAction: TextInputAction.done,
+
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (value) => Validators.password(value),
                         ),
                         HeightSpace(18),
                         CustomTextField(
-                          obscureText: isRePasswordHidden,
                           controller: _rePasswordControler,
                           label: 'تأكيد كلمة المرور',
                           hint: '*************',
-                          suffixIcon: PasswordVisibilityIcon(
-                            isPasswordHidden: isRePasswordHidden,
-                            toggleVisibility: () {
-                              setState(() {
-                                isRePasswordHidden = !isRePasswordHidden;
-                              });
-                            },
+                          inputStyle: AppTypography.inputTextFormStyle,
+                          isPassword: true,
 
-                            iconColor: AppColors.textSecondary,
+                          iconColor: AppColors.textSecondary,
+
+                          autofillHints: const [AutofillHints.password],
+                          textInputAction: TextInputAction.done,
+
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (value) => Validators.confirmPassword(
+                            value,
+                            _passwordControler.text,
                           ),
                         ),
+
                         HeightSpace(16),
                         Align(
                           alignment: Alignment.center,
@@ -168,28 +162,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
 
                         HeightSpace(16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'لديك حساب بالفعل؟',
-                              style: GoogleFonts.cairo(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.selectedText,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Text(
-                                ' تسجيل الدخول',
-                                style: GoogleFonts.cairo(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ],
+                        CustomFooterText(
+                          textTitel: 'لديك حساب بالفعل؟',
+                          onTap: () {
+                            context.pushNamed(Routes.login);
+                          },
+                          linkTitel: ' تسجيل الدخول',
                         ),
                       ],
                     ),

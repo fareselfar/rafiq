@@ -4,16 +4,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
+import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/features/doctors/data/models/doctor_model.dart';
 import 'package:rafiq/features/doctors/presentation/widgets/doctors_widget.dart';
 import 'package:rafiq/features/home/data/models/patient_time_model.dart';
 import 'package:rafiq/features/home/presentation/widgets/classify_widget.dart';
 import 'package:rafiq/features/home/presentation/widgets/custom_text_button.dart';
 import 'package:rafiq/features/home/presentation/widgets/gradient_card.dart';
 import 'package:rafiq/features/home/presentation/widgets/patient_time.dart';
-import 'package:rafiq/features/onbording/models/doctor_model.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
@@ -51,22 +52,8 @@ class HomeTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'أهلًا، كيف نقدر',
-                      style: GoogleFonts.cairo(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.selectedText,
-                      ),
-                    ),
-                    Text(
-                      'نساعدك اليوم؟',
-                      style: GoogleFonts.cairo(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.primary,
-                      ),
-                    ),
+                    Text('أهلًا، كيف نقدر', style: AppTypography.homeTitle),
+                    Text('نساعدك اليوم؟', style: AppTypography.homeSubTitle),
                     HeightSpace(16),
                     CustomSearchField(
                       hint: 'البحث',
@@ -87,11 +74,7 @@ class HomeTab extends StatelessWidget {
                         children: [
                           Text(
                             'التخصصات الشائعة',
-                            style: GoogleFonts.changa(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.selectedText,
-                            ),
+                            style: AppTypography.profileServicesStyle,
                           ),
                           Spacer(),
                           CustomTextButton(
@@ -146,50 +129,20 @@ class HomeTab extends StatelessWidget {
                           child: Column(
                             children: [
                               Text(
-                                'مش عارف تختار التخصص؟',
-                                style: GoogleFonts.changa(
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.surface,
-                                ),
+                                "مش عارف تختار التخصص؟\n          رفيق يساعدك!",
+                                style: AppTypography.chatbotTitle,
                               ),
-                              Text(
-                                'رفيق يساعدك',
-                                style: GoogleFonts.changa(
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.surface,
-                                ),
-                              ),
+
                               HeightSpace(8),
                               Row(
                                 children: [
                                   Column(
                                     children: [
                                       Text(
-                                        'احكي لرفيق أعراضك،',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.surface,
-                                        ),
+                                        "  احكي لرفيق أعراضك، \nوهو يرشّح لك التخصص \n             المناسب",
+                                        style: AppTypography.chatSubTitle,
                                       ),
-                                      Text(
-                                        'وهو يرشّح لك التخصص',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.surface,
-                                        ),
-                                      ),
-                                      Text(
-                                        'المناسب',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.surface,
-                                        ),
-                                      ),
+
                                       HeightSpace(20),
                                       InkWell(
                                         onTap: () {
@@ -252,11 +205,7 @@ class HomeTab extends StatelessWidget {
                         children: [
                           Text(
                             'مواعيدي القادمة',
-                            style: GoogleFonts.changa(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.selectedText,
-                            ),
+                            style: AppTypography.profileServicesStyle,
                           ),
                           CustomTextButton(onPressed: () {}, text: 'عرض الكل'),
                         ],
@@ -318,29 +267,15 @@ class HomeTab extends StatelessWidget {
                                   children: [
                                     Text(
                                       'نصائح للحفاظ على صحة القلب',
-                                      style: GoogleFonts.cairo(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: AppColors.selectedText,
-                                      ),
+                                      style: AppTypography.profileNameStyle,
                                     ),
                                     HeightSpace(8),
                                     Text(
-                                      'اكتشف أهم الطرق للحفاظ على صحة قلبك ',
-                                      style: GoogleFonts.cairo(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.textSecondary,
-                                      ),
+                                      "اكتشف أهم الطرق للحفاظ على صحة قلبك وتجنب\n                             الأمراض القلبية",
+                                      style:
+                                          AppTypography.profileServiceNameStyle,
                                     ),
-                                    Text(
-                                      'وتجنب الأمراض القلبية',
-                                      style: GoogleFonts.cairo(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.textSecondary,
-                                      ),
-                                    ),
+
                                     HeightSpace(24),
                                     Row(
                                       mainAxisAlignment:

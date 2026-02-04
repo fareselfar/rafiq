@@ -3,6 +3,7 @@ import 'package:rafiq/features/authentication/presentation/screens/forget_passwo
 import 'package:rafiq/features/authentication/presentation/screens/get_start.dart';
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
+import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
 import 'package:rafiq/features/home_layout/presentation/pages/home_layout_screen.dart';
 
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
@@ -44,6 +45,8 @@ class AppRouter {
         return _buildRoute(const HomeScreen(), settings);
       case Routes.specializationScreen:
         return _buildRoute(SpecializationsScreen(), settings);
+      case Routes.editScreen:
+        return _buildRoute(const EditProfilePage(), settings);
       default:
         return _buildRoute(
           Scaffold(
