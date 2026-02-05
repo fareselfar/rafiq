@@ -90,7 +90,7 @@ class AppTypography {
     fontFamily: _fontFamily,
     fontSize: 10.sp,
     fontWeight: FontWeight.w600,
-
+  );
   static TextStyle bubbleMessage = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 14.sp,

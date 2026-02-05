@@ -44,13 +44,9 @@ class AppRouter {
       case Routes.home:
         return _buildRoute(const HomeScreen(), settings);
       case Routes.specializationScreen:
-<<<<<<< HEAD
-        return _buildRoute( SpecializationsScreen(), settings);
-=======
         return _buildRoute(SpecializationsScreen(), settings);
       case Routes.editScreen:
         return _buildRoute(const EditProfilePage(), settings);
->>>>>>> profile_ui
       default:
         return _buildRoute(
           Scaffold(
