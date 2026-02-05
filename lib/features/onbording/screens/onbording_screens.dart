@@ -119,7 +119,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
 
-            
             // (Dots Indicator)
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20.h),
@@ -173,9 +172,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _navigateToAuth() {
-    context.navigateAndReplace(
-      '/getStart',
-    );
+    context.navigateAndReplace('/getStart');
   }
 
   // void _navigateToAuth() {

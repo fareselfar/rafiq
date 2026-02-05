@@ -15,7 +15,7 @@ extension NavigationExtension on BuildContext {
   }
 
   /// Navigator.pushReplacementNamed
-  /// Replaces the current route by pushing the given route and then disposing the previous route once the new route has finished animating in. 
+  /// Replaces the current route by pushing the given route and then disposing the previous route once the new route has finished animating in.
   void navigateAndReplace(
     String routeName, {
     Object? arguments,
@@ -42,7 +42,7 @@ extension NavigationExtension on BuildContext {
   }
 
   /// Navigator.pop
-  
+
   void goBack() {
     if (Navigator.canPop(this)) {
       Navigator.pop(this);

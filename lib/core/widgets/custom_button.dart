@@ -122,7 +122,6 @@ class CustomButton extends StatelessWidget {
             svgIconPath!,
             width: iconSize.sp,
             height: iconSize.sp,
-            
           ),
         if (svgIconPath != null) SizedBox(width: iconSpacing),
         Text(

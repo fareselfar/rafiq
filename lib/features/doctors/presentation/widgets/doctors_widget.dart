@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
+import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/utils/assets_manger.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/onbording/models/doctor_model.dart';
+import 'package:rafiq/features/doctors/data/models/doctor_model.dart';
 
 class DoctorsWidget extends StatelessWidget {
   DoctorsWidget({super.key, required this.doctorModel});
@@ -14,7 +15,6 @@ class DoctorsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-    
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16.r),

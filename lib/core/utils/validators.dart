@@ -99,22 +99,23 @@ class Validators {
   }
 
   static String? emailOrPhone(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'البريد الإلكتروني أو رقم الهاتف مطلوب';
+    if (value == null || value.isEmpty) {
+      return 'البريد الإلكتروني أو رقم الهاتف مطلوب';
+    }
+
+    // Regex للإيميل
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    // Regex لرقم الهاتف (يقبل من 10 لـ 15 رقم)
+    final phoneRegex = RegExp(r'^\+?[0-9]{10,15}$');
+
+    // بنختبر القيمة: لو هي مش إيميل "و" مش رقم تليفون، يبقى فيه غلط
+    if (!emailRegex.hasMatch(value) &&
+        !phoneRegex.hasMatch(value.replaceAll(RegExp(r'[\s-]'), ''))) {
+      return 'يرجى إدخال بريد إلكتروني أو رقم هاتف صحيح';
+    }
+
+    return null;
   }
-
-  // Regex للإيميل
-  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  // Regex لرقم الهاتف (يقبل من 10 لـ 15 رقم)
-  final phoneRegex = RegExp(r'^\+?[0-9]{10,15}$');
-
-  // بنختبر القيمة: لو هي مش إيميل "و" مش رقم تليفون، يبقى فيه غلط
-  if (!emailRegex.hasMatch(value) && !phoneRegex.hasMatch(value.replaceAll(RegExp(r'[\s-]'), ''))) {
-    return 'يرجى إدخال بريد إلكتروني أو رقم هاتف صحيح';
-  }
-
-  return null;
-}
 
   /// التحقق من صحة التاريخ (dd/MM/yyyy)
   static String? date(String? value) {

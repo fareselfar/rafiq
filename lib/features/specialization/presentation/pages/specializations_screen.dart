@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/utils/assets_manger.dart';
-import 'package:rafiq/features/onbording/models/specialization_model.dart';
+import 'package:rafiq/features/specialization/data/models/specialization_model.dart';
+
 import 'package:rafiq/features/specialization/presentation/widgets/specialization_widget.dart';
 
 class SpecializationsScreen extends StatelessWidget {

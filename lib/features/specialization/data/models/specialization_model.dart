@@ -1,14 +1,14 @@
-import '../../domain/entities/specialization_entity.dart';
+import 'package:flutter/foundation.dart';
 
-class SpecializationModel extends SpecializationEntity {
-  const SpecializationModel({required super.id, required super.name});
-
-  factory SpecializationModel.fromJson(Map<String, dynamic> json) {
-    return SpecializationModel(
-      id: json['id'] as String,
-      name: json['name'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() => {'id': id, 'name': name};
+class SpecializationModel {
+  final String image;
+  final String name;
+  final String numberOfDoctors;
+  VoidCallback onTap;
+  SpecializationModel({
+    required this.image,
+    required this.name,
+    required this.numberOfDoctors,
+    required this.onTap,
+  });
 }

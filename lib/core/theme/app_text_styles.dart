@@ -97,4 +97,52 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     height: 1.5.h,
   );
+  static TextStyle profileServicesStyle = TextStyle(
+    fontFamily: _secondaryFontFamily,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.selectedText,
+  );
+  static TextStyle profileServiceNameStyle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textSecondary,
+  );
+  static TextStyle profileServiceDetailsStyle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.selectedText,
+  );
+  static TextStyle dialogTitle = TextStyle(
+    fontFamily: _secondaryFontFamily,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  );
+  static TextStyle homeTitle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.selectedText,
+  );
+  static TextStyle homeSubTitle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.primary,
+  );
+  static TextStyle chatbotTitle = TextStyle(
+    fontFamily: _secondaryFontFamily,
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.surface,
+  );
+  static TextStyle chatSubTitle = TextStyle(
+    fontFamily: _secondaryFontFamily,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.surface,
+  );
 }

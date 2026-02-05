@@ -20,7 +20,7 @@ class DoctorTab extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+          padding: REdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             children: [
               CustomSearchField(

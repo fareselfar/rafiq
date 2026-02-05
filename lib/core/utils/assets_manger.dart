@@ -20,10 +20,11 @@ abstract class IconManger {
   static const String doctor = '${base}star.png';
   static const String walletIcon = '${base}walletIcone.png';
   static const String locationIcon = '${base}icon_location@2x.png';
+  static const String profileImg = '${base}profileImg.png';
 }
 
 abstract class SvgManger {
-  static const String base = 'assets/images/';
+  static const String base = 'assets/images/svg/';
   static const String unTicket = '${base}unTicket.svg';
   static const String ticket = '${base}ticket.svg';
   static const String unDoctor = '${base}undoctor.svg';
@@ -35,4 +36,15 @@ abstract class SvgManger {
   static const String women = '${base}woman.svg';
   static const String heart = '${base}heart.svg';
   static const String time = '${base}time.svg';
+  static const String calendar = '${base}circum_calendar.svg';
+  static const String upload = '${base}upload.svg';
+  static const String files = '${base}files.svg';
+  static const String articles = '${base}articles.svg';
+  static const String lock = '${base}lock.svg';
+  static const String notification = '${base}notification.svg';
+  static const String logout = '${base}logout.svg';
+  static const String doc = '${base}doc.svg';
+  static const String person = '${base}person.svg';
+  static const String edit = '${base}edit.svg';
+  static const String success = '${base}success.svg';
 }
