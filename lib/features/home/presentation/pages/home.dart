@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
@@ -146,10 +147,7 @@ class Home extends StatelessWidget {
                                       HeightSpace(20),
                                       InkWell(
                                         onTap: () {
-                                          Navigator.pushNamed(
-                                            context,
-                                            Routes.chatBotScreen,
-                                          );
+                                          context.navigateTo('/chatBotScreen');
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
