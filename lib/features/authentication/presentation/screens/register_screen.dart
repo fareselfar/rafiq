@@ -53,8 +53,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: REdgeInsets.only(right: 16),
                   child: Text(
-                    "أدخل بياناتك الشخصية والمهنية\n          للانضمام إلى منصتنا",
+                    "أدخل بياناتك الشخصية والمهنية للانضمام إلى منصتنا",
                     style: AppTypography.subTitelStyle,
+                    textAlign: TextAlign.center,
                   ),
                 ),
 
@@ -78,27 +79,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     key: formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'المعلومات الشخصية',
-                          style: GoogleFonts.cairo(
-                            fontSize: 24.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.textSecondary,
-                          ),
+                          style: AppTypography.subTitelStyle,
                         ),
                         HeightSpace(16),
                         CustomTextField(
                           label: 'الاسم بالكامل ',
                           hint: 'مثال:  محمد علي عبد العزيز',
                           controller: namecontroller,
+                          textInputAction: TextInputAction.next,
+                          autofillHints: const [
+                            AutofillHints.email,
+                            AutofillHints.telephoneNumber,
+                          ],
                         ),
                         HeightSpace(18),
                         CustomTextField(
                           label: 'البريد الالكتروني ',
                           hint: 'example@mail.com',
                           controller: emailControler,
+                          autofillHints: const [AutofillHints.email],
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.emailAddress,
                           validator: (value) => Validators.email(value),
                         ),
                         HeightSpace(18),
@@ -107,6 +112,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hint: '+20 0XX XXXXX XXX',
                           textDirection: TextDirection.ltr,
                           controller: phoneControler,
+                          autofillHints: const [AutofillHints.telephoneNumber],
+                          textInputAction: TextInputAction.next,
                           validator: (value) => Validators.phone(value),
                         ),
                         HeightSpace(18),
@@ -147,7 +154,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Align(
                           alignment: Alignment.center,
                           child: SizedBox(
-                            width: 180.w,
                             child: CustomButton(
                               text: 'سجل الآن',
                               onPressed: _register,
