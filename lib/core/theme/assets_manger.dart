@@ -47,4 +47,9 @@ abstract class SvgManger {
   static const String person = '${base}person.svg';
   static const String edit = '${base}edit.svg';
   static const String success = '${base}success.svg';
+  static const String blood = '${base}blood.svg';
+  static const String prescription = '${base}prescription.svg';
+  static const String report = '${base}report.svg';
+  static const String uploadFile = '${base}uploadFile.svg';
+  static const String pen = '${base}pen.svg';
 }

@@ -145,4 +145,16 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     color: AppColors.surface,
   );
+  static TextStyle uploadFileTitle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textLabel,
+  );
+  static TextStyle notes = TextStyle(
+    fontFamily: _secondaryFontFamily,
+    fontSize: 28.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.selectedText,
+  );
 }

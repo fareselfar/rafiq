@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
-import 'package:rafiq/core/utils/assets_manger.dart';
+import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/doctors/data/models/doctor_model.dart';
 
 class DoctorsWidget extends StatelessWidget {
- const DoctorsWidget({super.key, required this.doctorModel});
+  const DoctorsWidget({super.key, required this.doctorModel});
   final DoctorModel doctorModel;
 
   @override

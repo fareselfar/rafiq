@@ -18,4 +18,6 @@ class Routes {
   static const String doctorsScreen = '/doctorscreen';
   static const String chatBotScreen = '/chatBotScreen';
   static const String editScreen = '/editScreen';
+  static const String editFiels = '/editFiels';
+  static const String uploadFiels = '/uploadFiels';
 }

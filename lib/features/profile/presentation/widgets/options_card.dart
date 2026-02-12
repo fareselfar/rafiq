@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/routes/routes.dart';
-import 'package:rafiq/core/utils/assets_manger.dart';
+import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
 import 'package:rafiq/features/profile/presentation/widgets/profile_editing.dart';
@@ -32,7 +32,9 @@ class OptionsCard extends StatelessWidget {
           ),
           HeightSpace(23),
           ProfileEditing(
-            onTap: () {},
+            onTap: () {
+              context.navigateTo(Routes.editFiels);
+            },
             icon: SvgManger.doc,
             label: "تعديل الملف الطبي",
           ),
