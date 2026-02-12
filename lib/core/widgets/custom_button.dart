@@ -96,6 +96,9 @@ class CustomButton extends StatelessWidget {
 
               fixedSize: Size(width ?? 237.w, height ?? 52.h),
 
+              padding: EdgeInsets.zero,
+              minimumSize: Size.zero,
+
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
               ),
@@ -122,7 +125,6 @@ class CustomButton extends StatelessWidget {
             svgIconPath!,
             width: iconSize.sp,
             height: iconSize.sp,
-            
           ),
         if (svgIconPath != null) SizedBox(width: iconSpacing),
         Text(

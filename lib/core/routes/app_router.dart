@@ -3,6 +3,7 @@ import 'package:rafiq/features/authentication/presentation/screens/forget_passwo
 import 'package:rafiq/features/authentication/presentation/screens/get_start.dart';
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
+import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctor_details_screen.dart';
 import 'package:rafiq/features/home_layout/presentation/pages/home_layout_screen.dart';
 
@@ -44,9 +45,12 @@ class AppRouter {
       case Routes.home:
         return _buildRoute(const HomeScreen(), settings);
       case Routes.specializationScreen:
-        return _buildRoute( SpecializationsScreen(), settings);
+        return _buildRoute(SpecializationsScreen(), settings);
       case Routes.doctorDetailsScreen:
-        return _buildRoute( DoctorDetailsScreen(), settings);
+        return _buildRoute(
+          DoctorDetailsScreen(doctor: settings.arguments as DoctorsEntity),
+          settings,
+        );
       default:
         return _buildRoute(
           Scaffold(
