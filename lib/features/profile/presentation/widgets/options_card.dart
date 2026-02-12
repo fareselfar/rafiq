@@ -38,7 +38,9 @@ class OptionsCard extends StatelessWidget {
           ),
           HeightSpace(23),
           ProfileEditing(
-            onTap: () {},
+            onTap: () {
+              context.navigateTo(Routes.changePassword);
+            },
             icon: SvgManger.lock,
             label: "تغيير كلمة المرور",
           ),

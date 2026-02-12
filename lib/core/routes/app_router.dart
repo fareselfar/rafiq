@@ -9,6 +9,8 @@ import 'package:rafiq/features/home_layout/presentation/pages/home_layout_screen
 
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
+import 'package:rafiq/features/profile/presentation/pages/change_password.dart';
+import 'package:rafiq/features/profile/presentation/pages/profile_page.dart';
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
@@ -50,6 +52,10 @@ class AppRouter {
         return _buildRoute(const EditProfilePage(), settings);
       case Routes.chatBotScreen:
         return _buildRoute(const ChatBotScreen(), settings);
+      case Routes.profile:
+        return _buildRoute(const ProfileTab(), settings);
+      case Routes.changePassword:
+        return _buildRoute(const ChangePassword(), settings);
       default:
         return _buildRoute(
           Scaffold(
