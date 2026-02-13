@@ -84,7 +84,7 @@ class ChatBubble extends StatelessWidget {
               radius: 18,
               backgroundColor: Colors.transparent,
               child: SvgPicture.asset(
-                'assets/images/chatBot.svg',
+                'assets/images/svg/baby.svg',
                 width: 28,
                 height: 28,
                 fit: BoxFit.contain,

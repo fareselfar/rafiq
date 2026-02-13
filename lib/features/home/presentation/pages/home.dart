@@ -7,10 +7,9 @@ import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/assets_manger.dart';
+import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/doctors/data/models/doctor_model.dart';
-import 'package:rafiq/features/doctors/presentation/widgets/doctors_widget.dart';
 import 'package:rafiq/features/home/data/models/patient_time_model.dart';
 import 'package:rafiq/features/home/presentation/widgets/classify_widget.dart';
 import 'package:rafiq/features/home/presentation/widgets/custom_text_button.dart';
@@ -56,10 +55,7 @@ class Home extends StatelessWidget {
                     Text('أهلًا، كيف نقدر', style: AppTypography.homeTitle),
                     Text('نساعدك اليوم؟', style: AppTypography.homeSubTitle),
                     HeightSpace(16),
-                    CustomSearchField(
-                      hint: 'البحث',
-                      prefixIcon: Icon(Icons.search),
-                    ),
+                    CustomSearchField(hint: 'البحث'),
                   ],
                 ),
               ),
@@ -123,56 +119,45 @@ class Home extends StatelessWidget {
                       HeightSpace(52),
                       GradientCard(
                         child: Padding(
-                          padding: REdgeInsets.symmetric(
-                            vertical: 32,
-                            horizontal: 22,
+                          padding: EdgeInsets.symmetric(
+                            vertical: 32.h,
+                            horizontal: 22.w,
                           ),
                           child: Column(
                             children: [
                               Text(
-                                "مش عارف تختار التخصص؟\n          رفيق يساعدك!",
+                                "مش عارف تختار التخصص؟\nرفيق يساعدك!",
                                 style: AppTypography.chatbotTitle,
+                                textAlign: TextAlign.center,
                               ),
 
                               HeightSpace(8),
                               Row(
                                 children: [
-                                  Column(
-                                    children: [
-                                      Text(
-                                        "  احكي لرفيق أعراضك، \nوهو يرشّح لك التخصص \n             المناسب",
-                                        style: AppTypography.chatSubTitle,
-                                      ),
+                                  Expanded(
+                                    child: SizedBox(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'احكي لرفيق أعراضك،\n وهو يرشّح لك التخصص المناسب',
+                                            style: AppTypography.chatSubTitle,
+                                            textAlign: TextAlign.center,
+                                          ),
 
-                                      HeightSpace(20),
-                                      InkWell(
-                                        onTap: () {
-                                          context.navigateTo('/chatBotScreen');
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: AppColors.surface,
-                                            borderRadius: BorderRadius.circular(
-                                              8.r,
-                                            ),
+                                          HeightSpace(20),
+                                          CustomButton(
+                                            text: 'ابدأ التشخيص المبدئي',
+                                            onPressed: () {
+                                              context.navigateTo(
+                                                '/chatBotScreen',
+                                              );
+                                            },
                                           ),
-                                          child: Padding(
-                                            padding: REdgeInsets.symmetric(
-                                              vertical: 4,
-                                              horizontal: 6,
-                                            ),
-                                            child: Text(
-                                              'ابدأ التشخيص المبدئي',
-                                              style: GoogleFonts.cairo(
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.primary,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
                                   WidthSpace(6),
                                   Image.asset(
@@ -186,17 +171,17 @@ class Home extends StatelessWidget {
                         ),
                       ),
                       HeightSpace(20),
-                      DoctorsWidget(
-                        doctorModel: DoctorModel(
-                          image: AssetsManger.doctor,
-                          doctorName: 'د.محمد علي عبد العزيز',
-                          doctorSpecialization: 'أخصائي عظام',
-                          doctorRate: '4.9 ',
-                          doctorLocation: 'طنطا – أول شارع البحر',
-                          doctorPrice: '150 جنيه',
-                          onTap: () {},
-                        ),
-                      ),
+                      // DoctorsWidget(
+                      //   doctorModel: DoctorModel(
+                      //     image: AssetsManger.doctor,
+                      //     doctorName: 'د.محمد علي عبد العزيز',
+                      //     doctorSpecialization: 'أخصائي عظام',
+                      //     doctorRate: '4.9 ',
+                      //     doctorLocation: 'طنطا – أول شارع البحر',
+                      //     doctorPrice: '150 جنيه',
+                      //     onTap: () {},
+                      //   ),
+                      // ),
                       HeightSpace(20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

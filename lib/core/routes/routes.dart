@@ -19,4 +19,9 @@ class Routes {
   static const String chatBotScreen = '/chatBotScreen';
   static const String editScreen = '/editScreen';
   static const String changePassword = '/changePassword';
+  static const String bookingsScreen = '/bookingsScreen';
+  static const String doctorDetailsScreen = '/doctorDetailsScreen';
+  static const String bookAppointmentScreen = '/bookAppointmentScreen';
+  static const String paymentScreen = '/paymentScreen';
+  static const String bookingSuccessScreen = '/bookingSuccessScreen';
 }

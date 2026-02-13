@@ -54,4 +54,5 @@ class AppColors {
   static const Color appBar = Color(0xFF121212);
   static const Color purple = Color(0xff8A38F5);
   static const Color note = Color(0xffE3F2FD);
+  static const Color doctorName = Color(0xff121212);
 }

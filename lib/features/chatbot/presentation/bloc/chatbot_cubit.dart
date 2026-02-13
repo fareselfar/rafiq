@@ -12,19 +12,20 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> sendMessage(String text) async {
     if (text.trim().isEmpty) return;
 
-    final userMsg = MessageEntity(text: text, sender: 'user', time: DateTime.now());
+    final userMsg = MessageEntity(
+      text: text,
+      sender: 'user',
+      time: DateTime.now(),
+    );
     messages.add(userMsg);
     emit(ChatActive(List.from(messages)));
 
-    emit(ChatLoading()); 
+    emit(ChatLoading());
 
     final result = await repository.getChatResponse(text);
-    result.fold(
-      (failure) => emit(ChatError(failure.message)),
-      (botMsg) {
-        messages.add(botMsg);
-        emit(ChatActive(List.from(messages)));
-      },
-    );
+    result.fold((failure) => emit(ChatError(failure.message)), (botMsg) {
+      messages.add(botMsg);
+      emit(ChatActive(List.from(messages)));
+    });
   }
 }

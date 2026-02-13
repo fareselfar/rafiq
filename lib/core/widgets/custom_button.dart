@@ -78,7 +78,8 @@ class CustomButton extends StatelessWidget {
         ? OutlinedButton(
             onPressed: disabled ? null : onPressed,
             style: OutlinedButton.styleFrom(
-              fixedSize: Size(width ?? 237.w, height ?? 52.h),
+              minimumSize: Size(width ?? 237.w, height ?? 52.h),
+              padding: EdgeInsets.zero,
               side: BorderSide(color: borderColor, width: borderWidth),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
@@ -94,8 +95,8 @@ class CustomButton extends StatelessWidget {
               elevation: elevation,
               shadowColor: shadowColor.withOpacity(0.4),
 
-              fixedSize: Size(width ?? 237.w, height ?? 52.h),
-
+              minimumSize: Size(width ?? 237.w, height ?? 52.h),
+              padding: EdgeInsets.zero,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
               ),
