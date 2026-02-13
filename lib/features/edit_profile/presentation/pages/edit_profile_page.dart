@@ -9,6 +9,7 @@ import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/assets_manger.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
+import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
@@ -122,38 +123,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: SizedBox(
-              height: 410.h,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(SvgManger.success),
-                  HeightSpace(8),
-                  Text(
-                    "تم تحديث البيانات بنجاح",
-                    style: AppTypography.dialogTitle,
-                  ),
-                  HeightSpace(40),
-                  Align(
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      width: 180.w,
-                      child: CustomButton(
-                        text: "المتابعة",
-                        onPressed: () {
-                          context.goBack();
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
+          return CustomDialog();
         },
       );
     }
