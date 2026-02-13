@@ -145,4 +145,10 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     color: AppColors.surface,
   );
+  static TextStyle doctorName = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w700,
+    color: AppColors.doctorName,
+  );
 }

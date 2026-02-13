@@ -7,7 +7,7 @@ import 'package:rafiq/features/specialization/presentation/widgets/specializatio
 
 class SpecializationsScreen extends StatelessWidget {
   SpecializationsScreen({super.key});
- final List<SpecializationModel> specialization = [
+  final List<SpecializationModel> specialization = [
     SpecializationModel(
       onTap: () {},
       image: AssetsManger.dentistry,

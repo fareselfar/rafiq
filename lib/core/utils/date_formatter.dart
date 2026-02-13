@@ -1,8 +1,15 @@
+import 'package:intl/intl.dart';
+
 class DateFormatter {
   static String formatTimeOnly(DateTime date) {
-    final hour = date.hour > 12 ? date.hour - 12 : (date.hour == 0 ? 12 : date.hour);
+    final hour = date.hour > 12
+        ? date.hour - 12
+        : (date.hour == 0 ? 12 : date.hour);
     final minute = date.minute.toString().padLeft(2, '0');
     final period = date.hour >= 12 ? "PM" : "AM";
     return "$hour:$minute $period";
+  }
+   static String formatArabicDate(DateTime date) {
+    return DateFormat('EEEE، d MMMM yyyy', 'ar').format(date);
   }
 }
