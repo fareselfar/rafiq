@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/utils/assets_manger.dart';
+import 'package:rafiq/features/bookings/presentation/pages/bookings_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
 
 import 'package:rafiq/features/home/presentation/pages/home.dart';
 import 'package:rafiq/features/profile/presentation/pages/profile_page.dart';
-import 'package:rafiq/features/ticket/presentation/pages/ticket_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,12 +17,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _isNavBarVisible = true; 
+  bool _isNavBarVisible = true;
   List<Widget> tabs = [
     Home(),
     ChatBotScreen(),
-    DoctorTab(),
-    TicketTab(),
+    DoctorsScreen(),
+    BookingsScreen(),
     ProfileTab(),
   ];
   int currentIndex = 0;

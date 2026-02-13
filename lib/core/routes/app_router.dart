@@ -3,7 +3,15 @@ import 'package:rafiq/features/authentication/presentation/screens/forget_passwo
 import 'package:rafiq/features/authentication/presentation/screens/get_start.dart';
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
+import 'package:rafiq/features/bookings/data/models/payment_arguments.dart';
+import 'package:rafiq/features/bookings/presentation/pages/book_appointment_screen.dart';
+import 'package:rafiq/features/bookings/presentation/pages/booking_success_screen.dart';
+import 'package:rafiq/features/bookings/presentation/pages/bookings_screen.dart';
+import 'package:rafiq/features/bookings/presentation/pages/payment_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
+import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
+import 'package:rafiq/features/doctors/presentation/pages/doctor_details_screen.dart';
+import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
 import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
 import 'package:rafiq/features/home_layout/presentation/pages/home_layout_screen.dart';
 
@@ -44,12 +52,43 @@ class AppRouter {
         return _buildRoute(const RegisterScreen(), settings);
       case Routes.home:
         return _buildRoute(const HomeScreen(), settings);
+      case Routes.doctorsScreen:
+        return _buildRoute(const DoctorsScreen(), settings);
+      case Routes.doctorDetailsScreen:
+        final doctor = settings.arguments as DoctorsEntity;
+        return _buildRoute(DoctorDetailsScreen(doctor: doctor), settings);
+      case Routes.bookAppointmentScreen:
+        final doctor = settings.arguments as DoctorsEntity;
+        return _buildRoute(BookAppointmentScreen(doctor: doctor), settings);
+      case Routes.paymentScreen:
+        final args = settings.arguments as PaymentArguments;
+        return _buildRoute(
+          PaymentScreen(
+            doctor: args.doctor,
+            selectedDate: args.date,
+            selectedTime: args.time,
+          ),
+          settings,
+        );
+      case Routes.bookingSuccessScreen:
+        final args = settings.arguments as PaymentArguments;
+        return _buildRoute(
+          BookingSuccessScreen(
+            doctor: args.doctor,
+            selectedDate: args.date,
+            selectedTime: args.time,
+          ),
+          settings,
+        );
+
       case Routes.specializationScreen:
         return _buildRoute(SpecializationsScreen(), settings);
       case Routes.editScreen:
         return _buildRoute(const EditProfilePage(), settings);
       case Routes.chatBotScreen:
         return _buildRoute(const ChatBotScreen(), settings);
+      case Routes.bookingsScreen:
+        return _buildRoute(const BookingsScreen(), settings);
       default:
         return _buildRoute(
           Scaffold(

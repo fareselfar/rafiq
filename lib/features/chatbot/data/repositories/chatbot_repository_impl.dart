@@ -4,7 +4,6 @@ import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/message_entity.dart';
 import '../datasources/chatbot_remote_datasource.dart';
 
-
 abstract class ChatRepository {
   Future<Either<Failure, MessageEntity>> getChatResponse(String message);
 }
