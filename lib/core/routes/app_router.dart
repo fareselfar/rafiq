@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:rafiq/features/articles/presentation/pages/articles_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/forget_password_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/get_start.dart';
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
-import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
+
 import 'package:rafiq/features/home_layout/presentation/pages/home_layout_screen.dart';
 
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
+import 'package:rafiq/features/profile/edit_profile/presentation/pages/edit_profile_page.dart';
 import 'package:rafiq/features/profile/presentation/pages/edit_fiels.dart';
 import 'package:rafiq/features/profile/presentation/pages/profile_page.dart';
 import 'package:rafiq/features/profile/presentation/pages/upload_file_screen.dart';
@@ -59,6 +61,8 @@ class AppRouter {
         return _buildRoute(const UploadFileScreen(), settings);
       case Routes.profile:
         return _buildRoute(const ProfileTab(), settings);
+      case Routes.articlesScreen:
+        return _buildRoute(const ArticlesScreen(), settings);
       default:
         return _buildRoute(
           Scaffold(
