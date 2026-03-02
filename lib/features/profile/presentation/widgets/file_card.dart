@@ -32,6 +32,7 @@ class FileCard extends StatelessWidget {
               ),
               WidthSpace(35),
               SmallCard(
+                isList: false,
                 title: " عرض التفاصيل",
                 hightPadding: 6,
                 widthPadding: 20,

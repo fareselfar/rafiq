@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,8 +8,13 @@ import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
+import 'package:rafiq/core/widgets/custom_article_view.dart';
 import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/features/articles/data/models/articles_model.dart';
+import 'package:rafiq/features/articles/data/repositories/articles_repository.dart';
+import 'package:rafiq/features/articles/presentation/bloc/articles_cubit.dart';
+import 'package:rafiq/features/articles/presentation/pages/article_details_screen.dart';
 import 'package:rafiq/features/doctors/data/models/doctor_model.dart';
 import 'package:rafiq/features/doctors/presentation/widgets/doctors_widget.dart';
 import 'package:rafiq/features/home/data/models/patient_time_model.dart';
@@ -18,8 +24,28 @@ import 'package:rafiq/features/home/presentation/widgets/gradient_card.dart';
 import 'package:rafiq/features/home/presentation/widgets/patient_time.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
-
+  Home({super.key});
+  final article = ArticlesModel(
+    id: 1,
+    title: "نصائح للحفاظ على صحة القلب",
+    image: "https://i.imgur.com/8Km9tLL.jpg",
+    category: "تغذية",
+    readTime: 10,
+    authorName: "د/ خالد محمد",
+    authorImage: "https://i.pravatar.cc/150?img=3",
+    content: [
+      ArticleSection(
+        title: "التغذية السليمة",
+        description:
+            "التغذية السليمة هي الأساس للحفاظ على صحة القلب وتقليل خطر الإصابة بالأمراض القلبية.",
+      ),
+      ArticleSection(
+        title: "ممارسة الرياضة",
+        description:
+            "ممارسة الرياضة بانتظام تحسن الدورة الدموية وتقوي عضلة القلب.",
+      ),
+    ],
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -232,79 +258,15 @@ class Home extends StatelessWidget {
                               color: AppColors.selectedText,
                             ),
                           ),
-                          CustomTextButton(onPressed: () {}, text: 'عرض الكل'),
+                          CustomTextButton(
+                            onPressed: () {
+                              context.navigateTo(Routes.articlesScreen);
+                            },
+                            text: 'عرض الكل',
+                          ),
                         ],
                       ),
-                      Padding(
-                        padding: REdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 16,
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.surface,
-                            borderRadius: BorderRadius.circular(16.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                blurRadius: 20.r,
-                                spreadRadius: 2.r,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Image.asset(AssetsManger.article),
-                              Padding(
-                                padding: REdgeInsets.symmetric(
-                                  vertical: 14,
-                                  horizontal: 16,
-                                ),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'نصائح للحفاظ على صحة القلب',
-                                      style: AppTypography.profileNameStyle,
-                                    ),
-                                    HeightSpace(8),
-                                    Text(
-                                      "اكتشف أهم الطرق للحفاظ على صحة قلبك وتجنب\n                             الأمراض القلبية",
-                                      style:
-                                          AppTypography.profileServiceNameStyle,
-                                    ),
-
-                                    HeightSpace(24),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        CustomTextButton(
-                                          onPressed: () {},
-                                          text: 'اقراء المزيد',
-                                        ),
-                                        Row(
-                                          children: [
-                                            SvgPicture.asset(SvgManger.time),
-                                            Text(
-                                              'منذ يومين',
-                                              style: GoogleFonts.cairo(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.selectedText,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      CustomArticleView(article: article),
                     ],
                   ),
                 ),

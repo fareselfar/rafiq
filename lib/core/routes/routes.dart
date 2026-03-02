@@ -20,4 +20,5 @@ class Routes {
   static const String editScreen = '/editScreen';
   static const String editFiels = '/editFiels';
   static const String uploadFiels = '/uploadFiels';
+  static const String articlesScreen = '/articlesScreen';
 }

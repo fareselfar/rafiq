@@ -6,13 +6,40 @@ import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/profile/data/models/file_model.dart';
-import 'package:rafiq/features/profile/presentation/pages/upload_file_screen.dart';
+import 'package:rafiq/features/profile/data/models/file_type.dart';
 import 'package:rafiq/features/profile/presentation/widgets/classify_files_serach.dart';
 import 'package:rafiq/features/profile/presentation/widgets/file_card.dart';
 import 'package:rafiq/features/profile/presentation/widgets/small_card.dart';
 
-class EditFiels extends StatelessWidget {
+class EditFiels extends StatefulWidget {
   const EditFiels({super.key});
+
+  @override
+  State<EditFiels> createState() => _EditFielsState();
+}
+
+class _EditFielsState extends State<EditFiels> {
+  FileType selectedType = FileType.all;
+  List<FileModel> allFiles = FileModel.categories;
+  List<FileModel> filteredFiles = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredFiles = allFiles;
+  }
+
+  void filterFiles(FileType? type) {
+    setState(() {
+      selectedType = type ?? FileType.all;
+
+      if (type == FileType.all) {
+        filteredFiles = allFiles;
+      } else {
+        filteredFiles = allFiles.where((file) => file.type == type).toList();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +50,7 @@ class EditFiels extends StatelessWidget {
           Padding(
             padding: REdgeInsets.only(left: 16),
             child: SmallCard(
+              isList: false,
               onTap: () {
                 context.navigateTo(Routes.uploadFiels);
               },
@@ -43,14 +71,19 @@ class EditFiels extends StatelessWidget {
               suffixIcon: Icon(Icons.filter_list),
             ),
             HeightSpace(20),
-            ClassifyFilesSerach(),
+            ClassifyFilesSerach(
+              selectedType: selectedType,
+              onSelect: (type) {
+                filterFiles(type);
+              },
+            ),
             HeightSpace(20),
             Expanded(
               child: ListView.separated(
                 itemBuilder: (context, index) =>
-                    FileCard(fileModel: FileModel.categories[index]),
+                    FileCard(fileModel: filteredFiles[index]),
                 separatorBuilder: (context, index) => HeightSpace(20),
-                itemCount: FileModel.categories.length,
+                itemCount: filteredFiles.length,
               ),
             ),
           ],

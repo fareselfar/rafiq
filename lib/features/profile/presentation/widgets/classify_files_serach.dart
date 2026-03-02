@@ -1,45 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/core/theme/app_colors.dart';
+import 'package:rafiq/core/theme/app_text_styles.dart';
+import 'package:rafiq/features/profile/data/models/file_type.dart';
 import 'package:rafiq/features/profile/presentation/widgets/small_card.dart';
 
-class ClassifyFilesSerach extends StatelessWidget {
-  const ClassifyFilesSerach({super.key});
+class ClassifyFilesSerach extends StatefulWidget {
+  final FileType? selectedType;
+  final Function(FileType?) onSelect;
 
+  const ClassifyFilesSerach({
+    super.key,
+    required this.selectedType,
+    required this.onSelect,
+  });
+
+  @override
+  State<ClassifyFilesSerach> createState() => _ClassifyFilesSerachState();
+}
+
+class _ClassifyFilesSerachState extends State<ClassifyFilesSerach> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          SmallCard(
-            title: "الكل",
-            hightPadding: 8,
-            widthPadding: 20,
-            onTap: () {},
-          ),
-          WidthSpace(12),
-          SmallCard(
-            title: "تحاليل",
-            hightPadding: 8,
-            widthPadding: 20,
-            onTap: () {},
-          ),
-          WidthSpace(12),
-          SmallCard(
-            title: "اشعة",
-            hightPadding: 8,
-            widthPadding: 20,
-            onTap: () {},
-          ),
-          WidthSpace(12),
-          SmallCard(
-            title: "تقارير",
-            hightPadding: 8,
-            widthPadding: 20,
-            onTap: () {},
-          ),
+          ...FileType.values.map((type) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: buildCard(type.displayName, type),
+            );
+          }).toList(),
         ],
       ),
+    );
+  }
+
+  Widget buildCard(String title, FileType? type) {
+    final isSelected = widget.selectedType == type;
+
+    return SmallCard(
+      isList: true,
+      title: title,
+      hightPadding: 8,
+      widthPadding: 20,
+      bgColor: isSelected ? AppColors.primary : AppColors.surface,
+      fgColor: isSelected ? Colors.white : AppColors.textSecondary,
+      onTap: () => widget.onSelect(type),
     );
   }
 }

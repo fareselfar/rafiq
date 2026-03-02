@@ -6,7 +6,12 @@ class CustomInkwell extends StatelessWidget {
   final void Function()? onTap;
   final String title;
   final TextStyle? style;
-  const CustomInkwell({super.key, required this.onTap, required this.title, this.style});
+  const CustomInkwell({
+    super.key,
+    required this.onTap,
+    required this.title,
+    this.style,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +19,12 @@ class CustomInkwell extends StatelessWidget {
       onTap: onTap,
       child: Text(
         title,
-        style: style ?? AppTypography.bodymid.copyWith(
-          color: AppColors.primary,
-          //decoration: TextDecoration.underline,
-        ),
+        style:
+            style ??
+            AppTypography.bodymid.copyWith(
+              color: AppColors.primary,
+              //decoration: TextDecoration.underline,
+            ),
       ),
     );
   }

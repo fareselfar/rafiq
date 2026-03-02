@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 
-class ChatBotAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
-
+class ChatBotAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onBackPressed;
 
-  const ChatBotAppBar({
-    super.key,
-    required this.title,
-    this.onBackPressed,
-  });
+  const ChatBotAppBar({super.key, required this.title, this.onBackPressed});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -26,9 +20,7 @@ class ChatBotAppBar extends StatelessWidget
 
       title: Text(
         title,
-        style: AppTypography.subTitelStyle.copyWith(
-          color: AppColors.appBar,
-        ),
+        style: AppTypography.subTitelStyle.copyWith(color: AppColors.appBar),
       ),
 
       leading: IconButton(

@@ -157,4 +157,10 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     color: AppColors.selectedText,
   );
+  static TextStyle saveArticle = TextStyle(
+    fontFamily: _secondaryFontFamily,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.surface,
+  );
 }

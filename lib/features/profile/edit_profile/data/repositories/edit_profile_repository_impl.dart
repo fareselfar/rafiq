@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/errors/failure.dart';
-import '../../../../core/errors/exceptions.dart';
+import '../../../../../core/errors/failure.dart';
+import '../../../../../core/errors/exceptions.dart';
 import '../../domain/entities/edit_profile_entity.dart';
 import '../../domain/repositories/edit_profile_repository.dart';
 import '../datasources/edit_profile_remote_datasource.dart';

@@ -43,19 +43,13 @@ class _OtpScreenState extends State<OtpScreen> {
 
     final focusedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
-        border: Border.all(
-          color: AppColors.primary,
-          width: 1.5.w,
-        ),
+        border: Border.all(color: AppColors.primary, width: 1.5.w),
       ),
     );
 
     final errorPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
-        border: Border.all(
-          color: AppColors.error,
-          width: 1.5.w,
-        ),
+        border: Border.all(color: AppColors.error, width: 1.5.w),
       ),
     );
 
@@ -80,7 +74,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   Text(
                     'أدخل رمز التحقق',
                     style: AppTypography.primaryHeadLinesStyle.copyWith(
-                      fontSize: 32.sp, 
+                      fontSize: 32.sp,
                     ),
                   ),
 
