@@ -11,12 +11,15 @@ class CardWidget extends StatelessWidget {
     this.width,
     this.borderColor,
     this.borderWidth,
+    this.cardColor,
   });
   final Widget widget;
   final double? horizontalPadding;
   final double? verticalPadding;
   final double? width;
   final Color? borderColor;
+  final Color? cardColor;
+
   final double? borderWidth;
 
   @override
@@ -28,7 +31,7 @@ class CardWidget extends StatelessWidget {
           color: borderColor ?? Colors.transparent,
           width: borderWidth ?? 0,
         ),
-        color: AppColors.surface,
+        color: cardColor ?? AppColors.surface,
         borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
           BoxShadow(

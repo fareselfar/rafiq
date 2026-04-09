@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
+import 'package:rafiq/core/widgets/note_widget.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/core/widgets/widgets.dart';
 
@@ -23,6 +24,7 @@ class DiscountScreen extends StatelessWidget {
                 inputStyle: AppTypography.inputTextFormStyle,
               ),
               HeightSpace(16),
+              NoteWidget(),
               HeightSpace(16),
               CustomTextField(
                 label: "عدد المستخدمين",
