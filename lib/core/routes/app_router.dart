@@ -14,6 +14,8 @@ import 'package:rafiq/features/profile/edit_profile/presentation/pages/edit_prof
 import 'package:rafiq/features/profile/presentation/pages/edit_fiels.dart';
 import 'package:rafiq/features/profile/presentation/pages/profile_page.dart';
 import 'package:rafiq/features/profile/presentation/pages/upload_file_screen.dart';
+import 'package:rafiq/features/profile/presentation/pages/change_password.dart';
+
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
@@ -63,6 +65,8 @@ class AppRouter {
         return _buildRoute(const ProfileTab(), settings);
       case Routes.articlesScreen:
         return _buildRoute(const ArticlesScreen(), settings);
+      case Routes.changePassword:
+        return _buildRoute(const ChangePassword(), settings);
       default:
         return _buildRoute(
           Scaffold(

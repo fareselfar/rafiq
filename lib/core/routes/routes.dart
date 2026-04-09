@@ -21,4 +21,5 @@ class Routes {
   static const String editFiels = '/editFiels';
   static const String uploadFiels = '/uploadFiels';
   static const String articlesScreen = '/articlesScreen';
+  static const String changePassword = '/changePassword';
 }
