@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,9 +11,6 @@ import 'package:rafiq/core/widgets/custom_article_view.dart';
 import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/articles/data/models/articles_model.dart';
-import 'package:rafiq/features/articles/data/repositories/articles_repository.dart';
-import 'package:rafiq/features/articles/presentation/bloc/articles_cubit.dart';
-import 'package:rafiq/features/articles/presentation/pages/article_details_screen.dart';
 import 'package:rafiq/features/doctors/data/models/doctor_model.dart';
 import 'package:rafiq/features/doctors/presentation/widgets/doctors_widget.dart';
 import 'package:rafiq/features/home/data/models/patient_time_model.dart';
