@@ -126,7 +126,10 @@ class _EditClinicState extends State<EditClinic> {
                           child: CustomButton(
                             text: "حفظ التعديلات",
                             onPressed: () {
-                              CustomDialog();
+                              CustomDialog(
+                                title: "تم تحديث البيانات بنجاح",
+                                isButton: true,
+                              );
                             },
                           ),
                         ),
