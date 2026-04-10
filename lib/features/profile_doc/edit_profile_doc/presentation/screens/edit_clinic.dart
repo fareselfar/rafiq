@@ -119,22 +119,23 @@ class _EditClinicState extends State<EditClinic> {
                       ),
 
                       HeightSpace(18),
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: CustomButton(
-                            text: "حفظ التعديلات",
-                            onPressed: () {
-                              CustomDialog(
-                                title: "تم تحديث البيانات بنجاح",
-                                isButton: true,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
                     ],
+                  ),
+                ),
+              ),
+              HeightSpace(20),
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: CustomButton(
+                    text: "حفظ التعديلات",
+                    onPressed: () {
+                      CustomDialog(
+                        title: "تم تحديث البيانات بنجاح",
+                        isButton: true,
+                      );
+                    },
                   ),
                 ),
               ),

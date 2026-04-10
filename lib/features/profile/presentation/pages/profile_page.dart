@@ -9,6 +9,7 @@ import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
 import 'package:rafiq/features/profile/presentation/widgets/details_card.dart';
 import 'package:rafiq/features/profile/presentation/widgets/options_card.dart';
 import 'package:rafiq/features/profile/presentation/widgets/services_card.dart';
+import 'package:rafiq/features/profile_doc/edit_profile_doc/widgets/special_container.dart';
 
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
@@ -41,22 +42,7 @@ class ProfileTab extends StatelessWidget {
                     HeightSpace(8),
                     Text("محمد علي", style: AppTypography.profileNameStyle),
                     HeightSpace(8),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.lightBlue,
-                        borderRadius: BorderRadius.circular(24.r),
-                      ),
-                      child: Padding(
-                        padding: REdgeInsets.symmetric(
-                          vertical: 6,
-                          horizontal: 12,
-                        ),
-                        child: Text(
-                          "مستخدم",
-                          style: AppTypography.profileRoleStyle,
-                        ),
-                      ),
-                    ),
+                    SpecialContainer(title: "مستخدم"),
                   ],
                 ),
               ),

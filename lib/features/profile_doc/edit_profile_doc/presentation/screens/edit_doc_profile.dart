@@ -49,88 +49,92 @@ class _EditDocProfileScreenState extends State<EditDocProfileScreen> {
       body: Padding(
         padding: REdgeInsets.symmetric(horizontal: 16.r, vertical: 12.r),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              CardWidget(
-                width: double.infinity,
-                verticalPadding: 16.r,
-                widget: Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        _pickImage();
-                      },
-                      child: selectedImage != null
-                          ? Image.file(selectedImage!, fit: BoxFit.cover)
-                          : Image.asset(IconManger.profileImg),
-                    ),
-                    HeightSpace(8),
-                    Text("تغير الصوره", style: AppTypography.bodymid),
-                  ],
-                ),
-              ),
-
-              HeightSpace(20),
-              CardWidget(
-                verticalPadding: 36.r,
-                horizontalPadding: 16.r,
-                widget: Form(
-                  key: _formKey,
-                  child: Column(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CardWidget(
+                  width: double.infinity,
+                  verticalPadding: 16.r,
+                  widget: Column(
                     children: [
-                      Text(
-                        'المعلومات الشخصية',
-                        style: AppTypography.subTitelStyle,
+                      InkWell(
+                        onTap: () {
+                          _pickImage();
+                        },
+                        child: selectedImage != null
+                            ? Image.file(selectedImage!, fit: BoxFit.cover)
+                            : Image.asset(IconManger.profileImg),
                       ),
-                      HeightSpace(18),
-                      CustomTextField(
-                        label: 'الاسم بالكامل ',
-                        controller: _namecontroller,
-                        validator: (value) => Validators.required(
-                          value,
-                          fieldName: 'الاسم بالكامل',
-                        ),
-                      ),
-                      HeightSpace(18),
-                      CustomTextField(
-                        label: 'البريد الالكتروني ',
-                        controller: _emailControler,
-                        validator: (value) => Validators.email(value),
-                      ),
-                      HeightSpace(18),
-                      CustomTextField(
-                        label: 'رقم الهاتف',
-                        textDirection: TextDirection.ltr,
-                        controller: _phoneControler,
-                        validator: (value) => Validators.phone(value),
-                      ),
-                      HeightSpace(18),
-                      CustomTextField(
-                        label: "النبذه",
-                        maxLines: 4,
-                        controller: _infoControler,
-                        validator: (value) => Validators.required(value),
-                      ),
-                      HeightSpace(18),
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          width: 180.w,
-                          child: CustomButton(
-                            text: "حفظ التعديلات",
-                            onPressed: () {
-                              _update(context);
-                              CustomDialog();
-                            },
-                          ),
-                        ),
-                      ),
+                      HeightSpace(8),
+                      Text("تغير الصوره", style: AppTypography.bodymid),
                     ],
                   ),
                 ),
-              ),
-            ],
+
+                HeightSpace(20),
+                CardWidget(
+                  verticalPadding: 36.r,
+                  horizontalPadding: 16.r,
+                  widget: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Text(
+                          'المعلومات الشخصية',
+                          style: AppTypography.subTitelStyle,
+                        ),
+                        HeightSpace(18),
+                        CustomTextField(
+                          label: 'الاسم بالكامل ',
+                          controller: _namecontroller,
+                          validator: (value) => Validators.required(
+                            value,
+                            fieldName: 'الاسم بالكامل',
+                          ),
+                        ),
+                        HeightSpace(18),
+                        CustomTextField(
+                          label: 'البريد الالكتروني ',
+                          controller: _emailControler,
+                          validator: (value) => Validators.email(value),
+                        ),
+                        HeightSpace(18),
+                        CustomTextField(
+                          label: 'رقم الهاتف',
+                          textDirection: TextDirection.ltr,
+                          controller: _phoneControler,
+                          validator: (value) => Validators.phone(value),
+                        ),
+                        HeightSpace(18),
+                        CustomTextField(
+                          label: "النبذه",
+                          maxLines: 4,
+                          controller: _infoControler,
+                          validator: (value) => Validators.required(value),
+                        ),
+                        HeightSpace(18),
+                      ],
+                    ),
+                  ),
+                ),
+                HeightSpace(20),
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: 180.w,
+                    child: CustomButton(
+                      text: "حفظ التعديلات",
+                      onPressed: () {
+                        _update(context);
+                        CustomDialog();
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
