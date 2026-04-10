@@ -74,7 +74,7 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
                     child: CardWidget(
                       width: 2,
                       borderColor: AppColors.hintStyle,
-                      bgColor: AppColors.notes,
+                      cardColor: AppColors.notes,
                       widget: Padding(
                         padding: REdgeInsets.only(top: 39, bottom: 16),
                         child: Column(

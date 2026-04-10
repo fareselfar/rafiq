@@ -96,7 +96,7 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                                   ),
                                   horizontalPadding: 16,
                                   verticalPadding: 9,
-                                  bgColor: AppColors.divider,
+                                  cardColor: AppColors.divider,
                                 ),
                               ),
                             ],
@@ -134,7 +134,7 @@ class _ArticleDetailsScreenState extends State<ArticleDetailsScreen> {
                                 HeightSpace(16),
                                 if (index == 2) ...[
                                   CardWidget(
-                                    bgColor: AppColors.note,
+                                    cardColor: AppColors.note,
                                     borderColor: AppColors.info,
                                     borderWidth: 2,
                                     widget: Padding(

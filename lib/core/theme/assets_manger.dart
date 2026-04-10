@@ -52,4 +52,6 @@ abstract class SvgManger {
   static const String report = '${base}report.svg';
   static const String uploadFile = '${base}uploadFile.svg';
   static const String pen = '${base}pen.svg';
+  static const String money = '${base}money.svg';
+  static const String timeLine = '${base}time_line.svg';
 }

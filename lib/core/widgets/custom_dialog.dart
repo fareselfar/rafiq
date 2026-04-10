@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
-import 'package:rafiq/core/utils/assets_manger.dart';
+import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 
 class CustomDialog extends StatelessWidget {
   const CustomDialog({super.key});
-
+  final bool isDoc = false;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -20,7 +20,7 @@ class CustomDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(SvgManger.success),
-            HeightSpace(8),
+            isDoc ? SizedBox.shrink() : HeightSpace(8),
             Text("تم تحديث البيانات بنجاح", style: AppTypography.dialogTitle),
             HeightSpace(40),
             Align(

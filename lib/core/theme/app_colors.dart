@@ -56,4 +56,5 @@ class AppColors {
   static const Color notes = Color(0xffF0F9FF);
   static const Color note = Color(0xffE3F2FD);
   static const Color green = Color(0xff00CCBB);
+  static const Color darkGreen = Color(0xff16A34A);
 }
