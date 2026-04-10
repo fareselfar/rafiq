@@ -7,8 +7,8 @@ import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
-import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
+import 'package:rafiq/core/widgets/doc_dialog.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
 
@@ -79,6 +79,11 @@ class _EditDocProfileScreenState extends State<EditDocProfileScreen> {
                   key: _formKey,
                   child: Column(
                     children: [
+                      Text(
+                        'المعلومات الشخصية',
+                        style: AppTypography.subTitelStyle,
+                      ),
+                      HeightSpace(18),
                       CustomTextField(
                         label: 'الاسم بالكامل ',
                         controller: _namecontroller,
