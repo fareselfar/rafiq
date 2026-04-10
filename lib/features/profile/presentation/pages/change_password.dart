@@ -154,7 +154,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return CustomDialog();
+          return CustomDialog(title: "تم تحديث كلمة المرور بنجاح");
         },
       );
     }

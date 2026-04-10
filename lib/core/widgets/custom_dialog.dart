@@ -8,8 +8,10 @@ import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 
 class CustomDialog extends StatelessWidget {
-  const CustomDialog({super.key});
-  final bool isDoc = false;
+  const CustomDialog({super.key, this.title, this.isDoc = false});
+  final bool isDoc;
+  final String? title;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -21,7 +23,7 @@ class CustomDialog extends StatelessWidget {
           children: [
             SvgPicture.asset(SvgManger.success),
             isDoc ? SizedBox.shrink() : HeightSpace(8),
-            Text("تم تحديث البيانات بنجاح", style: AppTypography.dialogTitle),
+            Text(title ?? "", style: AppTypography.dialogTitle),
             HeightSpace(40),
             Align(
               alignment: Alignment.center,
