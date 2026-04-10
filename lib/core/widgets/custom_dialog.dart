@@ -7,10 +7,26 @@ import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 
-class CustomDialog extends StatelessWidget {
+class CustomDialog extends StatefulWidget {
   const CustomDialog({super.key, this.title, this.isButton = false});
   final bool isButton;
   final String? title;
+
+  @override
+  State<CustomDialog> createState() => _CustomDialogState();
+}
+
+class _CustomDialogState extends State<CustomDialog> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        context.goBack();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +39,9 @@ class CustomDialog extends StatelessWidget {
           children: [
             SvgPicture.asset(SvgManger.success),
             HeightSpace(8),
-            Text(title ?? "", style: AppTypography.dialogTitle),
+            Text(widget.title ?? "", style: AppTypography.dialogTitle),
             HeightSpace(40),
-            isButton
+            widget.isButton
                 ? SizedBox.shrink()
                 : Align(
                     alignment: Alignment.center,
