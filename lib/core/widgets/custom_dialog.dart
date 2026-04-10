@@ -8,8 +8,8 @@ import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 
 class CustomDialog extends StatelessWidget {
-  const CustomDialog({super.key, this.title, this.isDoc = false});
-  final bool isDoc;
+  const CustomDialog({super.key, this.title, this.isButton = false});
+  final bool isButton;
   final String? title;
 
   @override
@@ -22,21 +22,23 @@ class CustomDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(SvgManger.success),
-            isDoc ? SizedBox.shrink() : HeightSpace(8),
+            HeightSpace(8),
             Text(title ?? "", style: AppTypography.dialogTitle),
             HeightSpace(40),
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: 180.w,
-                child: CustomButton(
-                  text: "المتابعة",
-                  onPressed: () {
-                    context.goBack();
-                  },
-                ),
-              ),
-            ),
+            isButton
+                ? SizedBox.shrink()
+                : Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: 180.w,
+                      child: CustomButton(
+                        text: "المتابعة",
+                        onPressed: () {
+                          context.goBack();
+                        },
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),
