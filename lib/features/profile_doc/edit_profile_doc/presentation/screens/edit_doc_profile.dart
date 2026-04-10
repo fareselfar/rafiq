@@ -79,6 +79,11 @@ class _EditDocProfileScreenState extends State<EditDocProfileScreen> {
                   key: _formKey,
                   child: Column(
                     children: [
+                      Text(
+                        'المعلومات الشخصية',
+                        style: AppTypography.subTitelStyle,
+                      ),
+                      HeightSpace(18),
                       CustomTextField(
                         label: 'الاسم بالكامل ',
                         controller: _namecontroller,
