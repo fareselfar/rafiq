@@ -60,4 +60,5 @@ class AppColors {
   static const Color greenbg = Color(0xffECFDF5);
   static const Color titlegreen = Color(0xff059669);
   static const Color oil = Color(0xff4C719A);
+  static const Color priceColor = Color(0xff0059BB);
 }
