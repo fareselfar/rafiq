@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/routes/navigation_extension.dart';
+import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/bookings/data/models/bookings_model.dart';
 import 'package:rafiq/core/enums/booking__status.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 import '../../../../../core/widgets/cancel_booking_dialog.dart';
 
 class BookingActionButtons extends StatelessWidget {
-  final BookingModel booking;
+  final BookingEntity booking;
 
   const BookingActionButtons({super.key, required this.booking});
 
@@ -21,7 +23,9 @@ class BookingActionButtons extends StatelessWidget {
           width: size.width,
           child: CustomButton(
             text: "عرض التفاصيل",
-            onPressed: () {},
+            onPressed: () {
+              context.navigateTo("/bookingDetailsScreen", arguments: booking);
+            },
             height: 40.h,
           ),
         ),
@@ -33,7 +37,12 @@ class BookingActionButtons extends StatelessWidget {
                 child: SizedBox(
                   child: CustomButton(
                     text: "تعديل",
-                    onPressed: () {},
+                    onPressed: () {
+                      context.navigateTo(
+                        Routes.editAppointmentScreen,
+                        arguments: booking,
+                      );
+                    },
                     type: ButtonType.outlined,
                     height: 40.h,
                   ),

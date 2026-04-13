@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 
 class SuccessDoctorCard extends StatelessWidget {
-  final DoctorsEntity doctor;
+  final BookingEntity booking;
 
-  const SuccessDoctorCard({super.key, required this.doctor});
+  const SuccessDoctorCard({super.key, required this.booking});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,6 @@ class SuccessDoctorCard extends StatelessWidget {
           ),
         ],
       ),
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -34,9 +33,9 @@ class SuccessDoctorCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(100.r),
-                child: doctor.imageUrl.startsWith('http')
+                child: booking.doctor.imageUrl.startsWith('http')
                     ? Image.network(
-                        doctor.imageUrl,
+                        booking.doctor.imageUrl,
                         width: 70.r,
                         height: 70.r,
                         fit: BoxFit.cover,
@@ -52,7 +51,7 @@ class SuccessDoctorCard extends StatelessWidget {
                             ),
                       )
                     : Image.asset(
-                        doctor.imageUrl,
+                        booking.doctor.imageUrl,
                         width: 70.r,
                         height: 70.r,
                         fit: BoxFit.cover,
@@ -68,20 +67,18 @@ class SuccessDoctorCard extends StatelessWidget {
                             ),
                       ),
               ),
-
               const WidthSpace(16),
-
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      doctor.name,
+                      booking.doctor.name,
                       style: AppTypography.doctorName.copyWith(fontSize: 15.sp),
                     ),
                     const HeightSpace(6),
                     Text(
-                      doctor.specialization,
+                      booking.doctor.specialization,
                       style: AppTypography.bodymid.copyWith(
                         color: AppColors.primary,
                         fontSize: 13.sp,
@@ -90,7 +87,6 @@ class SuccessDoctorCard extends StatelessWidget {
                   ],
                 ),
               ),
-
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                 decoration: BoxDecoration(
@@ -108,13 +104,14 @@ class SuccessDoctorCard extends StatelessWidget {
               ),
             ],
           ),
+          const HeightSpace(12),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.star, size: 18.sp, color: AppColors.warning),
               const WidthSpace(4),
               Text(
-                "${doctor.rating} (${doctor.reviewCount} مراجعة)",
+                "${booking.doctor.rating} (${booking.doctor.reviewCount} مراجعة)",
                 style: AppTypography.bodymid.copyWith(
                   color: AppColors.textSecondary,
                   fontSize: 14.sp,

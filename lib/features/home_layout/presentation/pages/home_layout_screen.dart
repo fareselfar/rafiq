@@ -5,49 +5,75 @@ import 'package:rafiq/core/utils/assets_manger.dart';
 import 'package:rafiq/features/bookings/presentation/pages/bookings_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
-
 import 'package:rafiq/features/home/presentation/pages/home.dart';
 import 'package:rafiq/features/profile/presentation/pages/profile_page.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final int initialIndex;
+
+  const HomeScreen({super.key, this.initialIndex = 0});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late int currentIndex;
   bool _isNavBarVisible = true;
-  List<Widget> tabs = [
-    Home(),
-    ChatBotScreen(),
-    DoctorsScreen(),
-    BookingsScreen(),
-    ProfileTab(),
-  ];
-  int currentIndex = 0;
+
+  late final List<Widget> tabs;
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.initialIndex;
+    tabs = const [
+      Home(),
+      ChatBotScreen(),
+      DoctorsScreen(),
+      BookingsScreen(),
+      ProfileTab(),
+    ];
+    _updateNavVisibility(currentIndex);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: _isNavBarVisible ? _buttonNavBar() : null,
-      body: tabs[currentIndex],
+    return PopScope(
+      canPop: currentIndex == 0,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+
+        if (currentIndex != 0) {
+          setState(() {
+            currentIndex = 0;
+            _updateNavVisibility(0);
+          });
+        }
+      },
+      child: Scaffold(
+        body: tabs[currentIndex],
+        bottomNavigationBar: _isNavBarVisible ? _buttonNavBar() : null,
+      ),
     );
+  }
+
+  void _updateNavVisibility(int index) {
+    _isNavBarVisible = index != 1;
   }
 
   Widget _buttonNavBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-
       currentIndex: currentIndex,
       selectedItemColor: AppColors.primary,
       onTap: _onTap,
       items: [
         BottomNavigationBarItem(
           icon: currentIndex == 0
-              ? Icon(Icons.home)
-              : Icon(Icons.home_outlined),
-          label: 'الرئسيه',
+              ? const Icon(Icons.home)
+              : const Icon(Icons.home_outlined),
+          label: 'الرئيسية',
         ),
         BottomNavigationBarItem(
           activeIcon: SvgPicture.asset(SvgManger.chatBot),
@@ -57,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
         BottomNavigationBarItem(
           activeIcon: SvgPicture.asset(SvgManger.doctor),
           icon: SvgPicture.asset(SvgManger.unDoctor),
-          label: 'الاطباء',
+          label: 'الأطباء',
         ),
         BottomNavigationBarItem(
           activeIcon: SvgPicture.asset(SvgManger.ticket),
@@ -66,26 +92,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BottomNavigationBarItem(
           icon: currentIndex == 4
-              ? Icon(Icons.person)
-              : Icon(Icons.person_outline),
+              ? const Icon(Icons.person)
+              : const Icon(Icons.person_outline),
           label: 'حسابي',
         ),
       ],
     );
   }
 
-  Future<void> _onTap(int newIndex) async {
-    currentIndex = newIndex;
-    setState(() {});
-    if (newIndex == 1) {
-      await Future.delayed(const Duration(milliseconds: 150));
-      setState(() {
-        _isNavBarVisible = false;
-      });
-    } else {
-      setState(() {
-        _isNavBarVisible = true;
-      });
-    }
+  void _onTap(int newIndex) {
+    if (currentIndex == newIndex) return;
+
+    setState(() {
+      currentIndex = newIndex;
+      _updateNavVisibility(newIndex);
+    });
   }
 }

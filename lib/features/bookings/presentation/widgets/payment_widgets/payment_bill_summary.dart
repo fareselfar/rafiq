@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 
 class PaymentBillSummary extends StatelessWidget {
-  const PaymentBillSummary({super.key});
+  final BookingEntity booking;
+  const PaymentBillSummary({super.key, required this.booking});
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +35,16 @@ class PaymentBillSummary extends StatelessWidget {
           ),
           const HeightSpace(16),
 
-          _buildBillRow("150 جنيه", "سعر الكشف", isTotal: false),
+          _buildBillRow('${booking.subTotal}', "سعر الكشف", isTotal: false),
           const HeightSpace(10),
 
-          _buildBillRow("40 جنيه", "خصم", isTotal: false),
+          _buildBillRow('${booking.discount}', "خصم", isTotal: false),
 
           const HeightSpace(12),
           const Divider(color: Color(0xFFE8F1FF), thickness: 1),
           const HeightSpace(12),
 
-          _buildBillRow("110 جنيه", "المجموع الكلي", isTotal: true),
+          _buildBillRow('${booking.totalPrice}', "المجموع الكلي", isTotal: true),
         ],
       ),
     );

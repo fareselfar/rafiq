@@ -6,6 +6,7 @@ import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/features/bookings/data/models/payment_arguments.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/booking_appointment_widgets/booking_app_bar.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/booking_appointment_widgets/booking_calendar_picker.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/booking_appointment_widgets/booking_date_selector.dart';
@@ -13,11 +14,10 @@ import 'package:rafiq/features/bookings/presentation/widgets/booking_appointment
 import 'package:rafiq/features/bookings/presentation/widgets/booking_appointment_widgets/booking_time_slots_grid.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/booking_appointment_widgets/booking_confirmation_bar.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/booking_appointment_widgets/doctor_brief_info.dart.dart';
-import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
-  final DoctorsEntity doctor;
-  const BookAppointmentScreen({super.key, required this.doctor});
+  final BookingEntity booking;
+  const BookAppointmentScreen({super.key, required this.booking});
 
   @override
   State<BookAppointmentScreen> createState() => _BookAppointmentScreenState();
@@ -28,7 +28,14 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   String? selectedTimeSlot;
 
   @override
+  void initState() {
+    super.initState();
+    selectedDate = widget.booking.date;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // final doctor = widget.booking.doctor;
     return Scaffold(
       backgroundColor: AppColors.backGround,
       appBar: const BookingAppBar(title: "حجز موعد"),
@@ -38,7 +45,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DoctorBriefInfo(doctor: widget.doctor),
+            DoctorBriefInfo(booking: widget.booking),
             const HeightSpace(20),
 
             BookingSelectionHeader(selectedDate: selectedDate),
@@ -83,7 +90,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
             context.navigateTo(
               Routes.paymentScreen,
               arguments: PaymentArguments(
-                doctor: widget.doctor,
+                booking: widget.booking,
                 date: selectedDate,
                 time: selectedTimeSlot!,
               ),
@@ -94,6 +101,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
             );
           }
         },
+        buttonText: '',
       ),
     );
   }

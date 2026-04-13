@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/bookings/data/models/bookings_model.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 import 'booking_status_badge.dart';
 
 class BookingDoctorHeader extends StatelessWidget {
-  final BookingModel booking;
+  final BookingEntity booking;
   const BookingDoctorHeader({super.key, required this.booking});
 
   @override

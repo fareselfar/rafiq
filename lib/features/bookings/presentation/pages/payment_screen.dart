@@ -5,6 +5,7 @@ import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/bookings/data/models/payment_arguments.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/booking_appointment_widgets/booking_app_bar.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/booking_appointment_widgets/booking_confirmation_bar.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/payment_widgets/notice_box.dart';
@@ -12,16 +13,15 @@ import 'package:rafiq/features/bookings/presentation/widgets/payment_widgets/pay
 import 'package:rafiq/features/bookings/presentation/widgets/payment_widgets/payment_doctor_card.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/payment_widgets/payment_methods_section.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/payment_widgets/payment_promo_field.dart';
-import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
 
 class PaymentScreen extends StatelessWidget {
-  final DoctorsEntity doctor;
+  final BookingEntity booking;
   final DateTime selectedDate;
   final String selectedTime;
 
   const PaymentScreen({
     super.key,
-    required this.doctor,
+    required this.booking,
     required this.selectedDate,
     required this.selectedTime,
   });
@@ -37,7 +37,7 @@ class PaymentScreen extends StatelessWidget {
         child: Column(
           children: [
             PaymentDoctorCard(
-              doctor: doctor,
+              booking: booking,
               date: selectedDate,
               time: selectedTime,
             ),
@@ -51,7 +51,7 @@ class PaymentScreen extends StatelessWidget {
             const PaymentPromoField(),
 
             const HeightSpace(20),
-            const PaymentBillSummary(),
+            PaymentBillSummary(booking: booking),
           ],
         ),
       ),
@@ -63,12 +63,12 @@ class PaymentScreen extends StatelessWidget {
           context.navigateTo(
             Routes.bookingSuccessScreen,
             arguments: PaymentArguments(
-              doctor: doctor,
+              booking: booking,
               date: selectedDate,
               time: selectedTime,
             ),
           );
-        },
+        }, buttonText: '',
       ),
     );
   }

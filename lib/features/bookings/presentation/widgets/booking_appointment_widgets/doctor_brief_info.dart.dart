@@ -3,22 +3,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 
 class DoctorBriefInfo extends StatelessWidget {
-  final DoctorsEntity doctor;
+  final BookingEntity booking;
 
-  const DoctorBriefInfo({super.key, required this.doctor});
+  const DoctorBriefInfo({super.key, required this.booking});
 
   @override
   Widget build(BuildContext context) {
+    final doctor = booking.doctor; 
+
     return Column(
       children: [
         CircleAvatar(
           radius: 55.r,
           backgroundImage: doctor.imageUrl.startsWith('http')
-              ? NetworkImage(doctor.imageUrl) as ImageProvider
-              : AssetImage(doctor.imageUrl),
+              ? NetworkImage(doctor.imageUrl)
+              : AssetImage(doctor.imageUrl) as ImageProvider,
         ),
         HeightSpace(8.h),
 
@@ -29,7 +31,6 @@ class DoctorBriefInfo extends StatelessWidget {
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
-
         HeightSpace(5.h),
         Text(
           doctor.specialization,
@@ -80,7 +81,6 @@ class DoctorBriefInfo extends StatelessWidget {
                   ),
                 ],
               ),
-
               HeightSpace(8.h),
 
               Row(

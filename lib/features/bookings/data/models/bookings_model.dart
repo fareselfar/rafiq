@@ -10,7 +10,6 @@ class BookingModel extends BookingEntity {
     required super.time,
     required super.subTotal,
     required super.discount,
-    required super.totalPrice,
     required super.status,
   });
 
@@ -22,12 +21,10 @@ class BookingModel extends BookingEntity {
       time: json['time'] ?? '',
       subTotal: (json['sub_total'] as num?)?.toDouble() ?? 0.0,
       discount: (json['discount'] as num?)?.toDouble() ?? 0.0,
-      totalPrice: (json['total_price'] as num?)?.toDouble() ?? 0.0,
       status: _mapStatusToEnum(json['status']),
     );
   }
 
-  @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,

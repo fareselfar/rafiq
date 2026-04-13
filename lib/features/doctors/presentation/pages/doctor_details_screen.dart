@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/enums/booking__status.dart';
 import 'package:rafiq/core/enums/doctor_availability.dart';
-import 'package:rafiq/core/routes/app_router.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
+import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
 import 'package:rafiq/features/doctors/presentation/widgets/profile_details/doctor_alert_box.dart';
 import 'package:rafiq/features/doctors/presentation/widgets/profile_details/doctor_info_section.dart';
@@ -44,9 +46,18 @@ class DoctorDetailsScreen extends StatelessWidget {
           text: isAvailable ? 'احجز الآن' : 'غير متاح حالياً',
           onPressed: isAvailable
               ? () {
+                  final booking = BookingEntity(
+                    id: DateTime.now().millisecondsSinceEpoch.toString(),
+                    doctor: doctor,
+                    date: DateTime.now().add(const Duration(days: 1)),
+                    time: '', 
+                    subTotal: doctor.consultationPrice.toDouble(),
+                    discount: 0,
+                    status: BookingStatus.upcoming,
+                  );
                   context.navigateTo(
-                    '/bookAppointmentScreen',
-                    arguments: doctor,
+                    Routes.bookAppointmentScreen,
+                    arguments: booking,
                   );
                 }
               : null,

@@ -4,16 +4,16 @@ import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/date_utils.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 
 class PaymentDoctorCard extends StatelessWidget {
-  final DoctorsEntity doctor;
+  final BookingEntity booking;
   final DateTime date;
   final String time;
 
   const PaymentDoctorCard({
     super.key,
-    required this.doctor,
+    required this.booking,
     required this.date,
     required this.time,
   });
@@ -42,9 +42,9 @@ class PaymentDoctorCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(100.r),
-                child: doctor.imageUrl.startsWith('http')
+                child: booking.doctor.imageUrl.startsWith('http')
                     ? Image.network(
-                        doctor.imageUrl,
+                        booking.doctor.imageUrl,
                         width: 70.r,
                         height: 70.r,
                         fit: BoxFit.cover,
@@ -60,7 +60,7 @@ class PaymentDoctorCard extends StatelessWidget {
                             ),
                       )
                     : Image.asset(
-                        doctor.imageUrl,
+                        booking.doctor.imageUrl,
                         width: 70.r,
                         height: 70.r,
                         fit: BoxFit.cover,
@@ -84,12 +84,12 @@ class PaymentDoctorCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      doctor.name,
+                      booking.doctor.name,
                       style: AppTypography.doctorName.copyWith(fontSize: 15.sp),
                     ),
                     const HeightSpace(6),
                     Text(
-                      doctor.specialization,
+                      booking.doctor.specialization,
                       style: AppTypography.bodymid.copyWith(
                         color: AppColors.primary,
                         fontSize: 13.sp,

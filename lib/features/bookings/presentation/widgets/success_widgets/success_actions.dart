@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
-import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/core/widgets/widgets.dart';
 
@@ -38,7 +37,7 @@ class SuccessActions extends StatelessWidget {
             CustomButton(
               text: "الانتقال الى حجوزاتي",
               onPressed: () {
-                context.navigateAndRemoveUntil("/bookingsScreen");
+                context.navigateAndRemoveUntil("/home", arguments: 3);
               },
               width: size.width,
             ),

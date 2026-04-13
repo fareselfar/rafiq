@@ -3,20 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 import '../widgets/success_widgets/success_header.dart';
 import '../widgets/success_widgets/success_doctor_card.dart';
 import '../widgets/success_widgets/booking_details_grid.dart';
 import '../widgets/success_widgets/success_actions.dart';
 
 class BookingSuccessScreen extends StatelessWidget {
-  final DoctorsEntity doctor;
+  final BookingEntity booking;
   final DateTime selectedDate;
   final String selectedTime;
 
   const BookingSuccessScreen({
     super.key,
-    required this.doctor,
+    required this.booking,
     required this.selectedDate,
     required this.selectedTime,
   });
@@ -33,7 +33,7 @@ class BookingSuccessScreen extends StatelessWidget {
               const SuccessHeader(),
 
               const HeightSpace(20),
-              SuccessDoctorCard(doctor: doctor),
+              SuccessDoctorCard(booking: booking),
 
               const HeightSpace(30),
               Align(

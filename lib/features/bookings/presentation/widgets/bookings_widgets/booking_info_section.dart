@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:rafiq/core/utils/date_utils.dart';
-import 'package:rafiq/features/bookings/data/models/bookings_model.dart';
+import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
 import 'package:rafiq/features/bookings/presentation/widgets/bookings_widgets/info_item.dart';
 
 class BookingInfoSection extends StatelessWidget {
-  final BookingModel booking;
+  final BookingEntity booking;
   const BookingInfoSection({super.key, required this.booking});
 
   @override
@@ -14,7 +14,7 @@ class BookingInfoSection extends StatelessWidget {
     return Column(
       children: [
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: InfoItem(
