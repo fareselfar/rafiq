@@ -7,8 +7,8 @@ import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
-import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
+import 'package:rafiq/core/widgets/doc_dialog.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
 
@@ -116,7 +116,6 @@ class _EditDocProfileScreenState extends State<EditDocProfileScreen> {
                             text: "حفظ التعديلات",
                             onPressed: () {
                               _update(context);
-                              CustomDialog();
                             },
                           ),
                         ),
@@ -133,7 +132,7 @@ class _EditDocProfileScreenState extends State<EditDocProfileScreen> {
   }
 
   void _update(BuildContext context) {
-    if (_formKey.currentState?.validate() == false) {
+    if (_formKey.currentState!.validate() == false) {
       return;
     } else {
       showDialog(
@@ -149,7 +148,9 @@ class _EditDocProfileScreenState extends State<EditDocProfileScreen> {
   Future<void> _pickImage() async {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      selectedImage = File(image.path);
+      setState(() {
+        selectedImage = File(image.path);
+      });
     }
   }
 }
