@@ -7,8 +7,8 @@ import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
+import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
-import 'package:rafiq/core/widgets/doc_dialog.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
 
@@ -54,6 +54,26 @@ class _EditDocProfileScreenState extends State<EditDocProfileScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                CardWidget(
+                  width: double.infinity,
+                  verticalPadding: 16.r,
+                  widget: Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          _pickImage();
+                        },
+                        child: selectedImage != null
+                            ? Image.file(selectedImage!, fit: BoxFit.cover)
+                            : Image.asset(IconManger.profileImg),
+                      ),
+                      HeightSpace(8),
+                      Text("تغير الصوره", style: AppTypography.bodymid),
+                    ],
+                  ),
+                ),
+
+                HeightSpace(20),
                 CardWidget(
                   width: double.infinity,
                   verticalPadding: 16.r,
@@ -166,7 +186,6 @@ class _EditDocProfileScreenState extends State<EditDocProfileScreen> {
                       text: "حفظ التعديلات",
                       onPressed: () {
                         _update(context);
-                        CustomDialog();
                       },
                     ),
                   ),

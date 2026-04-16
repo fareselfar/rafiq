@@ -5,6 +5,7 @@ import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
+import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/doc_dialog.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';

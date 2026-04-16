@@ -21,7 +21,6 @@ class CardWidget extends StatelessWidget {
   final Color? cardColor;
 
   final double? borderWidth;
-  final Color? cardColor;
 
   @override
   Widget build(BuildContext context) {

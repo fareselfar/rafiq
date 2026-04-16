@@ -1,17 +1,13 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
-
+import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
-import 'package:rafiq/core/widgets/doc_dialog.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
 
