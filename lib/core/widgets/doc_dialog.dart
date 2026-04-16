@@ -1,60 +1,60 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:rafiq/core/routes/navigation_extension.dart';
-import 'package:rafiq/core/theme/app_text_styles.dart';
-import 'package:rafiq/core/utils/assets_manger.dart';
-import 'package:rafiq/core/widgets/custom_button.dart';
-import 'package:rafiq/core/widgets/spacing_widget.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_svg/svg.dart';
+// import 'package:rafiq/core/routes/navigation_extension.dart';
+// import 'package:rafiq/core/theme/app_text_styles.dart';
+// import 'package:rafiq/core/theme/assets_manger.dart';
+// import 'package:rafiq/core/widgets/custom_button.dart';
+// import 'package:rafiq/core/widgets/spacing_widget.dart';
 
-class CustomDialog extends StatefulWidget {
-  const CustomDialog({super.key, this.isButton = false});
-  final bool isButton;
-  @override
-  State<CustomDialog> createState() => _CustomDialogState();
-}
+// class CustomDialog extends StatefulWidget {
+//   const CustomDialog({super.key, this.isButton = false});
+//   final bool isButton;
+//   @override
+//   State<CustomDialog> createState() => _CustomDialogState();
+// }
 
-class _CustomDialogState extends State<CustomDialog> {
-  @override
-  void initState() {
-    super.initState();
+// class _CustomDialogState extends State<CustomDialog> {
+//   @override
+//   void initState() {
+//     super.initState();
 
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        context.goBack();
-      }
-    });
-  }
+//     Future.delayed(const Duration(seconds: 2), () {
+//       if (mounted) {
+//         context.goBack();
+//       }
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: SizedBox(
-        height: 410.h,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(SvgManger.success),
-            isButton ? SizedBox.shrink() : HeightSpace(8),
+//   @override
+//   Widget build(BuildContext context) {
+//     return Dialog(
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+//       child: SizedBox(
+//         height: 410.h,
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             SvgPicture.asset(SvgManger.success),
+//             widget.isButton ? SizedBox.shrink() : HeightSpace(8),
 
-            Text("تم تحديث البيانات بنجاح", style: AppTypography.dialogTitle),
-            HeightSpace(40),
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: 180.w,
-                child: CustomButton(
-                  text: "المتابعة",
-                  onPressed: () {
-                    context.goBack();
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//             Text("تم تحديث البيانات بنجاح", style: AppTypography.dialogTitle),
+//             HeightSpace(40),
+//             Align(
+//               alignment: Alignment.center,
+//               child: SizedBox(
+//                 width: 180.w,
+//                 child: CustomButton(
+//                   text: "المتابعة",
+//                   onPressed: () {
+//                     context.goBack();
+//                   },
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
