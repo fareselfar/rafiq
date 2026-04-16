@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
+import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/doc_dialog.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
@@ -95,6 +96,9 @@ class _EditClinicState extends State<EditClinic> {
                               prefixIcon: Icon(Icons.access_time),
                               label: "مواعيد العمل",
                               controller: _fromController,
+                              onFieldSubmitted: () {
+                                pickTime(_fromController);
+                              },
 
                               validator: (value) => Validators.required(value),
                             ),
@@ -104,6 +108,9 @@ class _EditClinicState extends State<EditClinic> {
                             child: CustomTextField(
                               prefixIcon: Icon(Icons.access_time),
                               controller: _toController,
+                              onFieldSubmitted: () {
+                                pickTime(_toController);
+                              },
 
                               validator: (value) => Validators.required(value),
                             ),
@@ -113,6 +120,7 @@ class _EditClinicState extends State<EditClinic> {
                       HeightSpace(18),
 
                       CustomTextField(
+                        keyboardType: TextInputType.number,
                         label: "سعر الكشف",
                         controller: _priceController,
                         validator: (value) => Validators.required(value),
@@ -126,10 +134,7 @@ class _EditClinicState extends State<EditClinic> {
                           child: CustomButton(
                             text: "حفظ التعديلات",
                             onPressed: () {
-                              CustomDialog(
-                                title: "تم تحديث البيانات بنجاح",
-                                isButton: true,
-                              );
+                              _saveClinic();
                             },
                           ),
                         ),
@@ -143,5 +148,25 @@ class _EditClinicState extends State<EditClinic> {
         ),
       ),
     );
+  }
+
+  void _saveClinic() async {
+    if (!_formKey.currentState!.validate()) return;
+    showDialog(
+      context: context,
+      builder: (_) =>
+          CustomDialog(title: "تم تحديث البيانات بنجاح", isButton: true),
+    );
+  }
+
+  Future<void> pickTime(TextEditingController controller) async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (picked != null) {
+      controller.text = picked.format(context);
+    }
   }
 }
