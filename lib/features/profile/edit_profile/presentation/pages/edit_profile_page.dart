@@ -67,46 +67,43 @@ class _EditProfilePageState extends State<EditProfilePage> {
               CardWidget(
                 verticalPadding: 36.r,
                 horizontalPadding: 16.r,
-                widget: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      CustomTextField(
-                        label: 'الاسم بالكامل ',
-                        controller: _namecontroller,
-                        validator: (value) => Validators.required(
-                          value,
-                          fieldName: 'الاسم بالكامل',
+                widget: Column(
+                  children: [
+                    CustomTextField(
+                      label: 'الاسم بالكامل ',
+                      controller: _namecontroller,
+                      validator: (value) => Validators.required(
+                        value,
+                        fieldName: 'الاسم بالكامل',
+                      ),
+                    ),
+                    HeightSpace(18),
+                    CustomTextField(
+                      label: 'البريد الالكتروني ',
+                      controller: _emailControler,
+                      validator: (value) => Validators.email(value),
+                    ),
+                    HeightSpace(18),
+                    CustomTextField(
+                      label: 'رقم الهاتف',
+                      textDirection: TextDirection.ltr,
+                      controller: _phoneControler,
+                      validator: (value) => Validators.phone(value),
+                    ),
+                    HeightSpace(18),
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: 180.w,
+                        child: CustomButton(
+                          text: "حفظ التعديلات",
+                          onPressed: () {
+                            _update(context);
+                          },
                         ),
                       ),
-                      HeightSpace(18),
-                      CustomTextField(
-                        label: 'البريد الالكتروني ',
-                        controller: _emailControler,
-                        validator: (value) => Validators.email(value),
-                      ),
-                      HeightSpace(18),
-                      CustomTextField(
-                        label: 'رقم الهاتف',
-                        textDirection: TextDirection.ltr,
-                        controller: _phoneControler,
-                        validator: (value) => Validators.phone(value),
-                      ),
-                      HeightSpace(18),
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          width: 180.w,
-                          child: CustomButton(
-                            text: "حفظ التعديلات",
-                            onPressed: () {
-                              _update(context);
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],
