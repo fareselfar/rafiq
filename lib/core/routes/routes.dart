@@ -22,4 +22,10 @@ class Routes {
   static const String uploadFiels = '/uploadFiels';
   static const String articlesScreen = '/articlesScreen';
   static const String changePassword = '/changePassword';
+  static const String docProfile = '/docProfile';
+  static const String editDocProfile = '/editDocProfile';
+  static const String changeDocPassword = '/changeDocPassword';
+  static const String editDocClinic = '/editDocClinic';
+  static const String profits = '/profits';
+  static const String paymentInfo = '/paymentInfo';
 }
