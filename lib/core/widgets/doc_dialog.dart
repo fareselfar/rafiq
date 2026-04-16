@@ -3,19 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
-import 'package:rafiq/core/utils/assets_manger.dart';
+import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 
 class CustomDialog extends StatefulWidget {
-  const CustomDialog({super.key});
+  const CustomDialog({super.key, this.title, this.isButton = false});
+  final bool isButton;
+  final String? title;
 
   @override
   State<CustomDialog> createState() => _CustomDialogState();
 }
 
 class _CustomDialogState extends State<CustomDialog> {
-  final bool isDoc = false;
   @override
   void initState() {
     super.initState();
@@ -37,22 +38,23 @@ class _CustomDialogState extends State<CustomDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(SvgManger.success),
-            isDoc ? SizedBox.shrink() : HeightSpace(8),
-
-            Text("تم تحديث البيانات بنجاح", style: AppTypography.dialogTitle),
+            HeightSpace(8),
+            Text(widget.title ?? "", style: AppTypography.dialogTitle),
             HeightSpace(40),
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: 180.w,
-                child: CustomButton(
-                  text: "المتابعة",
-                  onPressed: () {
-                    context.goBack();
-                  },
-                ),
-              ),
-            ),
+            widget.isButton
+                ? SizedBox.shrink()
+                : Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: 180.w,
+                      child: CustomButton(
+                        text: "المتابعة",
+                        onPressed: () {
+                          context.goBack();
+                        },
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),
