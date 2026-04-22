@@ -55,7 +55,7 @@ class SuccessUpdateDialog extends StatelessWidget {
             CustomButton(
               text: "المتابعة",
               onPressed: () {
-                context.navigateAndRemoveUntil(Routes.home, arguments: 3);
+                context.navigateAndRemoveUntil(Routes.patientHome, arguments: 3);
               },
             ),
           ],

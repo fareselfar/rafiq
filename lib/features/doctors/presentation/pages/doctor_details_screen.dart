@@ -7,7 +7,7 @@ import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/bookings/domain/entities/bookings_entity.dart';
+import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
 import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
 import 'package:rafiq/features/doctors/presentation/widgets/profile_details/doctor_alert_box.dart';
 import 'package:rafiq/features/doctors/presentation/widgets/profile_details/doctor_info_section.dart';
