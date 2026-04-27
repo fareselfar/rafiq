@@ -2,12 +2,12 @@
 class AppConfig {
   AppConfig._();
 
-  static const String appName = 'Flutter Forge App';
+  static const String appName = 'Rafiq';
   static const String appVersion = '1.0.0';
   static const String buildNumber = '1';
 
   // Developer Info
-  static const String developerName = 'Abdullah Essam';
+  static const String developerName = 'Fares elfar';
   static const String developerGithub = 'https://github.com/AbdalluhEssam';
   static const String developerProfile = 'abdalluh-essam.com';
   static const String developerLinkedIn =

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
@@ -9,7 +10,8 @@ import 'package:rafiq/core/widgets/widgets.dart';
 import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+  final UserType? userType;
+  const RegisterScreen({super.key, this.userType});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -31,6 +33,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     rePasswordController.dispose();
     super.dispose();
   }
+
+  String? selectedSpecialization;
+  final List<String> specializations = [
+    'قلب',
+    'عظام',
+    'أطفال',
+    'جلدية',
+    'نفسي',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +159,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
 
+                        if (widget.userType == UserType.doctor) ...[
+                          const HeightSpace(18),
+                          Text(
+                            'المعلومات المهنية',
+                            style: AppTypography.subTitelStyle,
+                          ),
+                          const HeightSpace(10),
+                          Container(
+                            padding: REdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: AppColors.primary.withOpacity(0.5),
+                              ),
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: selectedSpecialization,
+                                isExpanded: true,
+                                hint: Text(
+                                  "اختر التخصص الطبي",
+                                  style: AppTypography.subTitelStyle.copyWith(
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                                dropdownColor: Colors.white,
+                                items: specializations
+                                    .map(
+                                      (spec) => DropdownMenuItem(
+                                        value: spec,
+                                        child: Text(
+                                          spec,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                                onChanged: (val) {
+                                  setState(() {
+                                    selectedSpecialization = val;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                         HeightSpace(16),
                         Align(
                           alignment: Alignment.center,
@@ -180,8 +240,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _register() {
-    if (formKey.currentState?.validate() == false) {
-      return;
+    if (formKey.currentState?.validate() == true) {
+      if (widget.userType == UserType.doctor &&
+          selectedSpecialization == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("من فضلك اختر التخصص أولاً")),
+        );
+        return;
+      }
+
+      // 2. هنا المفروض تنادي على الـ Cubit وتعمل API Call
+      // بعد نجاح التسجيل، التوجيه هيكون كالتالي:
+
+      if (widget.userType == UserType.doctor) {
+        context.navigateAndReplace('/doctorHome');
+      } else {
+        context.navigateAndReplace('/patientHome');
+      }
     }
   }
 }

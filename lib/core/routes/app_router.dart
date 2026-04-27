@@ -3,22 +3,25 @@ import 'package:rafiq/features/authentication/presentation/screens/forget_passwo
 import 'package:rafiq/features/authentication/presentation/screens/get_start.dart';
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
-import 'package:rafiq/features/bookings/data/models/payment_arguments.dart';
-import 'package:rafiq/features/bookings/presentation/pages/book_appointment_screen.dart';
-import 'package:rafiq/features/bookings/presentation/pages/booking_success_screen.dart';
-import 'package:rafiq/features/bookings/presentation/pages/bookings_screen.dart';
-import 'package:rafiq/features/bookings/presentation/pages/payment_screen.dart';
+import 'package:rafiq/features/patient_bookings/data/models/payment_arguments.dart';
+import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
+import 'package:rafiq/features/patient_bookings/presentation/pages/book_appointment_screen.dart';
+import 'package:rafiq/features/patient_bookings/presentation/pages/booking_details_screen.dart';
+import 'package:rafiq/features/patient_bookings/presentation/pages/booking_success_screen.dart';
+import 'package:rafiq/features/patient_bookings/presentation/pages/patient_bookings_screen.dart';
+import 'package:rafiq/features/patient_bookings/presentation/pages/edit_appointment_screen.dart';
+import 'package:rafiq/features/patient_bookings/presentation/pages/payment_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
 import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctor_details_screen.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
 import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
-import 'package:rafiq/features/home_layout/presentation/pages/home_layout_screen.dart';
+import 'package:rafiq/features/patient_home_layout/presentation/pages/patient_home_layout_screen.dart';
 
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
-import 'package:rafiq/features/profile/presentation/pages/change_password.dart';
-import 'package:rafiq/features/profile/presentation/pages/profile_page.dart';
+import 'package:rafiq/features/patient_profile/presentation/pages/change_password.dart';
+import 'package:rafiq/features/patient_profile/presentation/pages/profile_page.dart';
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
@@ -51,22 +54,24 @@ class AppRouter {
       case Routes.otpScreen:
         return _buildRoute(const OtpScreen(), settings);
       case Routes.register:
-        return _buildRoute(const RegisterScreen(), settings);
-      case Routes.home:
-        return _buildRoute(const HomeScreen(), settings);
+        final userType = settings.arguments as UserType?;
+        return _buildRoute(RegisterScreen(userType: userType), settings);
+      case Routes.patientHome:
+        final initialIndex = settings.arguments as int? ?? 0;
+        return _buildRoute(PatientHomeLayout(initialIndex: initialIndex), settings);
       case Routes.doctorsScreen:
         return _buildRoute(const DoctorsScreen(), settings);
       case Routes.doctorDetailsScreen:
         final doctor = settings.arguments as DoctorsEntity;
         return _buildRoute(DoctorDetailsScreen(doctor: doctor), settings);
       case Routes.bookAppointmentScreen:
-        final doctor = settings.arguments as DoctorsEntity;
-        return _buildRoute(BookAppointmentScreen(doctor: doctor), settings);
+        final booking = settings.arguments as BookingEntity;
+        return _buildRoute(BookAppointmentScreen(booking: booking), settings);
       case Routes.paymentScreen:
         final args = settings.arguments as PaymentArguments;
         return _buildRoute(
           PaymentScreen(
-            doctor: args.doctor,
+            booking: args.booking,
             selectedDate: args.date,
             selectedTime: args.time,
           ),
@@ -76,12 +81,18 @@ class AppRouter {
         final args = settings.arguments as PaymentArguments;
         return _buildRoute(
           BookingSuccessScreen(
-            doctor: args.doctor,
+            booking: args.booking,
             selectedDate: args.date,
             selectedTime: args.time,
           ),
           settings,
         );
+      case Routes.bookingDetailsScreen:
+        final args = settings.arguments as BookingEntity;
+        return _buildRoute(BookingDetailsScreen(booking: args), settings);
+      case Routes.editAppointmentScreen:
+        final booking = settings.arguments as BookingEntity;
+        return _buildRoute(EditAppointmentScreen(booking: booking), settings);
 
       case Routes.specializationScreen:
         return _buildRoute(SpecializationsScreen(), settings);
@@ -94,7 +105,7 @@ class AppRouter {
       case Routes.changePassword:
         return _buildRoute(const ChangePassword(), settings);
       case Routes.bookingsScreen:
-        return _buildRoute(const BookingsScreen(), settings);
+        return _buildRoute(const PatientBookingsScreen(), settings);
       default:
         return _buildRoute(
           Scaffold(
