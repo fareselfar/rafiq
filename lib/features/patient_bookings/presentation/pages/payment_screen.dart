@@ -68,7 +68,8 @@ class PaymentScreen extends StatelessWidget {
               time: selectedTime,
             ),
           );
-        }, buttonText: '',
+        },
+        buttonText: '',
       ),
     );
   }

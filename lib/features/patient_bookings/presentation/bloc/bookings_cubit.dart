@@ -18,29 +18,26 @@ class BookingsCubit extends Cubit<BookingsState> {
     required this.rescheduleBookingUseCase,
   }) : super(BookingsInitial());
 
-Future<void> fetchMyBookings() async {
-  emit(BookingsLoading());
-  final bookings = await MockBookingsRepository().getBookings();
-  emit(BookingsSuccess(bookings as List<BookingEntity>));
-}
+  Future<void> fetchMyBookings() async {
+    emit(BookingsLoading());
+    final bookings = await MockBookingsRepository().getBookings();
+    emit(BookingsSuccess(bookings as List<BookingEntity>));
+  }
 
   Future<void> cancelMyBooking(String id) async {
     final result = await cancelBookingUseCase.call(id);
-    
-    result.fold(
-      (failure) => emit(BookingsFailure(failure)),
-      (_) {
-        emit(BookingCancelSuccess());
-        fetchMyBookings(); 
-      },
-    );
+
+    result.fold((failure) => emit(BookingsFailure(failure)), (_) {
+      emit(BookingCancelSuccess());
+      fetchMyBookings();
+    });
   }
 
   // 3. إعادة جدولة حجز
   Future<void> rescheduleMyBooking(RescheduleParams params) async {
     emit(BookingsLoading());
     final result = await rescheduleBookingUseCase.call(params);
-    
+
     result.fold(
       (failure) => emit(BookingsFailure(failure)),
       (_) => emit(BookingRescheduleSuccess()),

@@ -11,5 +11,3 @@ class GetBookingDetailsUseCase {
     return await repository.getBookingDetails(id);
   }
 }
-
-

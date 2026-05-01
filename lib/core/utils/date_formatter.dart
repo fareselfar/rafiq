@@ -9,7 +9,8 @@ class DateFormatter {
     final period = date.hour >= 12 ? "PM" : "AM";
     return "$hour:$minute $period";
   }
-   static String formatArabicDate(DateTime date) {
+
+  static String formatArabicDate(DateTime date) {
     return DateFormat('EEEE، d MMMM yyyy', 'ar').format(date);
   }
 }

@@ -17,7 +17,7 @@ class _CancelReasonDialogState extends State<CancelReasonDialog> {
     "أريد تغيير الموعد",
     "حجزت بالخطأ",
     "الموقع بعيد جداً",
-    "أسباب أخرى"
+    "أسباب أخرى",
   ];
 
   @override
@@ -26,24 +26,32 @@ class _CancelReasonDialogState extends State<CancelReasonDialog> {
       textDirection: TextDirection.rtl,
       child: AlertDialog(
         title: Text("سبب إلغاء الحجز", style: AppTypography.dialogTitle),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.r)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24.r),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          children: reasons.map((reason) => RadioListTile<String>(
-            title: Text(reason, style: AppTypography.bodySmall),
-            value: reason,
-            groupValue: selectedReason,
-            activeColor: AppColors.primary,
-            onChanged: (val) => setState(() => selectedReason = val),
-          )).toList(),
+          children: reasons
+              .map(
+                (reason) => RadioListTile<String>(
+                  title: Text(reason, style: AppTypography.bodySmall),
+                  value: reason,
+                  groupValue: selectedReason,
+                  activeColor: AppColors.primary,
+                  onChanged: (val) => setState(() => selectedReason = val),
+                ),
+              )
+              .toList(),
         ),
         actions: [
           CustomButton(
             text: "تأكيد الإلغاء",
-            onPressed: selectedReason == null ? null : () {
-              Navigator.pop(context);
-              // اظهر ديالوج النجاح
-            },
+            onPressed: selectedReason == null
+                ? null
+                : () {
+                    Navigator.pop(context);
+                    // اظهر ديالوج النجاح
+                  },
             width: double.infinity,
           ),
         ],

@@ -14,7 +14,10 @@ class DoctorsListView extends StatelessWidget {
 
     if (doctorsList.isEmpty) {
       return Center(
-        child: Text("لا يوجد أطباء متاحون حالياً", style: AppTypography.bodyLarge),
+        child: Text(
+          "لا يوجد أطباء متاحون حالياً",
+          style: AppTypography.bodyLarge,
+        ),
       );
     }
 
@@ -26,13 +29,11 @@ class DoctorsListView extends StatelessWidget {
       },
     );
   }
+
   List<DoctorsModel> _getDummyDoctors() {
-    return MockDoctorsService.dummyDoctors; 
+    return MockDoctorsService.dummyDoctors;
   }
 }
-
-
-
 
 //   List<DoctorsModel> _getDummyDoctors() {
 //   return [
@@ -50,7 +51,7 @@ class DoctorsListView extends StatelessWidget {
 //       yearsOfExperience: 10,
 //       patientCount: 500,
 //       waitingTime: 15,
-//       workingHours: [], 
+//       workingHours: [],
 //       reviews: [],
 //     ),
 

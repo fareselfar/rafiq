@@ -21,17 +21,39 @@ class DoctorsEntity extends Equatable {
   final List<PatientReview> reviews;
 
   const DoctorsEntity({
-    required this.id, required this.name, required this.specialization,
-    required this.rating, required this.reviewCount, required this.address,
-    required this.imageUrl, required this.availability, required this.consultationPrice,
-    required this.yearsOfExperience, required this.patientCount, required this.waitingTime,
-    required this.bio, required this.workingHours, required this.reviews,
+    required this.id,
+    required this.name,
+    required this.specialization,
+    required this.rating,
+    required this.reviewCount,
+    required this.address,
+    required this.imageUrl,
+    required this.availability,
+    required this.consultationPrice,
+    required this.yearsOfExperience,
+    required this.patientCount,
+    required this.waitingTime,
+    required this.bio,
+    required this.workingHours,
+    required this.reviews,
   });
 
   @override
   List<Object?> get props => [
-        id, name, specialization, rating, reviewCount, address, 
-        imageUrl, availability, consultationPrice, yearsOfExperience, 
-        patientCount, waitingTime, bio, workingHours, reviews,
-      ];
+    id,
+    name,
+    specialization,
+    rating,
+    reviewCount,
+    address,
+    imageUrl,
+    availability,
+    consultationPrice,
+    yearsOfExperience,
+    patientCount,
+    waitingTime,
+    bio,
+    workingHours,
+    reviews,
+  ];
 }

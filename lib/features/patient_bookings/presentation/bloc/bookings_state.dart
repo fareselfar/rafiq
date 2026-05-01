@@ -34,4 +34,3 @@ class BookingCancelSuccess extends BookingsState {}
 
 // حالة نجاح تعديل الموعد
 class BookingRescheduleSuccess extends BookingsState {}
-

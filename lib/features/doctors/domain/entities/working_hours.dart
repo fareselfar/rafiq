@@ -5,7 +5,11 @@ class WorkingHours extends Equatable {
   final String time;
   final bool isClosed;
 
-  const WorkingHours({required this.day, required this.time, this.isClosed = false});
+  const WorkingHours({
+    required this.day,
+    required this.time,
+    this.isClosed = false,
+  });
 
   @override
   List<Object?> get props => [day, time, isClosed];

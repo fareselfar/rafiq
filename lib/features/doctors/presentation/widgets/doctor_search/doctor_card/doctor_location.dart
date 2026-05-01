@@ -26,7 +26,7 @@ class DoctorLocation extends StatelessWidget {
               color: AppColors.textSecondary,
             ),
             maxLines: 1,
-            overflow: TextOverflow.ellipsis, 
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],

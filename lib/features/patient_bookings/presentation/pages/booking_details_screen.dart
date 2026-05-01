@@ -49,7 +49,7 @@ class BookingDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar:  BookingDetailsActions(booking: booking,),
+      bottomNavigationBar: BookingDetailsActions(booking: booking),
     );
   }
 }

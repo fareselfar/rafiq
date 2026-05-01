@@ -4,11 +4,8 @@ import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.
 import 'package:rafiq/features/patient_bookings/presentation/widgets/bookings_widgets/booking_status_badge.dart';
 
 class BookingStatus extends StatelessWidget {
-   final BookingEntity booking;
-  const BookingStatus({
-    super.key,
-    required this.booking,
-  });
+  final BookingEntity booking;
+  const BookingStatus({super.key, required this.booking});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +14,7 @@ class BookingStatus extends StatelessWidget {
       children: [
         Text(
           'حالة الحجز',
-          style: AppTypography.inputLabel.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTypography.inputLabel.copyWith(fontWeight: FontWeight.bold),
         ),
         BookingStatusBadge(status: booking.status),
       ],

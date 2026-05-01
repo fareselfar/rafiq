@@ -12,7 +12,7 @@ class DoctorBriefInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final doctor = booking.doctor; 
+    final doctor = booking.doctor;
 
     return Column(
       children: [

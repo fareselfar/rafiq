@@ -24,7 +24,7 @@ class DoctorsRemoteDataSourceImpl implements DoctorsRemoteDataSource {
         patientCount: 500,
         waitingTime: 15,
         bio: 'طبيب متخصص في علاج أمراض وإصابات العظام والمفاصل...',
-        workingHours: [], 
+        workingHours: [],
         reviews: [],
       ),
     ];

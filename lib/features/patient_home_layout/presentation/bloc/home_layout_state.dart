@@ -22,4 +22,3 @@ class HomeLayoutError extends HomeLayoutState {
   @override
   List<Object> get props => [message];
 }
-

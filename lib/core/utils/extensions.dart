@@ -194,3 +194,10 @@ extension NumExtension on num {
     return '${(this / (1024 * 1024 * 1024)).toStringAsFixed(2)} GB';
   }
 }
+
+extension NumberFormatter on num {
+  String toKFormat() {
+    if (this >= 1000) return '${(this / 1000).toStringAsFixed(1)} ألف';
+    return toString();
+  }
+}

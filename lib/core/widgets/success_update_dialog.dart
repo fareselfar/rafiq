@@ -16,10 +16,8 @@ class SuccessUpdateDialog extends StatelessWidget {
 
     return Dialog(
       insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-      backgroundColor: AppColors.backGround, 
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.r),
-      ),
+      backgroundColor: AppColors.backGround,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       child: Container(
         width: size.width,
         padding: EdgeInsets.symmetric(vertical: 40.h, horizontal: 20.w),
@@ -55,7 +53,10 @@ class SuccessUpdateDialog extends StatelessWidget {
             CustomButton(
               text: "المتابعة",
               onPressed: () {
-                context.navigateAndRemoveUntil(Routes.patientHome, arguments: 3);
+                context.navigateAndRemoveUntil(
+                  Routes.patientHome,
+                  arguments: 3,
+                );
               },
             ),
           ],

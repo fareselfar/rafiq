@@ -18,7 +18,7 @@ class BookingsRemoteDataSourceImpl implements BookingsRemoteDataSource {
     // لما الـ API يجهز هتشيل التعليق وتستخدم السطر ده:
     // final response = await dio.get('/user/bookings');
     // return (response.data['data'] as List).map((e) => BookingModel.fromJson(e)).toList();
-    
+
     // حالياً هنرجّع Empty List أو ترمي Exception عشان الـ Repo يعالجه
     throw UnimplementedError("الـ API تحت الإنشاء");
   }
@@ -30,8 +30,9 @@ class BookingsRemoteDataSourceImpl implements BookingsRemoteDataSource {
 
   @override
   Future<void> rescheduleBooking(String id, String date, String time) async {
-    await dio.post('/bookings/$id/reschedule', data: {'date': date, 'time': time});
+    await dio.post(
+      '/bookings/$id/reschedule',
+      data: {'date': date, 'time': time},
+    );
   }
 }
-
-
