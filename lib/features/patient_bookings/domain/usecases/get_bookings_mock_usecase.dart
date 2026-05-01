@@ -1,4 +1,5 @@
-import 'package:rafiq/features/patient_bookings/data/datasources/mock_bookings_service.dart' as MockBookingsService;
+import 'package:rafiq/features/patient_bookings/data/datasources/mock_bookings_service.dart'
+    as MockBookingsService;
 import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
 
 class GetBookingsMockUseCase {

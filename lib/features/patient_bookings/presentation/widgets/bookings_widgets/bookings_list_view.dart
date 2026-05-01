@@ -29,6 +29,4 @@ class BookingsListView extends StatelessWidget {
           BookingCard(booking: filteredList[index]),
     );
   }
-
-  
 }

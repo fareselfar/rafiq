@@ -17,8 +17,9 @@ class DoctorStatusBadge extends StatelessWidget {
       child: Text(
         isAvailable ? "متوفر الآن" : "متاح غداً",
         style: TextStyle(
-          color:
-              isAvailable ? const Color(0xFF1ABC9C) : const Color(0xFFE67E22),
+          color: isAvailable
+              ? const Color(0xFF1ABC9C)
+              : const Color(0xFFE67E22),
           fontSize: 12.sp,
           fontWeight: FontWeight.bold,
         ),

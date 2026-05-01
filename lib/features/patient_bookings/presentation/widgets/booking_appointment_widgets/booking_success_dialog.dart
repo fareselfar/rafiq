@@ -23,7 +23,10 @@ class BookingSuccessDialog extends StatelessWidget {
               style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
             const HeightSpace(8),
-            const Text("تم تحديث موعد حجزك بنجاح.", textAlign: TextAlign.center),
+            const Text(
+              "تم تحديث موعد حجزك بنجاح.",
+              textAlign: TextAlign.center,
+            ),
             const HeightSpace(24),
             CustomButton(
               text: "العودة للرئيسية",

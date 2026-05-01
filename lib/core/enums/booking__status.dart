@@ -1,6 +1,1 @@
-enum BookingStatus {
-  upcoming,
-  completed,
-  cancelled,
-}
-
+enum BookingStatus { upcoming, completed, cancelled }

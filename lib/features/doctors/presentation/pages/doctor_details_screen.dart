@@ -50,7 +50,7 @@ class DoctorDetailsScreen extends StatelessWidget {
                     id: DateTime.now().millisecondsSinceEpoch.toString(),
                     doctor: doctor,
                     date: DateTime.now().add(const Duration(days: 1)),
-                    time: '', 
+                    time: '',
                     subTotal: doctor.consultationPrice.toDouble(),
                     discount: 0,
                     status: BookingStatus.upcoming,

@@ -10,4 +10,3 @@ class GetBookingsUseCase {
     return await repository.getBookings();
   }
 }
-

@@ -1,5 +1,1 @@
-enum DoctorAvailability {
-  availableNow,      
-  availableTomorrow, 
-  unavailable,       
-}
+enum DoctorAvailability { availableNow, availableTomorrow, unavailable }

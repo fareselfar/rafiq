@@ -21,11 +21,7 @@ class DoctorAlertBox extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.info_outline,
-                color: AppColors.primary,
-                size: 20.w,
-              ),
+              Icon(Icons.info_outline, color: AppColors.primary, size: 20.w),
               SizedBox(width: 8.w),
               Text(
                 'معلومات الحجز',

@@ -17,7 +17,9 @@ class BookingModel extends BookingEntity {
     return BookingModel(
       id: json['id']?.toString() ?? '',
       doctor: DoctorsModel.fromJson(json['doctor'] ?? {}),
-      date: json['date'] != null ? DateTime.parse(json['date']) : DateTime.now(),
+      date: json['date'] != null
+          ? DateTime.parse(json['date'])
+          : DateTime.now(),
       time: json['time'] ?? '',
       subTotal: (json['sub_total'] as num?)?.toDouble() ?? 0.0,
       discount: (json['discount'] as num?)?.toDouble() ?? 0.0,
@@ -40,10 +42,14 @@ class BookingModel extends BookingEntity {
 
   static BookingStatus _mapStatusToEnum(String? status) {
     switch (status?.toLowerCase()) {
-      case 'upcoming': return BookingStatus.upcoming;
-      case 'completed': return BookingStatus.completed;
-      case 'cancelled': return BookingStatus.cancelled;
-      default: return BookingStatus.upcoming;
+      case 'upcoming':
+        return BookingStatus.upcoming;
+      case 'completed':
+        return BookingStatus.completed;
+      case 'cancelled':
+        return BookingStatus.cancelled;
+      default:
+        return BookingStatus.upcoming;
     }
   }
 }

@@ -173,11 +173,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _navigateToAuth() {
-  context.navigateAndReplace(
-    Routes.register, 
-    arguments: widget.selectedUserType, 
-  );
-}
+    context.navigateAndReplace(
+      Routes.register,
+      arguments: widget.selectedUserType,
+    );
+  }
 
   // void _navigateToAuth() {
   //   context.navigateAndReplace(

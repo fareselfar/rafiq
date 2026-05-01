@@ -9,9 +9,9 @@ class BookingsViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return const TabBarView(
       children: [
-        BookingsListView(filterStatus: null), 
-        BookingsListView(filterStatus: BookingStatus.upcoming), 
-        BookingsListView(filterStatus: BookingStatus.completed), 
+        BookingsListView(filterStatus: null),
+        BookingsListView(filterStatus: BookingStatus.upcoming),
+        BookingsListView(filterStatus: BookingStatus.completed),
       ],
     );
   }

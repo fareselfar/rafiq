@@ -37,12 +37,16 @@ class DoctorsModel extends DoctorsEntity {
       patientCount: json['patient_count'] ?? 0,
       waitingTime: json['waiting_time'] ?? 0,
       bio: json['bio'] ?? '',
-      workingHours: (json['working_hours'] as List?)
+      workingHours:
+          (json['working_hours'] as List?)
               ?.map((x) => WorkingHoursModel.fromJson(x))
-              .toList() ?? [],
-      reviews: (json['reviews'] as List?)
+              .toList() ??
+          [],
+      reviews:
+          (json['reviews'] as List?)
               ?.map((x) => PatientReviewModel.fromJson(x))
-              .toList() ?? [],
+              .toList() ??
+          [],
     );
   }
 
@@ -59,7 +63,7 @@ class DoctorsModel extends DoctorsEntity {
     }
   }
 
-Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
@@ -76,7 +80,11 @@ Map<String, dynamic> toJson() {
       'bio': bio,
       'working_hours': workingHours.map((x) {
         if (x is WorkingHoursModel) return x.toJson();
-        return WorkingHoursModel(day: x.day, time: x.time, isClosed: x.isClosed).toJson();
+        return WorkingHoursModel(
+          day: x.day,
+          time: x.time,
+          isClosed: x.isClosed,
+        ).toJson();
       }).toList(),
       'reviews': reviews.map((x) {
         if (x is PatientReviewModel) return x.toJson();
@@ -92,9 +100,12 @@ Map<String, dynamic> toJson() {
 
   String _availabilityToString() {
     switch (availability) {
-      case DoctorAvailability.availableNow: return 'available_now';
-      case DoctorAvailability.availableTomorrow: return 'available_tomorrow';
-      case DoctorAvailability.unavailable: return 'unavailable';
+      case DoctorAvailability.availableNow:
+        return 'available_now';
+      case DoctorAvailability.availableTomorrow:
+        return 'available_tomorrow';
+      case DoctorAvailability.unavailable:
+        return 'unavailable';
     }
   }
 }

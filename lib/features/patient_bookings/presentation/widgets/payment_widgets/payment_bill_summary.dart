@@ -44,7 +44,11 @@ class PaymentBillSummary extends StatelessWidget {
           const Divider(color: Color(0xFFE8F1FF), thickness: 1),
           const HeightSpace(12),
 
-          _buildBillRow('${booking.totalPrice}', "المجموع الكلي", isTotal: true),
+          _buildBillRow(
+            '${booking.totalPrice}',
+            "المجموع الكلي",
+            isTotal: true,
+          ),
         ],
       ),
     );

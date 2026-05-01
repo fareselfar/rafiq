@@ -9,5 +9,3 @@ class CancelBookingUseCase {
     return await repository.cancelBooking(id);
   }
 }
-
-

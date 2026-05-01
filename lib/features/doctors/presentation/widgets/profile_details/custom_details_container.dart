@@ -7,12 +7,12 @@ import 'package:rafiq/core/widgets/spacing_widget.dart';
 class CustomDetailsContainer extends StatelessWidget {
   const CustomDetailsContainer({
     super.key,
-    required this.icon, 
+    required this.icon,
     required this.title,
     required this.subTitle,
   });
 
-  final IconData icon; 
+  final IconData icon;
   final String title;
   final String subTitle;
 
@@ -22,17 +22,13 @@ class CustomDetailsContainer extends StatelessWidget {
       height: 200.h,
       width: 104.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24.r), 
+        borderRadius: BorderRadius.circular(24.r),
         border: Border.all(color: AppColors.primary),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            size: 40.sp, 
-            color: AppColors.primary, 
-          ),
+          Icon(icon, size: 40.sp, color: AppColors.primary),
           HeightSpace(8.h),
           Text(
             title,

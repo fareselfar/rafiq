@@ -3,6 +3,7 @@ import 'package:rafiq/features/authentication/presentation/screens/forget_passwo
 import 'package:rafiq/features/authentication/presentation/screens/get_start.dart';
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
+import 'package:rafiq/features/doctor_side/doctor_home_layout/presentation/pages/doctor_home_layout_page.dart';
 import 'package:rafiq/features/patient_bookings/data/models/payment_arguments.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/book_appointment_screen.dart';
@@ -58,7 +59,10 @@ class AppRouter {
         return _buildRoute(RegisterScreen(userType: userType), settings);
       case Routes.patientHome:
         final initialIndex = settings.arguments as int? ?? 0;
-        return _buildRoute(PatientHomeLayout(initialIndex: initialIndex), settings);
+        return _buildRoute(
+          PatientHomeLayout(initialIndex: initialIndex),
+          settings,
+        );
       case Routes.doctorsScreen:
         return _buildRoute(const DoctorsScreen(), settings);
       case Routes.doctorDetailsScreen:
@@ -106,6 +110,13 @@ class AppRouter {
         return _buildRoute(const ChangePassword(), settings);
       case Routes.bookingsScreen:
         return _buildRoute(const PatientBookingsScreen(), settings);
+
+      case Routes.doctorHome:
+        final initialIndex = settings.arguments as int? ?? 0;
+        return _buildRoute(
+          DoctorHomeLayout(initialIndex: initialIndex),
+          settings,
+        );
       default:
         return _buildRoute(
           Scaffold(

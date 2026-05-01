@@ -15,7 +15,17 @@ class BookingTimeSlotsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> slots = ["09:00 ص", "09:15 ص", "09:30 ص", "09:45 ص", "10:00 ص", "10:30 ص", "04:00 م", "04:15 م", "04:30 م"];
+    final List<String> slots = [
+      "09:00 ص",
+      "09:15 ص",
+      "09:30 ص",
+      "09:45 ص",
+      "10:00 ص",
+      "10:30 ص",
+      "04:00 م",
+      "04:15 م",
+      "04:30 م",
+    ];
 
     return GridView.builder(
       shrinkWrap: true,
@@ -36,14 +46,20 @@ class BookingTimeSlotsGrid extends StatelessWidget {
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isBooked ? Colors.grey.shade200 : (isSelected ? AppColors.primary : Colors.white),
+              color: isBooked
+                  ? Colors.grey.shade200
+                  : (isSelected ? AppColors.primary : Colors.white),
               borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: isSelected ? AppColors.primary : Colors.grey.shade300),
+              border: Border.all(
+                color: isSelected ? AppColors.primary : Colors.grey.shade300,
+              ),
             ),
             child: Text(
               slots[index],
               style: AppTypography.bodySmall.copyWith(
-                color: isBooked ? Colors.grey : (isSelected ? Colors.white : Colors.black),
+                color: isBooked
+                    ? Colors.grey
+                    : (isSelected ? Colors.white : Colors.black),
               ),
             ),
           ),

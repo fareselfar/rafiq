@@ -46,8 +46,7 @@ class BookingsRepositoryImpl implements BookingsRepo {
     required String newTime,
   }) async {
     try {
-      final dateStr =
-          "${newDate.year}-${newDate.month}-${newDate.day}";
+      final dateStr = "${newDate.year}-${newDate.month}-${newDate.day}";
       await remoteDataSource.rescheduleBooking(id, dateStr, newTime);
       return const Right(unit);
     } catch (e) {

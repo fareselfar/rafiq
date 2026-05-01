@@ -15,7 +15,7 @@ class BookingConfirmationBar extends StatelessWidget {
     super.key,
     required this.selectedDate,
     required this.selectedTime,
-    required this.onConfirm, 
+    required this.onConfirm,
     required String buttonText,
   });
 

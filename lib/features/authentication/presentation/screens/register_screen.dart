@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
+import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/validators.dart';
@@ -241,21 +242,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _register() {
     if (formKey.currentState?.validate() == true) {
+      // التأكد من اختيار التخصص في حالة الطبيب
       if (widget.userType == UserType.doctor &&
           selectedSpecialization == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("من فضلك اختر التخصص أولاً")),
+          const SnackBar(content: Text("من فضلك اختر التخصص الطبي أولاً")),
         );
         return;
       }
 
-      // 2. هنا المفروض تنادي على الـ Cubit وتعمل API Call
-      // بعد نجاح التسجيل، التوجيه هيكون كالتالي:
+      // --- ملاحظة: هنا المفروض يتم استدعاء الـ API عبر الـ Cubit ---
+      // context.read<RegisterCubit>().registerDoctor/Patient(...)
 
+      // بعد نجاح الـ Request، هنوجه المستخدم بناءً على نوعه:
       if (widget.userType == UserType.doctor) {
-        context.navigateAndReplace('/doctorHome');
+        // التوجه لصفحة الدكتور الرئيسية (مع مسح الـ stack)
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          Routes.doctorHome,
+          (route) => false,
+        );
       } else {
-        context.navigateAndReplace('/patientHome');
+        // التوجه لصفحة المريض الرئيسية (مع مسح الـ stack)
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          Routes.patientHome,
+          (route) => false,
+        );
       }
     }
   }
