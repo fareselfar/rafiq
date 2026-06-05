@@ -6,7 +6,6 @@ import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/domain/entities/doctor_last_booking_entity.dart';
-import '../../domain/entities/doctor_home_entity.dart';
 import 'doctor_section_header.dart';
 
 class LastBookingsSection extends StatelessWidget {
@@ -182,7 +181,9 @@ class _EmptyBookingsWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 16.h),
         child: Text(
           'لا توجد حجوزات سابقة',
-          style: AppTypography.bodySmall.copyWith(color: AppColors.textSecondary),
+          style: AppTypography.bodySmall.copyWith(
+            color: AppColors.textSecondary,
+          ),
         ),
       ),
     );

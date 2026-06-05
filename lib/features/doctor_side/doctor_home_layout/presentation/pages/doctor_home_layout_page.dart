@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
+import 'package:rafiq/features/doctor_side/doctor_appointment/presentation/pages/doctor_appointments_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/presentation/pages/doctor_home_screen.dart';
 
 class DoctorHomeLayout extends StatefulWidget {
@@ -14,12 +15,14 @@ class DoctorHomeLayout extends StatefulWidget {
 class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
   late int currentIndex;
 
-  // القائمة الخاصة بصفحات الدكتور
   final List<Widget> tabs = const [
     DoctorHomeScreen(),
-    Center(child: Text("حجوزات المرضى")),    // DoctorAppointmentsScreen()
-    Center(child: Text("مقالاتي")),          // DoctorArticlesScreen()
-    Center(child: Text("حسابي الشخصي")),     // ProfileTab()
+    DoctorAppointmentsScreen(
+      doctorId: '',
+      doctorName: '',
+    ), // DoctorAppointmentsScreen()
+    Center(child: Text("مقالاتي")), // DoctorArticlesScreen()
+    Center(child: Text("حسابي الشخصي")), // ProfileTab()
   ];
 
   @override
@@ -34,14 +37,19 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
       body: tabs[currentIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.grey.shade200, width: 1)),
+          border: Border(
+            top: BorderSide(color: Colors.grey.shade200, width: 1),
+          ),
         ),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: currentIndex,
           selectedItemColor: AppColors.primary,
           unselectedItemColor: Colors.grey,
-          selectedLabelStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
+          selectedLabelStyle: TextStyle(
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w600,
+          ),
           unselectedLabelStyle: TextStyle(fontSize: 12.sp),
           onTap: (index) {
             setState(() {

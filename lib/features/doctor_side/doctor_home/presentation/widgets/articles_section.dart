@@ -7,7 +7,6 @@ import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/domain/entities/doctor_article_entity.dart';
-import '../../domain/entities/doctor_home_entity.dart';
 import 'doctor_section_header.dart';
 import 'featured_article_card.dart';
 
@@ -146,7 +145,9 @@ class _EmptyArticlesWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 20.h),
         child: Text(
           'لا توجد مقالات حتى الآن',
-          style: AppTypography.bodySmall.copyWith(color: AppColors.textSecondary),
+          style: AppTypography.bodySmall.copyWith(
+            color: AppColors.textSecondary,
+          ),
         ),
       ),
     );

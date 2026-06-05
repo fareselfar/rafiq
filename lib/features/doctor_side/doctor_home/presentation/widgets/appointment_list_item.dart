@@ -8,16 +8,11 @@ import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/domain/entities/doctor_appointment_status.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/domain/entities/doctor_today_appointment_entity.dart';
 
-
 class AppointmentListItem extends StatelessWidget {
   final DoctorTodayAppointmentEntity appointment;
   final VoidCallback? onTap;
 
-  const AppointmentListItem({
-    super.key,
-    required this.appointment,
-    this.onTap,
-  });
+  const AppointmentListItem({super.key, required this.appointment, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +24,7 @@ class AppointmentListItem extends StatelessWidget {
           children: [
             AppointmentPatientAvatar(name: appointment.patientName),
             const WidthSpace(12),
-            Expanded(
-              child: AppointmentInfoColumn(appointment: appointment),
-            ),
+            Expanded(child: AppointmentInfoColumn(appointment: appointment)),
             AppointmentStatusChip(status: appointment.status),
           ],
         ),
@@ -57,10 +50,7 @@ class _AppointmentCardShell extends StatelessWidget {
   final Color borderColor;
   final Widget child;
 
-  const _AppointmentCardShell({
-    required this.borderColor,
-    required this.child,
-  });
+  const _AppointmentCardShell({required this.borderColor, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +111,7 @@ class AppointmentInfoColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start, 
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppointmentPatientName(name: appointment.patientName),
         const HeightSpace(3),
@@ -190,11 +180,23 @@ class AppointmentStatusChip extends StatelessWidget {
   _StatusChipConfig _resolveConfig(DoctorAppointmentStatus status) {
     switch (status) {
       case DoctorAppointmentStatus.cancelled:
-        return _StatusChipConfig(label: 'ملغي', bg: AppColors.redWhite, fg: AppColors.error);
+        return _StatusChipConfig(
+          label: 'ملغي',
+          bg: AppColors.redWhite,
+          fg: AppColors.error,
+        );
       case DoctorAppointmentStatus.confirmed:
-        return _StatusChipConfig(label: 'مؤكد', bg: AppColors.greenWhite, fg: AppColors.success);
+        return _StatusChipConfig(
+          label: 'مؤكد',
+          bg: AppColors.greenWhite,
+          fg: AppColors.success,
+        );
       case DoctorAppointmentStatus.completed:
-        return _StatusChipConfig(label: 'مكتمل', bg: AppColors.greenWhite, fg: AppColors.success);
+        return _StatusChipConfig(
+          label: 'مكتمل',
+          bg: AppColors.greenWhite,
+          fg: AppColors.success,
+        );
       case DoctorAppointmentStatus.pending:
         return _StatusChipConfig(
           label: 'قيد الانتظار',
@@ -234,5 +236,9 @@ class _StatusChipConfig {
   final String label;
   final Color bg;
   final Color fg;
-  const _StatusChipConfig({required this.label, required this.bg, required this.fg});
+  const _StatusChipConfig({
+    required this.label,
+    required this.bg,
+    required this.fg,
+  });
 }

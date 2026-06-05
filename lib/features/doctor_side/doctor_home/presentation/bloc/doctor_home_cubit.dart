@@ -11,7 +11,7 @@ class DoctorHomeCubit extends Cubit<DoctorHomeState> {
   final GetDoctorHomeDataUsecase getDoctorHomeData;
 
   DoctorHomeCubit({required this.getDoctorHomeData})
-      : super(const DoctorHomeInitial());
+    : super(const DoctorHomeInitial());
 
   Future<void> loadData() async {
     emit(const DoctorHomeLoading());

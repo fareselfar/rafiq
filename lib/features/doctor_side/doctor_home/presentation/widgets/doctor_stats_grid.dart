@@ -168,10 +168,7 @@ class _StatCardValue extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (leadingIcon != null) ...[
-          leadingIcon!,
-          const WidthSpace(4),
-        ],
+        if (leadingIcon != null) ...[leadingIcon!, const WidthSpace(4)],
         Text(
           value,
           style: AppTypography.profileServiceDetailsStyle.copyWith(

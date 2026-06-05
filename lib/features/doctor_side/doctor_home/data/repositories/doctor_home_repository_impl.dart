@@ -10,7 +10,10 @@ import '../../domain/repositories/doctor_home_repository.dart';
 class DoctorHomeRepositoryImpl implements DoctorHomeRepository {
   final DoctorHomeRemoteDataSource remoteDataSource;
 
-  DoctorHomeRepositoryImpl({required this.remoteDataSource, required Object networkInfo});
+  DoctorHomeRepositoryImpl({
+    required this.remoteDataSource,
+    required Object networkInfo,
+  });
 
   @override
   Future<Either<Failure, DoctorHomeEntity>> getDoctorHomeData() async {
