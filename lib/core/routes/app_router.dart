@@ -26,7 +26,6 @@ import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens
 import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/payment_screen.dart';
 import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/profits.dart';
 import 'package:rafiq/features/profile_doc/presentation/screens/profile_doc_screen.dart';
-
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
