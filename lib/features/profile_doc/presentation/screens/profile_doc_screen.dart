@@ -10,8 +10,8 @@ import 'package:rafiq/features/profile/presentation/widgets/details_card.dart';
 import 'package:rafiq/features/profile/presentation/widgets/services_card.dart';
 import 'package:rafiq/features/profile_doc/widgets/options_doc_card.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileDocScreen extends StatelessWidget {
+  const ProfileDocScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

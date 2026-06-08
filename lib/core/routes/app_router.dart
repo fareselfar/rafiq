@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:rafiq/features/Auth_doc/presentation/screens/login_screen.dart';
+import 'package:rafiq/features/Auth_doc/presentation/screens/register_screen.dart';
 import 'package:rafiq/features/articles/presentation/pages/articles_screen.dart';
+import 'package:rafiq/features/authentication/data/models/reset_pass_arrgs.dart';
 import 'package:rafiq/features/authentication/presentation/screens/forget_password_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/get_start.dart';
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
+import 'package:rafiq/features/authentication/presentation/screens/reset_pass_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
+import 'package:rafiq/features/authentication/presentation/screens/success_reset_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
 
 import 'package:rafiq/features/home_layout/presentation/pages/home_layout_screen.dart';
@@ -45,16 +50,30 @@ class AppRouter {
           settings,
         );
       case Routes.getStart:
-        return _buildRoute(const GetStart(), settings);
+        final userType = settings.arguments as UserType;
+        return _buildRoute(GetStart(selectedUserType: userType), settings);
       case Routes.login:
         return _buildRoute(const LoginScreen(), settings);
       case Routes.forgetPassword:
         final String? email = settings.arguments as String?;
         return _buildRoute(ForgetPassword(email: email), settings);
       case Routes.otpScreen:
-        return _buildRoute(const OtpScreen(), settings);
+        final email = settings.arguments as String;
+        return _buildRoute(OtpScreen(email: email), settings);
       case Routes.register:
-        return _buildRoute(const RegisterScreen(), settings);
+        return _buildRoute(
+          const RegisterScreen(userType: UserType.patient),
+          settings,
+        );
+      case Routes.docLogin:
+        return _buildRoute(const LoginDocScreen(), settings);
+      case Routes.docRegister:
+        return _buildRoute(
+          const RegisterDocScreen(userType: UserType.doctor),
+          settings,
+        );
+      case Routes.successResetPass:
+        return _buildRoute(const SuccessResetScreen(), settings);
       case Routes.home:
         return _buildRoute(const HomeScreen(), settings);
       case Routes.specializationScreen:
@@ -85,6 +104,12 @@ class AppRouter {
         return _buildRoute(const PaymentScreen(), settings);
       case Routes.editDocProfile:
         return _buildRoute(const EditDocProfileScreen(), settings);
+      case Routes.resetPass:
+        final args = settings.arguments as ResetPassArgs;
+        return _buildRoute(
+          ResetPassScreen(email: args.email, otp: args.otp),
+          settings,
+        );
       default:
         return _buildRoute(
           Scaffold(

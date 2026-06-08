@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/routes/navigation_extension.dart';
+import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
@@ -22,25 +24,33 @@ class OptionsDocCard extends StatelessWidget {
           ),
           HeightSpace(23),
           ProfileEditing(
-            onTap: () {},
+            onTap: () {
+              context.navigateTo(Routes.editDocProfile);
+            },
             icon: SvgManger.person,
             label: "تعديل الملف الشخصي",
           ),
           HeightSpace(23),
           ProfileEditing(
-            onTap: () {},
+            onTap: () {
+              context.navigateTo(Routes.editDocClinic);
+            },
             icon: SvgManger.doc,
             label: "تعديل بيانات العيادة",
           ),
           HeightSpace(23),
           ProfileEditing(
-            onTap: () {},
+            onTap: () {
+              context.navigateTo(Routes.profits);
+            },
             icon: SvgManger.money,
             label: "الدفع والارباح",
           ),
           HeightSpace(23),
           ProfileEditing(
-            onTap: () {},
+            onTap: () {
+              context.navigateTo(Routes.changeDocPassword);
+            },
             icon: SvgManger.lock,
             label: "تغيير كلمة المرور",
           ),

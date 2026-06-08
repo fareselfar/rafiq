@@ -8,9 +8,16 @@ class Routes {
   static const String home = '/home';
   static const String getStart = '/getStart';
   static const String login = '/login';
+  static const String docLogin = '/docLogin';
+
   static const String forgetPassword = '/forgetPassword';
+  static const String resetPass = '/resetPass';
+  static const String successResetPass = '/successResetPass';
+
   static const String otpScreen = '/otpScreen';
   static const String register = '/register';
+  static const String docRegister = '/docRegister';
+
   static const String profile = '/profile';
   static const String settings = '/settings';
   static const String iSFIRSTTIME = '/isFirstTime';

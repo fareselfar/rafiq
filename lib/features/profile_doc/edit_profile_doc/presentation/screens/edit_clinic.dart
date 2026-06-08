@@ -88,6 +88,7 @@ class _EditClinicState extends State<EditClinic> {
                       ),
                       HeightSpace(18),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(

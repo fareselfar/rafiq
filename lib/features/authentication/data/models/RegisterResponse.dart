@@ -1,10 +1,9 @@
-class RegisterResponse {
-  RegisterResponse({
-      this.displayName, 
-      this.email, 
-      this.token,});
+import 'package:rafiq/features/authentication/domain/entities/auth_entity.dart';
 
-  RegisterResponse.fromJson(dynamic json) {
+class RegiasterResponse {
+  RegiasterResponse({this.displayName, this.email, this.token});
+
+  RegiasterResponse.fromJson(dynamic json) {
     displayName = json['displayName'];
     email = json['email'];
     token = json['token'];
@@ -21,4 +20,7 @@ class RegisterResponse {
     return map;
   }
 
+  AuthEntity toAuthEntity() {
+    return AuthEntity(email: email, name: displayName, role: '');
+  }
 }

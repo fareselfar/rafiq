@@ -1,28 +1,17 @@
 class ResetPasswordResponse {
-  ResetPasswordResponse({
-      this.confirmPassword, 
-      this.email, 
-      this.newPassword, 
-      this.otp,});
+  ResetPasswordResponse({this.isSuccess, this.message});
 
   ResetPasswordResponse.fromJson(dynamic json) {
-    confirmPassword = json['confirmPassword'];
-    email = json['email'];
-    newPassword = json['newPassword'];
-    otp = json['otp'];
+    isSuccess = json['isSuccess'];
+    message = json['message'];
   }
-  String? confirmPassword;
-  String? email;
-  String? newPassword;
-  String? otp;
+  bool? isSuccess;
+  String? message;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['confirmPassword'] = confirmPassword;
-    map['email'] = email;
-    map['newPassword'] = newPassword;
-    map['otp'] = otp;
+    map['isSuccess'] = isSuccess;
+    map['message'] = message;
     return map;
   }
-
 }

@@ -13,7 +13,27 @@ class AuthenticationInitial extends AuthenticationState {
 
 class AuthenticationLoading extends AuthenticationState {}
 
-class AuthenticationLoaded extends AuthenticationState {}
+class SendResetOtpSuccess extends AuthenticationState {
+  final String message;
+
+  SendResetOtpSuccess({required this.message});
+}
+
+class AuthenticationLoaded extends AuthenticationState {
+  @override
+  List<Object> get props => [];
+}
+
+class VerifyResetOtpSuccess extends AuthenticationState {
+  final String message;
+
+  VerifyResetOtpSuccess({required this.message});
+}
+
+class ResetPassSuccess extends AuthenticationState {
+  ResetPassSuccess({required this.message});
+  final String message;
+}
 
 class AuthenticationError extends AuthenticationState {
   final String message;

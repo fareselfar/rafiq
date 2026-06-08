@@ -1,8 +1,7 @@
+import 'package:rafiq/features/authentication/domain/entities/auth_entity.dart';
+
 class LoginResponse {
-  LoginResponse({
-      this.displayName, 
-      this.email, 
-      this.token,});
+  LoginResponse({this.displayName, this.email, this.token});
 
   LoginResponse.fromJson(dynamic json) {
     displayName = json['displayName'];
@@ -21,4 +20,7 @@ class LoginResponse {
     return map;
   }
 
+  AuthEntity toAuthEntity() {
+    return AuthEntity(email: email, name: displayName, role: '');
+  }
 }

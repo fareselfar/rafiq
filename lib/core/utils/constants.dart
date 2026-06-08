@@ -5,18 +5,25 @@ class AppConstants {
   AppConstants._();
 
   // API Configuration
-  static const String baseUrl = 'https://api.example.com';
+  static const String baseUrl = 'https://rafiqapp.runasp.net/api';
+  static const String signUpEndpoint = '/Auth/register';
+  static const String signInEndpoint = '/Auth/login';
+  static const String verifyOtpEndpoint = '/Auth/verify-reset-otp';
+  static const String sendResetOtpEndpoint = '/Auth/send-reset-otp';
+  static const String resetPasswordEndpoint = "/Auth/reset-password";
   static const String apiVersion = 'v1';
   static const Duration connectionTimeout = Duration(seconds: 30);
   static const Duration receiveTimeout = Duration(seconds: 30);
 
   // Storage Keys
   static const String accessTokenKey = 'access_token';
+  static const String roleKey = 'role';
   static const String refreshTokenKey = 'refresh_token';
   static const String userDataKey = 'user_data';
   static const String themeKey = 'theme_mode';
   static const String languageKey = 'language_code';
   static const String onboardingKey = 'onboarding_completed';
+  static const String tokenKey = 'token';
 
   // Pagination
   static const int defaultPageSize = 20;

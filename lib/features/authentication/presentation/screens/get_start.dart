@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 
 class GetStart extends StatelessWidget {
-  const GetStart({super.key});
-
+  const GetStart({super.key, required this.selectedUserType});
+  final UserType? selectedUserType;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +24,18 @@ class GetStart extends StatelessWidget {
 
             CustomButton(
               onPressed: () {
-                context.navigateAndReplace('/register');
+                selectedUserType == UserType.patient
+                    ? context.navigateAndReplace('/register')
+                    : context.navigateAndReplace('/docRegister');
               },
               text: 'انشاء حساب',
             ),
             HeightSpace(16),
             CustomButton(
               onPressed: () {
-                context.navigateAndReplace('/login');
+                selectedUserType == UserType.patient
+                    ? context.navigateAndReplace('/login')
+                    : context.navigateAndReplace('/docLogin');
               },
               text: 'لدي حساب بالفعل',
               type: ButtonType.outlined,
