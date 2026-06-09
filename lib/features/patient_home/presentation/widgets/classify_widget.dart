@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 
 class ClassifyWidget extends StatelessWidget {
-  ClassifyWidget({
+  const ClassifyWidget({
     super.key,
     required this.bgColor,
     required this.fgColor,
@@ -13,11 +13,11 @@ class ClassifyWidget extends StatelessWidget {
     required this.text,
     required this.onTap,
   });
-  Color bgColor;
-  Color fgColor;
-  String icon;
-  String text;
-  VoidCallback onTap;
+  final Color bgColor;
+  final Color fgColor;
+  final String icon;
+  final String text;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
