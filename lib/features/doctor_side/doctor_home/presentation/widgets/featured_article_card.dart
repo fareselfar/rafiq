@@ -75,7 +75,7 @@ class ArticleCoverImage extends StatelessWidget {
           ? Image.network(
               imageUrl,
               fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => const _ArticleImageFallback(),
+              errorBuilder: (_, _, _) => const _ArticleImageFallback(),
             )
           : const _ArticleImageFallback(),
     );

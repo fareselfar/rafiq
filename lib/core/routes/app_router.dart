@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rafiq/features/Auth_doc/presentation/screens/login_screen.dart';
+import 'package:rafiq/features/Auth_doc/presentation/screens/register_screen.dart';
+import 'package:rafiq/features/articles/presentation/pages/articles_screen.dart';
+import 'package:rafiq/features/authentication/data/models/reset_pass_arrgs.dart';
 import 'package:rafiq/features/authentication/presentation/screens/forget_password_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/get_start.dart';
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
+import 'package:rafiq/features/authentication/presentation/screens/reset_pass_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home_layout/presentation/pages/doctor_home_layout_page.dart';
 import 'package:rafiq/features/patient_bookings/data/models/payment_arguments.dart';
@@ -12,17 +17,24 @@ import 'package:rafiq/features/patient_bookings/presentation/pages/booking_succe
 import 'package:rafiq/features/patient_bookings/presentation/pages/patient_bookings_screen.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/edit_appointment_screen.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/payment_screen.dart';
+import 'package:rafiq/features/authentication/presentation/screens/success_reset_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
 import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctor_details_screen.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
-import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
 import 'package:rafiq/features/patient_home_layout/presentation/pages/patient_home_layout_screen.dart';
-
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/features/patient_profile/presentation/pages/change_password.dart';
 import 'package:rafiq/features/patient_profile/presentation/pages/profile_page.dart';
+import 'package:rafiq/features/profile/edit_profile/presentation/pages/edit_fiels.dart';
+import 'package:rafiq/features/profile/edit_profile/presentation/pages/edit_profile_page.dart';
+import 'package:rafiq/features/profile/edit_profile/presentation/pages/upload_file_screen.dart';
+import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/change_doc_pass.dart';
+import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/edit_clinic.dart';
+import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/edit_doc_profile.dart';
+import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/profits.dart';
+import 'package:rafiq/features/profile_doc/presentation/screens/profile_doc_screen.dart';
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
@@ -46,17 +58,30 @@ class AppRouter {
           settings,
         );
       case Routes.getStart:
-        return _buildRoute(const GetStart(), settings);
+        final userType = settings.arguments as UserType;
+        return _buildRoute(GetStart(selectedUserType: userType), settings);
       case Routes.login:
         return _buildRoute(const LoginScreen(), settings);
       case Routes.forgetPassword:
         final String? email = settings.arguments as String?;
         return _buildRoute(ForgetPassword(email: email), settings);
       case Routes.otpScreen:
-        return _buildRoute(const OtpScreen(), settings);
+        final email = settings.arguments as String;
+        return _buildRoute(OtpScreen(email: email), settings);
+
       case Routes.register:
-        final userType = settings.arguments as UserType?;
+        final userType = settings.arguments as UserType? ?? UserType.patient;
         return _buildRoute(RegisterScreen(userType: userType), settings);
+
+      case Routes.docLogin:
+        return _buildRoute(const LoginDocScreen(), settings);
+      case Routes.docRegister:
+        return _buildRoute(
+          const RegisterDocScreen(userType: UserType.doctor),
+          settings,
+        );
+      case Routes.successResetPass:
+        return _buildRoute(const SuccessResetScreen(), settings);
       case Routes.patientHome:
         final initialIndex = settings.arguments as int? ?? 0;
         return _buildRoute(
@@ -71,6 +96,7 @@ class AppRouter {
       case Routes.bookAppointmentScreen:
         final booking = settings.arguments as BookingEntity;
         return _buildRoute(BookAppointmentScreen(booking: booking), settings);
+        
       case Routes.paymentScreen:
         final args = settings.arguments as PaymentArguments;
         return _buildRoute(
@@ -81,6 +107,7 @@ class AppRouter {
           ),
           settings,
         );
+        
       case Routes.bookingSuccessScreen:
         final args = settings.arguments as PaymentArguments;
         return _buildRoute(
@@ -104,10 +131,35 @@ class AppRouter {
         return _buildRoute(const EditProfilePage(), settings);
       case Routes.chatBotScreen:
         return _buildRoute(const ChatBotScreen(), settings);
+      case Routes.editFiels:
+        return _buildRoute(const EditFiels(), settings);
+      case Routes.uploadFiels:
+        return _buildRoute(const UploadFileScreen(), settings);
       case Routes.profile:
         return _buildRoute(const ProfileTab(), settings);
+      case Routes.articlesScreen:
+        return _buildRoute(const ArticlesScreen(), settings);
       case Routes.changePassword:
         return _buildRoute(const ChangePassword(), settings);
+
+      case Routes.docProfile:
+        return _buildRoute(const ProfileDocScreen(), settings);
+      case Routes.changeDocPassword:
+        return _buildRoute(const ChangeDocPassword(), settings);
+      case Routes.editDocClinic:
+        return _buildRoute(const EditClinic(), settings);
+      case Routes.profits:
+        return _buildRoute(const ProfitsScrren(), settings);
+      case Routes.editDocProfile:
+        return _buildRoute(const EditDocProfileScreen(), settings);
+
+      case Routes.resetPass:
+        final args = settings.arguments as ResetPassArgs;
+        return _buildRoute(
+          ResetPassScreen(email: args.email, otp: args.otp),
+          settings,
+        );
+
       case Routes.bookingsScreen:
         return _buildRoute(const PatientBookingsScreen(), settings);
 
@@ -117,6 +169,7 @@ class AppRouter {
           DoctorHomeLayout(initialIndex: initialIndex),
           settings,
         );
+
       default:
         return _buildRoute(
           Scaffold(

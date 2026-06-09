@@ -145,6 +145,24 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     color: AppColors.surface,
   );
+  static TextStyle uploadFileTitle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textLabel,
+  );
+  static TextStyle notes = TextStyle(
+    fontFamily: _secondaryFontFamily,
+    fontSize: 28.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.selectedText,
+  );
+  static TextStyle saveArticle = TextStyle(
+    fontFamily: _secondaryFontFamily,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.surface,
+  );
   static TextStyle doctorName = TextStyle(
     fontFamily: _fontFamily,
     fontSize: 20.sp,

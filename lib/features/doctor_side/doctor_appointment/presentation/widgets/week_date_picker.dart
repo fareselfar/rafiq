@@ -103,7 +103,7 @@ class _DaysStrip extends StatelessWidget {
         clipBehavior: Clip.none,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         itemCount: 7,
-        separatorBuilder: (_, __) =>
+        separatorBuilder: (_, _) =>
             SizedBox(width: 12.w), 
         itemBuilder: (context, i) {
           final day = weekStart.add(Duration(days: i));

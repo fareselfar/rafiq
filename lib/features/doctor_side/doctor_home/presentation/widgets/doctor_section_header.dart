@@ -21,7 +21,7 @@ class DoctorSectionHeader extends StatelessWidget {
       children: [
         // In RTL app: first child = RIGHT side ✓ (section title)
         SectionTitleText(title: title),
-        if (trailing != null) trailing!,
+        ?trailing,
       ],
     );
   }

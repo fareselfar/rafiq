@@ -1,11 +1,17 @@
-import '../../domain/entities/profile_entity.dart';
+import 'package:rafiq/features/patient_profile/domain/entities/ProfileEntity.dart';
 
 class ProfileModel extends ProfileEntity {
-  const ProfileModel({required super.id, required super.name});
+  const ProfileModel({
+    required super.fullName,
+    required super.age,
+    required super.appointmentsCount,
+  });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
-    return ProfileModel(id: json['id'] as String, name: json['name'] as String);
+    return ProfileModel(
+      fullName: json['fullName'] ?? '',
+      age: json['age'] ?? 0,
+      appointmentsCount: json['appointmentsCount'] ?? 0,
+    );
   }
-
-  Map<String, dynamic> toJson() => {'id': id, 'name': name};
 }

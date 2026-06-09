@@ -129,7 +129,7 @@ class _ArticlesList extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: articles.length,
-      separatorBuilder: (_, __) => const HeightSpace(12),
+      separatorBuilder: (_, _) => const HeightSpace(12),
       itemBuilder: (_, i) => FeaturedArticleCard(article: articles[i]),
     );
   }

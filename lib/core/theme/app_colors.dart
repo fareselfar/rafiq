@@ -53,6 +53,13 @@ class AppColors {
   static const Color nots = Color(0xFFFEF9C3);
   static const Color appBar = Color(0xFF121212);
   static const Color purple = Color(0xff8A38F5);
+  static const Color notes = Color(0xffF0F9FF);
   static const Color note = Color(0xffE3F2FD);
+  static const Color green = Color(0xff00CCBB);
+  static const Color darkGreen = Color(0xff16A34A);
+  static const Color greenbg = Color(0xffECFDF5);
+  static const Color titlegreen = Color(0xff059669);
+  static const Color oil = Color(0xff4C719A);
+  static const Color priceColor = Color(0xff0059BB);
   static const Color doctorName = Color(0xff121212);
 }

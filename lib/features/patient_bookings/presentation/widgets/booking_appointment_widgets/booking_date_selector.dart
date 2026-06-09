@@ -23,7 +23,7 @@ class BookingDateSelector extends StatelessWidget {
         clipBehavior: Clip.none,
         padding: EdgeInsets.symmetric(vertical: 8.h),
         itemCount: 7,
-        separatorBuilder: (_, __) => SizedBox(width: 16.w),
+        separatorBuilder: (_, _) => SizedBox(width: 16.w),
         itemBuilder: (context, index) {
           DateTime date = DateTime.now().add(Duration(days: index));
           bool isSelected =

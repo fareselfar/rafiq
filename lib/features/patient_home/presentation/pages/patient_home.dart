@@ -6,13 +6,12 @@ import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
-import 'package:rafiq/core/utils/assets_manger.dart';
+import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/patient_home/data/models/patient_time_model.dart';
 import 'package:rafiq/features/patient_home/presentation/widgets/classify_widget.dart';
-import 'package:rafiq/features/patient_home/presentation/widgets/custom_text_button.dart';
 import 'package:rafiq/features/patient_home/presentation/widgets/gradient_card.dart';
 import 'package:rafiq/features/patient_home/presentation/widgets/patient_time.dart';
 
@@ -74,7 +73,7 @@ class PatientHomeScreen extends StatelessWidget {
                             style: AppTypography.profileServicesStyle,
                           ),
                           Spacer(),
-                          CustomTextButton(
+                          CustomButton(
                             onPressed: () {
                               Navigator.pushNamed(
                                 context,
@@ -190,7 +189,7 @@ class PatientHomeScreen extends StatelessWidget {
                             'مواعيدي القادمة',
                             style: AppTypography.profileServicesStyle,
                           ),
-                          CustomTextButton(onPressed: () {}, text: 'عرض الكل'),
+                          CustomButton(onPressed: () {}, text: 'عرض الكل'),
                         ],
                       ),
                       HeightSpace(20),
@@ -217,79 +216,15 @@ class PatientHomeScreen extends StatelessWidget {
                               color: AppColors.selectedText,
                             ),
                           ),
-                          CustomTextButton(onPressed: () {}, text: 'عرض الكل'),
+                          CustomButton(
+                            onPressed: () {
+                              context.navigateTo(Routes.articlesScreen);
+                            },
+                            text: 'عرض الكل',
+                          ),
                         ],
                       ),
-                      Padding(
-                        padding: REdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 16,
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.surface,
-                            borderRadius: BorderRadius.circular(16.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                blurRadius: 20.r,
-                                spreadRadius: 2.r,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Image.asset(AssetsManger.article),
-                              Padding(
-                                padding: REdgeInsets.symmetric(
-                                  vertical: 14,
-                                  horizontal: 16,
-                                ),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'نصائح للحفاظ على صحة القلب',
-                                      style: AppTypography.profileNameStyle,
-                                    ),
-                                    HeightSpace(8),
-                                    Text(
-                                      "اكتشف أهم الطرق للحفاظ على صحة قلبك وتجنب\n                             الأمراض القلبية",
-                                      style:
-                                          AppTypography.profileServiceNameStyle,
-                                    ),
-
-                                    HeightSpace(24),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        CustomTextButton(
-                                          onPressed: () {},
-                                          text: 'اقراء المزيد',
-                                        ),
-                                        Row(
-                                          children: [
-                                            SvgPicture.asset(SvgManger.time),
-                                            Text(
-                                              'منذ يومين',
-                                              style: GoogleFonts.cairo(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.selectedText,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+              //        CustomArticleView(article: article),
                     ],
                   ),
                 ),

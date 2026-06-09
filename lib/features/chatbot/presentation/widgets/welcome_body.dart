@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/chatbot/presentation/widgets/chat_Header.dart';
+import 'package:rafiq/features/chatbot/presentation/widgets/chat_header.dart';
 import 'package:rafiq/features/chatbot/presentation/widgets/privacy_note_widget.dart';
 
 class BuildWelcomeBody extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
-import 'package:rafiq/core/utils/assets_manger.dart';
+import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/patient_bookings_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
