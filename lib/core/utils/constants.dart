@@ -20,6 +20,9 @@ class AppConstants {
   static const String getArticleByIdEndpoint = '/Articles/get-by-id';
   static const String getAppointmentsEndpoint = '/Appointments/get-all';
   static const String getAppointmentByIdEndpoint = '';
+  //static const String baseUrl = 'http://rafiqapp.runasp.net';
+  static const String aiSocketUrl =
+      'wss://rafeeq-ai-dev-production.up.railway.app/chat/ws';
   static const String apiVersion = 'v1';
   static const Duration connectionTimeout = Duration(seconds: 30);
   static const Duration receiveTimeout = Duration(seconds: 30);

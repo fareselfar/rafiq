@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:rafiq/core/errors/failuree.dart';
-import 'package:rafiq/features/authentication/data/models/RegisterRequest.dart';
+import 'package:rafiq/features/authentication/data/models/register_request.dart';
 import 'package:rafiq/features/authentication/domain/entities/auth_entity.dart';
 import 'package:rafiq/features/authentication/domain/repositories/auth_repository.dart';
 

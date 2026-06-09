@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
-import 'package:rafiq/features/profile/presentation/widgets/small_card.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/small_card.dart';
 
 class ClassifyTratement extends StatelessWidget {
   const ClassifyTratement({super.key, this.title, this.isSelected = false});

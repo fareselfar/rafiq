@@ -9,7 +9,7 @@ import 'package:rafiq/features/articles/data/repositories/articles_repository.da
 import 'package:rafiq/features/articles/presentation/bloc/articles_cubit.dart';
 import 'package:rafiq/features/articles/presentation/pages/article_details_screen.dart';
 import 'package:rafiq/features/articles/presentation/widgets/category_item.dart';
-import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
 
 class RelatedArticle extends StatelessWidget {
   const RelatedArticle({super.key, required this.article});

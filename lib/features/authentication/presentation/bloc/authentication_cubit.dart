@@ -1,10 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:rafiq/features/authentication/data/models/LoginRequest.dart';
-import 'package:rafiq/features/authentication/data/models/RegisterRequest.dart';
-import 'package:rafiq/features/authentication/data/models/ResetPasswordRequest.dart';
+import 'package:rafiq/features/authentication/data/models/login_request.dart';
+import 'package:rafiq/features/authentication/data/models/register_request.dart';
+import 'package:rafiq/features/authentication/data/models/reset_password_request.dart';
 import 'package:rafiq/features/authentication/data/models/verify_otp_request.dart';
 import 'package:rafiq/features/authentication/data/models/send_otp_request.dart';
 import 'package:rafiq/features/authentication/domain/usecases/login_usecase.dart';

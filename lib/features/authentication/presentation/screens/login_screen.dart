@@ -14,7 +14,7 @@ import 'package:rafiq/features/authentication/presentation/widgets/custom_divide
 import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
 import 'package:rafiq/features/authentication/presentation/widgets/custom_inkwell.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rafiq/features/authentication/data/models/LoginRequest.dart';
+import 'package:rafiq/features/authentication/data/models/login_request.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
             bgColor: Colors.green,
             fgColor: Colors.white,
           );
-          context.navigateAndReplace(Routes.home);
+          context.navigateAndReplace(Routes.patientHome);
         }
 
         if (state is AuthenticationError) {

@@ -3,14 +3,14 @@ import 'package:rafiq/core/errors/app_exception.dart';
 import 'package:rafiq/core/errors/failuree.dart';
 import 'package:rafiq/features/authentication/data/datasources/local/auth_local_data_source.dart';
 import 'package:rafiq/features/authentication/data/datasources/remote/auth_remote_data_source.dart';
-import 'package:rafiq/features/authentication/data/models/LoginRequest.dart';
-import 'package:rafiq/features/authentication/data/models/RegisterRequest.dart';
-import 'package:rafiq/features/authentication/data/models/ResetPasswordRequest.dart';
+import 'package:rafiq/features/authentication/data/models/login_request.dart';
+import 'package:rafiq/features/authentication/data/models/register_request.dart';
+import 'package:rafiq/features/authentication/data/models/reset_password_request.dart';
 import 'package:rafiq/features/authentication/data/models/ResetpasswordResponse.dart';
 
 import 'package:rafiq/features/authentication/data/models/send_otp_request.dart';
 import 'package:rafiq/features/authentication/data/models/send_otp_response.dart';
-import 'package:rafiq/features/authentication/data/models/verify_otp+response.dart';
+import 'package:rafiq/features/authentication/data/models/verify_otp_response.dart';
 import 'package:rafiq/features/authentication/data/models/verify_otp_request.dart';
 import 'package:rafiq/features/authentication/domain/entities/auth_entity.dart';
 import 'package:rafiq/features/authentication/domain/repositories/auth_repository.dart';

@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
+import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/ui_utils.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/core/widgets/widgets.dart';
-import 'package:rafiq/features/authentication/data/models/RegisterRequest.dart';
+import 'package:rafiq/features/authentication/data/models/register_request.dart';
 import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
 import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
 
@@ -37,6 +38,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     rePasswordController.dispose();
     super.dispose();
   }
+
+  String? selectedSpecialization;
+  final List<String> specializations = [
+    'قلب',
+    'عظام',
+    'أطفال',
+    'جلدية',
+    'نفسي',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -213,8 +223,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _register() {
-    if (formKey.currentState?.validate() == false) {
-      return;
+    if (formKey.currentState?.validate() == true) {
+      // التأكد من اختيار التخصص في حالة الطبيب
+      if (widget.userType == UserType.doctor &&
+          selectedSpecialization == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("من فضلك اختر التخصص الطبي أولاً")),
+        );
+        return;
+      }
+
+      // --- ملاحظة: هنا المفروض يتم استدعاء الـ API عبر الـ Cubit ---
+      // context.read<RegisterCubit>().registerDoctor/Patient(...)
+
+      // بعد نجاح الـ Request، هنوجه المستخدم بناءً على نوعه:
+      if (widget.userType == UserType.doctor) {
+        // التوجه لصفحة الدكتور الرئيسية (مع مسح الـ stack)
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          Routes.doctorHome,
+          (route) => false,
+        );
+      } else {
+        // التوجه لصفحة المريض الرئيسية (مع مسح الـ stack)
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          Routes.patientHome,
+          (route) => false,
+        );
+      }
     }
     final request = RegisterRequest(
       name: namecontroller.text.trim(),

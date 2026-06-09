@@ -4,9 +4,8 @@ import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
-import 'package:rafiq/features/profile/presentation/widgets/profile_editing.dart';
-
+import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/profile_editing.dart';
 class OptionsDocCard extends StatelessWidget {
   const OptionsDocCard({super.key});
 

@@ -16,7 +16,7 @@ class AuthenticationLoading extends AuthenticationState {}
 class SendResetOtpSuccess extends AuthenticationState {
   final String message;
 
-  SendResetOtpSuccess({required this.message});
+  const SendResetOtpSuccess({required this.message});
 }
 
 class AuthenticationLoaded extends AuthenticationState {
@@ -27,11 +27,11 @@ class AuthenticationLoaded extends AuthenticationState {
 class VerifyResetOtpSuccess extends AuthenticationState {
   final String message;
 
-  VerifyResetOtpSuccess({required this.message});
+  const VerifyResetOtpSuccess({required this.message});
 }
 
 class ResetPassSuccess extends AuthenticationState {
-  ResetPassSuccess({required this.message});
+  const ResetPassSuccess({required this.message});
   final String message;
 }
 

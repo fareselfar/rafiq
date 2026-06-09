@@ -1,17 +1,38 @@
-import 'package:rafiq/features/chatbot/domain/entities/message_entity.dart';
+import 'package:equatable/equatable.dart';
+import '../../domain/entities/message_entity.dart';
 
-abstract class ChatState {}
+abstract class ChatState extends Equatable {
+  const ChatState();
 
-class ChatInitial extends ChatState {}
+  @override
+  List<Object?> get props => [];
+}
 
-class ChatLoading extends ChatState {}
+class ChatInitial extends ChatState {
+  const ChatInitial();
+}
+
+class ChatStreaming extends ChatState {
+  final List<MessageEntity> messages;
+  const ChatStreaming(this.messages);
+
+  @override
+  List<Object?> get props => [messages];
+}
 
 class ChatActive extends ChatState {
   final List<MessageEntity> messages;
-  ChatActive(this.messages);
+  const ChatActive(this.messages);
+
+  @override
+  List<Object?> get props => [messages];
 }
 
 class ChatError extends ChatState {
   final String message;
-  ChatError(this.message);
+  final List<MessageEntity> messages; 
+  const ChatError({required this.message, required this.messages});
+
+  @override
+  List<Object?> get props => [message, messages];
 }

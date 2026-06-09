@@ -5,11 +5,11 @@ import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/profile/data/models/file_model.dart';
-import 'package:rafiq/features/profile/data/models/file_type.dart';
-import 'package:rafiq/features/profile/presentation/widgets/classify_files_serach.dart';
-import 'package:rafiq/features/profile/presentation/widgets/file_card.dart';
-import 'package:rafiq/features/profile/presentation/widgets/small_card.dart';
+import 'package:rafiq/features/patient_profile/data/models/file_model.dart';
+import 'package:rafiq/features/patient_profile/data/models/file_type.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/classify_files_serach.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/file_card.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/small_card.dart';
 
 class EditFiels extends StatefulWidget {
   const EditFiels({super.key});

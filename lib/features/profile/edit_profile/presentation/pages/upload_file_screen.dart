@@ -7,12 +7,11 @@ import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
-import 'package:rafiq/features/profile/presentation/widgets/dropdown_card.dart';
-
-import 'package:rafiq/features/profile/data/models/file_type.dart';
-import 'package:rafiq/features/profile/data/repositories/file_repository.dart';
-import 'package:rafiq/features/profile/presentation/widgets/file_controller.dart';
+import 'package:rafiq/features/patient_profile/data/models/file_type.dart';
+import 'package:rafiq/features/patient_profile/data/repositories/file_repository.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/dropdown_card.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/file_controller.dart';
 
 class UploadFileScreen extends StatefulWidget {
   const UploadFileScreen({super.key});

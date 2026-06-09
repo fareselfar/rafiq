@@ -5,9 +5,9 @@ import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/profile/presentation/widgets/card_widget.dart';
-import 'package:rafiq/features/profile/presentation/widgets/details_card.dart';
-import 'package:rafiq/features/profile/presentation/widgets/services_card.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/details_card.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/services_card.dart';
 import 'package:rafiq/features/profile_doc/widgets/options_doc_card.dart';
 
 class ProfileDocScreen extends StatelessWidget {

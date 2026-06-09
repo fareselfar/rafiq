@@ -9,7 +9,7 @@ import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/authentication/data/models/ResetPasswordRequest.dart';
+import 'package:rafiq/features/authentication/data/models/reset_password_request.dart';
 import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
 
 class ResetPassScreen extends StatefulWidget {

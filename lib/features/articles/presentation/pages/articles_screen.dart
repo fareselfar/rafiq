@@ -9,7 +9,7 @@ import 'package:rafiq/features/articles/data/models/articles_filter.dart';
 import 'package:rafiq/features/articles/data/models/articles_model.dart';
 import 'package:rafiq/features/articles/data/repositories/articles_repository.dart';
 import 'package:rafiq/features/articles/presentation/widgets/related_article.dart';
-import 'package:rafiq/features/profile/presentation/widgets/classify_articles_search.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/classify_articles_search.dart';
 
 class ArticlesScreen extends StatefulWidget {
   const ArticlesScreen({super.key});
@@ -75,7 +75,7 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
           children: [
             CustomSearchField(
               hint: "البحث",
-              prefixIcon: const Icon(Icons.search),
+              suffixIcon: const Icon(Icons.search),
               onChanged: search,
             ),
 

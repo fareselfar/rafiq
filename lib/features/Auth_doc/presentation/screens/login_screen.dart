@@ -14,7 +14,7 @@ import 'package:rafiq/features/authentication/presentation/widgets/custom_divide
 import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
 import 'package:rafiq/features/authentication/presentation/widgets/custom_inkwell.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rafiq/features/authentication/data/models/LoginRequest.dart';
+import 'package:rafiq/features/authentication/data/models/login_request.dart';
 
 class LoginDocScreen extends StatefulWidget {
   const LoginDocScreen({super.key});

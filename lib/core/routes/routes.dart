@@ -5,7 +5,7 @@ class Routes {
   static const String splash = '/';
   static const String userTypeScreen = '/userTypeScreen';
   static const String onbordingScreen = '/onbordingScreen';
-  static const String home = '/home';
+  static const String patientHome = '/patientHome';
   static const String getStart = '/getStart';
   static const String login = '/login';
   static const String docLogin = '/docLogin';
@@ -35,4 +35,15 @@ class Routes {
   static const String editDocClinic = '/editDocClinic';
   static const String profits = '/profits';
   static const String paymentInfo = '/paymentInfo';
+  static const String bookingsScreen = '/bookingsScreen';
+  static const String doctorDetailsScreen = '/doctorDetailsScreen';
+  static const String bookAppointmentScreen = '/bookAppointmentScreen';
+  static const String paymentScreen = '/paymentScreen';
+  static const String bookingSuccessScreen = '/bookingSuccessScreen';
+  static const String bookingDetailsScreen = '/bookingDetailsScreen';
+  static const String editAppointmentScreen = '/editAppointmentScreen';
+  // Doctor
+  static const String doctorHome = '/doctorHome';
+  static const String doctorAppointments = '/doctorAppointments';
+  static const String doctorArticles = '/doctorArticles';
 }
