@@ -16,10 +16,10 @@ import 'package:rafiq/features/home_layout/presentation/pages/home_layout_screen
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/features/profile/edit_profile/presentation/pages/edit_profile_page.dart';
-import 'package:rafiq/features/profile/presentation/pages/edit_fiels.dart';
+import 'package:rafiq/features/profile/edit_profile/presentation/pages/edit_fiels.dart';
 import 'package:rafiq/features/profile/presentation/pages/profile_page.dart';
-import 'package:rafiq/features/profile/presentation/pages/upload_file_screen.dart';
-import 'package:rafiq/features/profile/presentation/pages/change_password.dart';
+import 'package:rafiq/features/profile/edit_profile/presentation/pages/upload_file_screen.dart';
+import 'package:rafiq/features/profile/edit_profile/presentation/pages/change_password.dart';
 import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/change_doc_pass.dart';
 import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/edit_clinic.dart';
 import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/edit_doc_profile.dart';

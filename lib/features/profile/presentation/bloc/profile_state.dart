@@ -1,4 +1,5 @@
-part of 'profile_cubit.dart';
+import 'package:equatable/equatable.dart';
+import 'package:rafiq/features/profile/domain/entities/ProfileEntity.dart';
 
 abstract class ProfileState extends Equatable {
   const ProfileState();
@@ -13,7 +14,14 @@ class ProfileInitial extends ProfileState {
 
 class ProfileLoading extends ProfileState {}
 
-class ProfileLoaded extends ProfileState {}
+class ProfileLoaded extends ProfileState {
+  final ProfileEntity profile;
+
+  const ProfileLoaded(this.profile);
+
+  @override
+  List<Object> get props => [profile];
+}
 
 class ProfileError extends ProfileState {
   final String message;

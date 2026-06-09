@@ -11,6 +11,15 @@ class AppConstants {
   static const String verifyOtpEndpoint = '/Auth/verify-reset-otp';
   static const String sendResetOtpEndpoint = '/Auth/send-reset-otp';
   static const String resetPasswordEndpoint = "/Auth/reset-password";
+  static const String getProfileEndpoint = '/Appointments/info';
+  static const String updateProfileEndpoint = '/Profile/update-profile';
+  static const String uploadFileEndpoint = '/Profile/upload-file';
+  static const String changePasswordEndpoint = '/Profile/change-password';
+  static const String getSpecializationsEndpoint = '/Specializations/get-all';
+  static const String getArticlesEndpoint = '/Articles/get-all';
+  static const String getArticleByIdEndpoint = '/Articles/get-by-id';
+  static const String getAppointmentsEndpoint = '/Appointments/get-all';
+  static const String getAppointmentByIdEndpoint = '';
   static const String apiVersion = 'v1';
   static const Duration connectionTimeout = Duration(seconds: 30);
   static const Duration receiveTimeout = Duration(seconds: 30);

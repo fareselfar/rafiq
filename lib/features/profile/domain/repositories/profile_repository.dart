@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/errors/failure.dart';
-import '../entities/profile_entity.dart';
+import 'package:rafiq/core/errors/failuree.dart';
+import 'package:rafiq/features/profile/domain/entities/ProfileEntity.dart';
 
 abstract class ProfileRepository {
-  Future<Either<Failure, List<ProfileEntity>>> getProfiles();
-  Future<Either<Failure, ProfileEntity>> getProfileById(String id);
+  Future<Either<Failures, ProfileEntity>> getProfile();
+  // Future<Either<Failure, ProfileEntity>> getProfileById(String id);
 }

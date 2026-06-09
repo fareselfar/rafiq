@@ -11,6 +11,10 @@ import 'package:rafiq/features/authentication/domain/usecases/reset_pass_usecase
 import 'package:rafiq/features/authentication/domain/usecases/send_otp_usecase.dart';
 import 'package:rafiq/features/authentication/domain/usecases/verify_otp_usecase.dart';
 import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
+import 'package:rafiq/features/profile/data/datasources/profile_remote_api_data_source.dart';
+import 'package:rafiq/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:rafiq/features/profile/domain/usecases/profile_usecase.dart';
+import 'package:rafiq/features/profile/presentation/bloc/profile_cubit.dart';
 import 'core/routes/app_router.dart';
 import 'core/routes/routes.dart';
 import 'core/theme/app_theme.dart';
@@ -41,40 +45,53 @@ void main() async {
       path: LocalizationManager.translationsPath,
       fallbackLocale: LocalizationManager.fallbackLocale,
       startLocale: LocalizationManager.fallbackLocale,
-      child: BlocProvider(
-        create: (context) => AuthenticationCubit(
-          verifyResetOtpUseCase: VerifyResetOtpUseCase(
-            AuthRepoImpl(
-              authRemoteDataSource: AuthApiRemoteDataSource(),
-              authLocalDataSource: AuthSharedPrefs(),
-            ),
-          ),
-          sendOtpUsecase: SendResetOtpUseCase(
-            AuthRepoImpl(
-              authRemoteDataSource: AuthApiRemoteDataSource(),
-              authLocalDataSource: AuthSharedPrefs(),
-            ),
-          ),
-          registerUsecase: RegisterUsecase(
-            authenticationRepository: AuthRepoImpl(
-              authRemoteDataSource: AuthApiRemoteDataSource(),
-              authLocalDataSource: AuthSharedPrefs(),
-            ),
-          ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthenticationCubit(
+              verifyResetOtpUseCase: VerifyResetOtpUseCase(
+                AuthRepoImpl(
+                  authRemoteDataSource: AuthApiRemoteDataSource(),
+                  authLocalDataSource: AuthSharedPrefs(),
+                ),
+              ),
+              sendOtpUsecase: SendResetOtpUseCase(
+                AuthRepoImpl(
+                  authRemoteDataSource: AuthApiRemoteDataSource(),
+                  authLocalDataSource: AuthSharedPrefs(),
+                ),
+              ),
+              registerUsecase: RegisterUsecase(
+                authenticationRepository: AuthRepoImpl(
+                  authRemoteDataSource: AuthApiRemoteDataSource(),
+                  authLocalDataSource: AuthSharedPrefs(),
+                ),
+              ),
 
-          loginUsecase: LoginUsecase(
-            authenticationRepository: AuthRepoImpl(
-              authRemoteDataSource: AuthApiRemoteDataSource(),
-              authLocalDataSource: AuthSharedPrefs(),
+              loginUsecase: LoginUsecase(
+                authenticationRepository: AuthRepoImpl(
+                  authRemoteDataSource: AuthApiRemoteDataSource(),
+                  authLocalDataSource: AuthSharedPrefs(),
+                ),
+              ),
+              resetPassUsecase: ResetPassUsecase(
+                AuthRepoImpl(
+                  authRemoteDataSource: AuthApiRemoteDataSource(),
+                  authLocalDataSource: AuthSharedPrefs(),
+                ),
+              ),
             ),
           ),
-          resetPassUsecase: ResetPassUsecase(
-            AuthRepoImpl(
-              authRemoteDataSource: AuthApiRemoteDataSource(),
-              authLocalDataSource: AuthSharedPrefs(),
+          BlocProvider(
+            create: (context) => ProfileCubit(
+              getProfileUsecase: GetProfileUsecase(
+                repository: ProfileRepositoryImpl(
+                  remoteDataSource: ProfileRemoteApiDataSource(),
+                ),
+              ),
             ),
           ),
-        ),
+        ],
         child: const Rafiq(),
       ),
     ),
