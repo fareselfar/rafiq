@@ -153,4 +153,34 @@ class Validators {
       return null;
     };
   }
+
+  static String? validateCoupon(String value) {
+    if (value.isEmpty) return "ادخل الكود";
+
+    if (value.length > 8) {
+      return "الحد الأقصى 8 خانات";
+    }
+
+    final regex = RegExp(r'^[A-Za-z0-9]+$');
+
+    if (!regex.hasMatch(value)) {
+      return "حروف إنجليزية وأرقام فقط";
+    }
+
+    return null;
+  }
+
+  static String? validateUsers(String value) {
+    if (value.isEmpty) return "ادخل العدد";
+
+    if (int.tryParse(value) == null) {
+      return "رقم صحيح فقط";
+    }
+
+    if (int.parse(value) <= 0) {
+      return "لازم أكبر من صفر";
+    }
+
+    return null;
+  }
 }
