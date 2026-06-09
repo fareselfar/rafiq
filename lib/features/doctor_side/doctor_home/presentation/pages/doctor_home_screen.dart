@@ -30,7 +30,8 @@ class DoctorHomeScreen extends StatelessWidget {
       create: (_) {
         final datasource = DoctorHomeRemoteDataSourceMock();
         final repository = DoctorHomeRepositoryImpl(
-          remoteDataSource: datasource, networkInfo: Object(),
+          remoteDataSource: datasource,
+          networkInfo: Object(),
         );
         final usecase = GetDoctorHomeDataUsecase(repository);
         return DoctorHomeCubit(getDoctorHomeData: usecase)..loadData();
@@ -154,9 +155,7 @@ class _HomeLoadingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: true,
-      child: _HomeContentView(
-        data: DoctorHomeDummyData.loading(),
-      ),
+      child: _HomeContentView(data: DoctorHomeDummyData.loading()),
     );
   }
 }

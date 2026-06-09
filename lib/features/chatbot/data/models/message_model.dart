@@ -1,7 +1,5 @@
 import 'package:rafiq/features/chatbot/domain/entities/message_entity.dart';
 
-enum MessageSender { user, bot }
-
 class MessageModel extends MessageEntity {
   const MessageModel({
     required super.text,
@@ -11,9 +9,19 @@ class MessageModel extends MessageEntity {
 
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
-      text: json['text'] ?? '',
+      text: json['messageText'] ?? json['text'] ?? '', 
       sender: json['sender'] ?? 'bot',
-      time: DateTime.now(),
+      time: json['createdAt'] != null 
+          ? DateTime.parse(json['createdAt']) 
+          : DateTime.now(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'sender': sender,
+      'messageText': text,
+      'createdAt': time.toIso8601String(),
+    };
   }
 }

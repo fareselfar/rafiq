@@ -6,7 +6,6 @@ import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 
-
 class DoctorHomeTopBar extends StatelessWidget {
   final String doctorName;
   final VoidCallback? onNotificationTap;
@@ -26,10 +25,7 @@ class DoctorHomeTopBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          DoctorNameAvatarRow(
-            doctorName: doctorName,
-            onAvatarTap: onAvatarTap,
-          ),
+          DoctorNameAvatarRow(doctorName: doctorName, onAvatarTap: onAvatarTap),
           DoctorNotificationBell(onTap: onNotificationTap),
         ],
       ),

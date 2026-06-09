@@ -12,11 +12,7 @@ class DoctorSectionHeader extends StatelessWidget {
   final String title;
   final Widget? trailing;
 
-  const DoctorSectionHeader({
-    super.key,
-    required this.title,
-    this.trailing,
-  });
+  const DoctorSectionHeader({super.key, required this.title, this.trailing});
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +35,7 @@ class SectionTitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: AppTypography.profileServicesStyle,
-    );
+    return Text(title, style: AppTypography.profileServicesStyle);
   }
 }
 

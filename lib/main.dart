@@ -50,7 +50,7 @@ class Rafiq extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
 
-          initialRoute: Routes.doctorHome,
+          initialRoute: Routes.patientHome,
           themeMode: ThemeMode.light,
 
           onGenerateRoute: AppRouter.generateRoute,

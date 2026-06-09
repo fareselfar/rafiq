@@ -1,4 +1,3 @@
-
 import 'package:rafiq/features/doctor_side/doctor_home/domain/entities/doctor_article_entity.dart';
 
 class DoctorArticleModel extends DoctorArticleEntity {

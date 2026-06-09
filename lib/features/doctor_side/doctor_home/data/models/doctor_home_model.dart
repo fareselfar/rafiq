@@ -7,8 +7,6 @@ import 'package:rafiq/features/doctor_side/doctor_home/domain/entities/doctor_ar
 
 import '../../domain/entities/doctor_home_entity.dart';
 
-
-
 class DoctorArticleModel extends DoctorArticleEntity {
   const DoctorArticleModel({
     required super.id,

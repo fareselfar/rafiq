@@ -7,7 +7,6 @@ import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/extensions.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/domain/entities/doctor_article_entity.dart';
-import '../../domain/entities/doctor_home_entity.dart';
 
 /// Full-width article card.
 /// No textDirection overrides — RTL app handles all alignment.
@@ -16,11 +15,7 @@ class FeaturedArticleCard extends StatelessWidget {
   final DoctorArticleEntity article;
   final VoidCallback? onTap;
 
-  const FeaturedArticleCard({
-    super.key,
-    required this.article,
-    this.onTap,
-  });
+  const FeaturedArticleCard({super.key, required this.article, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +90,11 @@ class _ArticleImageFallback extends StatelessWidget {
     return Container(
       color: AppColors.lightBlue,
       child: Center(
-        child: Icon(Icons.article_outlined, color: AppColors.primary, size: 40.sp),
+        child: Icon(
+          Icons.article_outlined,
+          color: AppColors.primary,
+          size: 40.sp,
+        ),
       ),
     );
   }
@@ -208,7 +207,11 @@ class _TimeElapsedLabel extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.access_time_rounded, size: 14.sp, color: AppColors.textSecondary),
+        Icon(
+          Icons.access_time_rounded,
+          size: 14.sp,
+          color: AppColors.textSecondary,
+        ),
         const WidthSpace(4),
         Text(
           text,
@@ -233,7 +236,11 @@ class _ViewsCountLabel extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.remove_red_eye_outlined, size: 14.sp, color: AppColors.primary),
+        Icon(
+          Icons.remove_red_eye_outlined,
+          size: 14.sp,
+          color: AppColors.primary,
+        ),
         const WidthSpace(4),
         Text(
           count.toKFormat(),
@@ -246,5 +253,4 @@ class _ViewsCountLabel extends StatelessWidget {
       ],
     );
   }
-
 }
