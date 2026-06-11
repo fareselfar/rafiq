@@ -13,8 +13,10 @@ import 'package:rafiq/features/authentication/domain/usecases/verify_otp_usecase
 import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
 import 'package:rafiq/features/patient_profile/data/datasources/profile_remote_api_data_source.dart';
 import 'package:rafiq/features/patient_profile/data/repositories/profile_repository_impl.dart';
+import 'package:rafiq/features/patient_profile/domain/usecases/change_pass_usecase.dart';
+import 'package:rafiq/features/patient_profile/domain/usecases/profile_usecase.dart';
 import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
-import 'package:rafiq/features/profile/domain/usecases/profile_usecase.dart';
+
 import 'core/routes/app_router.dart';
 import 'core/routes/routes.dart';
 import 'core/theme/app_theme.dart';
@@ -83,6 +85,11 @@ void main() async {
           ),
           BlocProvider(
             create: (context) => ProfileCubit(
+              changePassUseCase: ChangePassUseCase(
+                repository: ProfileRepositoryImpl(
+                  remoteDataSource: ProfileRemoteApiDataSource(),
+                ),
+              ),
               getProfileUsecase: GetProfileUsecase(
                 repository: ProfileRepositoryImpl(
                   remoteDataSource: ProfileRemoteApiDataSource(),

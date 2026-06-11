@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rafiq/features/Auth_doc/presentation/screens/login_screen.dart';
-import 'package:rafiq/features/Auth_doc/presentation/screens/register_screen.dart';
+
 import 'package:rafiq/features/articles/presentation/pages/articles_screen.dart';
 import 'package:rafiq/features/authentication/data/models/reset_pass_arrgs.dart';
 import 'package:rafiq/features/authentication/presentation/screens/forget_password_screen.dart';
@@ -8,7 +7,17 @@ import 'package:rafiq/features/authentication/presentation/screens/get_start.dar
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/reset_pass_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
+import 'package:rafiq/features/doctor_side/Auth_doc/presentation/screens/login_screen.dart';
+import 'package:rafiq/features/doctor_side/Auth_doc/presentation/screens/register_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home_layout/presentation/pages/doctor_home_layout_page.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/change_doc_pass.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/edit_clinic.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/edit_doc_profile.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/profits.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
+import 'package:rafiq/features/edit_profile/presentation/pages/edit_fiels.dart';
+import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
+import 'package:rafiq/features/edit_profile/presentation/pages/upload_file_screen.dart';
 import 'package:rafiq/features/patient_bookings/data/models/payment_arguments.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/book_appointment_screen.dart';
@@ -27,14 +36,7 @@ import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/features/patient_profile/presentation/pages/change_password.dart';
 import 'package:rafiq/features/patient_profile/presentation/pages/profile_page.dart';
-import 'package:rafiq/features/profile/edit_profile/presentation/pages/edit_fiels.dart';
-import 'package:rafiq/features/profile/edit_profile/presentation/pages/edit_profile_page.dart';
-import 'package:rafiq/features/profile/edit_profile/presentation/pages/upload_file_screen.dart';
-import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/change_doc_pass.dart';
-import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/edit_clinic.dart';
-import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/edit_doc_profile.dart';
-import 'package:rafiq/features/profile_doc/edit_profile_doc/presentation/screens/profits.dart';
-import 'package:rafiq/features/profile_doc/presentation/screens/profile_doc_screen.dart';
+
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
@@ -96,7 +98,7 @@ class AppRouter {
       case Routes.bookAppointmentScreen:
         final booking = settings.arguments as BookingEntity;
         return _buildRoute(BookAppointmentScreen(booking: booking), settings);
-        
+
       case Routes.paymentScreen:
         final args = settings.arguments as PaymentArguments;
         return _buildRoute(
@@ -107,7 +109,7 @@ class AppRouter {
           ),
           settings,
         );
-        
+
       case Routes.bookingSuccessScreen:
         final args = settings.arguments as PaymentArguments;
         return _buildRoute(
