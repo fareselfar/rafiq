@@ -8,7 +8,7 @@ import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/patient_side/patient_profile/presentation/widgets/card_widget.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/widgets/special_container.dart';
 
 class PaymentScreen extends StatefulWidget {

@@ -9,9 +9,9 @@ import 'package:rafiq/core/utils/ui_utils.dart';
 import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/core/widgets/widgets.dart';
-import 'package:rafiq/features/patient_side/authentication/data/models/register_request.dart';
-import 'package:rafiq/features/patient_side/authentication/presentation/bloc/authentication_cubit.dart';
-import 'package:rafiq/features/patient_side/authentication/presentation/widgets/custom_footer_text.dart';
+import 'package:rafiq/features/authentication/data/models/register_request.dart';
+import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
+import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
 
 class RegisterDocScreen extends StatefulWidget {
   const RegisterDocScreen({super.key, required this.userType});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/features/articles/data/models/articles_model.dart';
-import 'package:rafiq/features/patient_side/patient_profile/presentation/widgets/card_widget.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
 
 class YourCustomFavoriteCard extends StatelessWidget {
   final ArticlesModel article;

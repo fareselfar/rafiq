@@ -9,12 +9,12 @@ import 'package:rafiq/core/utils/validators.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/patient_side/authentication/presentation/bloc/authentication_cubit.dart';
-import 'package:rafiq/features/patient_side/authentication/presentation/widgets/custom_divider.dart';
-import 'package:rafiq/features/patient_side/authentication/presentation/widgets/custom_footer_text.dart';
-import 'package:rafiq/features/patient_side/authentication/presentation/widgets/custom_inkwell.dart';
+import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
+import 'package:rafiq/features/authentication/presentation/widgets/custom_divider.dart';
+import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
+import 'package:rafiq/features/authentication/presentation/widgets/custom_inkwell.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rafiq/features/patient_side/authentication/data/models/login_request.dart';
+import 'package:rafiq/features/authentication/data/models/login_request.dart';
 
 class LoginDocScreen extends StatefulWidget {
   const LoginDocScreen({super.key});

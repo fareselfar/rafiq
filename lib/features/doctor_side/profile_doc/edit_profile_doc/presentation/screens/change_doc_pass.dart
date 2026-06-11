@@ -8,8 +8,8 @@ import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/patient_side/authentication/presentation/widgets/custom_inkwell.dart';
-import 'package:rafiq/features/patient_side/patient_profile/presentation/widgets/card_widget.dart';
+import 'package:rafiq/features/authentication/presentation/widgets/custom_inkwell.dart';
+import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
 
 class ChangeDocPassword extends StatefulWidget {
   const ChangeDocPassword({super.key});
