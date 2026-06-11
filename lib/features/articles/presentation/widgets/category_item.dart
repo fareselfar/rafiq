@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rafiq/features/articles/data/models/articles_model.dart';
-import 'package:rafiq/features/patient_profile/presentation/widgets/small_card.dart';
+import 'package:rafiq/features/patient_side/patient_profile/presentation/widgets/small_card.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({

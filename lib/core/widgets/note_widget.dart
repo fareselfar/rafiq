@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
+import 'package:rafiq/features/patient_side/patient_profile/presentation/widgets/card_widget.dart';
 
 class NoteWidget extends StatelessWidget {
   const NoteWidget({super.key});

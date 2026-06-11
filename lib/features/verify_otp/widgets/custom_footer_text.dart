@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
-import 'package:rafiq/features/authentication/presentation/widgets/custom_inkwell.dart';
+import 'package:rafiq/features/patient_side/authentication/presentation/widgets/custom_inkwell.dart';
 
 class CustomFooterText extends StatelessWidget {
   final void Function()? onTap;

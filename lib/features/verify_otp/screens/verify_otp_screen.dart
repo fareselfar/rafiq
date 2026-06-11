@@ -9,10 +9,9 @@ import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/ui_utils.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/authentication/data/models/verify_otp_request.dart';
-import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
-import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
-
+import 'package:rafiq/features/patient_side/authentication/data/models/verify_otp_request.dart';
+import 'package:rafiq/features/patient_side/authentication/presentation/bloc/authentication_cubit.dart';
+import 'package:rafiq/features/patient_side/authentication/presentation/widgets/custom_footer_text.dart';
 
 class OtpScreen extends StatefulWidget {
   final String email;

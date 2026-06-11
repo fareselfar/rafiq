@@ -8,7 +8,7 @@ import 'package:rafiq/features/articles/presentation/bloc/articles_cubit.dart';
 import 'package:rafiq/features/articles/presentation/bloc/articles_state.dart';
 import 'package:rafiq/features/articles/presentation/widgets/category_item.dart';
 import 'package:rafiq/features/articles/presentation/widgets/related_article.dart';
-import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
+import 'package:rafiq/features/patient_side/patient_profile/presentation/widgets/card_widget.dart';
 
 class ArticleDetailsScreen extends StatefulWidget {
   final int articleId;
