@@ -19,6 +19,8 @@ class AppConstants {
   static const String getArticlesEndpoint = '/Articles/get-all';
   static const String getArticleByIdEndpoint = '/Articles/get-by-id';
   static const String getAppointmentsEndpoint = '/Appointments/get-all';
+  static const String changePassEndpoint = '/Appointments/change-password';
+
   static const String getAppointmentByIdEndpoint = '';
   //static const String baseUrl = 'http://rafiqapp.runasp.net';
   static const String aiSocketUrl =

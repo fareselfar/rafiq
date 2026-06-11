@@ -23,6 +23,14 @@ class ProfileLoaded extends ProfileState {
   List<Object> get props => [profile];
 }
 
+class PasswordChanged extends ProfileState {
+  final String message;
+  const PasswordChanged({required this.message});
+
+  //@override
+  //List<Object> get props => [profile];
+}
+
 class ProfileError extends ProfileState {
   final String message;
   const ProfileError(this.message);
