@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rafiq/core/di/injection_container.dart' as di;
 import 'package:rafiq/features/authentication/data/datasources/local/auth_shared_prefs.dart';
 import 'package:rafiq/features/authentication/data/datasources/remote/auth_api_remote_data_source.dart';
 import 'package:rafiq/features/authentication/data/repositories/auth_repository_impl.dart';
@@ -35,8 +36,7 @@ void main() async {
     ),
   );
 
-  // Initialize dependency injection
-  // await di.init();
+  await di.init();
 
   runApp(
     EasyLocalization(
@@ -112,7 +112,7 @@ class Rafiq extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
 
-          initialRoute: Routes.userTypeScreen,
+          initialRoute: Routes.doctorHome,
           themeMode: ThemeMode.light,
 
           onGenerateRoute: AppRouter.generateRoute,
