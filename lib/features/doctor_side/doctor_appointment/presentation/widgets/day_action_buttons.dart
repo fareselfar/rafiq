@@ -2,13 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/theme/app_colors.dart';
+import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/doctor_side/doctor_appointment/presentation/widgets/cancel_day_button.dart';
-import './doctor_appointments_calendar_picker.dart'; // تأكد من صحة مسار الاستيراد هنا بحسب مشروعك
+import './doctor_appointments_calendar_picker.dart';
 
 class DayActionButtons extends StatelessWidget {
-  final DateTime selectedDate;                 
-  final ValueChanged<DateTime> onDateSelected;  
+  final DateTime selectedDate;
+  final ValueChanged<DateTime> onDateSelected;
   final VoidCallback? onCancelFullDay;
   final bool isCancelLoading;
 
@@ -27,13 +28,23 @@ class DayActionButtons extends StatelessWidget {
       child: Column(
         children: [
           DoctorAppointmentsCalendarPicker(
-            selectedDate: selectedDate, 
-            onDateSelected: onDateSelected, 
+            selectedDate: selectedDate,
+            onDateSelected: onDateSelected,
           ),
           const HeightSpace(10),
-          CancelDayButton(
+          CustomButton(
+            text: 'إلغاء يوم كامل',
             onPressed: onCancelFullDay,
+            type: ButtonType.outlined,
             isLoading: isCancelLoading,
+            width: double.infinity,
+            borderColor: AppColors.error,
+            borderRadius: 10,
+            textStyle: TextStyle(
+              color: AppColors.error,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),

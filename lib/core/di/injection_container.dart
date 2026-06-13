@@ -1,52 +1,118 @@
-// import 'package:dio/dio.dart';
-// import 'package:get_it/get_it.dart';
-// import 'package:internet_connection_checker/internet_connection_checker.dart';
-// import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-// import '../network/network_info.dart';
-// import '../api/api_interceptors.dart';
-// import '../config/app_config.dart';
+// lib/core/di/injection_container.dart
 
-// final sl = GetIt.instance;
+import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:rafiq/core/utils/constants.dart';
+import 'package:rafiq/features/doctor_side/doctor_appointment/data/datasources/doctor_appointments_datasource.dart';
+import 'package:rafiq/features/doctor_side/doctor_appointment/data/repositories/doctor_appointment_repository_impl.dart';
+import 'package:rafiq/features/doctor_side/doctor_appointment/domain/repositories/doctor_appointments_repository.dart';
+import 'package:rafiq/features/doctor_side/doctor_appointment/domain/usecases/doctor_appointments_usecases.dart';
+import 'package:rafiq/features/doctor_side/doctor_appointment/presentation/bloc/doctor_appointments_cubit.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/data/datasources/doctor_article_remote_datasource.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/data/repositories/doctor_article_repository_impl.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/domain/repositories/doctor_article_repository.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/domain/usecases/add_article_usecase.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/domain/usecases/delete_article_usecase.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/domain/usecases/get_my_articles_usecase.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_cubit.dart';
+import '../network/network_info.dart';
+import '../api/api_interceptors.dart';
 
-// /// Initialize Dependency Injection
-// Future<void> init() async {
-//   //! Core
-//   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+// ── Doctor Home ──
+import 'package:rafiq/features/doctor_side/doctor_home/data/datasources/doctor_home_remote_datasource.dart';
+import 'package:rafiq/features/doctor_side/doctor_home/data/repositories/doctor_home_repository_impl.dart';
+import 'package:rafiq/features/doctor_side/doctor_home/domain/repositories/doctor_home_repository.dart';
+import 'package:rafiq/features/doctor_side/doctor_home/domain/usecases/get_doctor_home_data_usecase.dart';
+import 'package:rafiq/features/doctor_side/doctor_home/presentation/bloc/doctor_home_cubit.dart';
 
-//   //! External
-//   sl.registerLazySingleton(() => InternetConnectionChecker.createInstance());
+final sl = GetIt.instance;
 
-//   sl.registerLazySingleton(() {
-//     final dio = Dio(
-//       BaseOptions(
-//         baseUrl: AppConfig.baseUrl,
-//         connectTimeout: const Duration(seconds: 30),
-//         receiveTimeout: const Duration(seconds: 30),
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Accept': 'application/json',
-//         },
-//       ),
-//     );
+Future<void> init() async {
+  // ── External ──────────────────────────────────────────────
+  sl.registerLazySingleton(() => InternetConnectionChecker.createInstance());
 
-//     dio.interceptors.add(ApiInterceptor());
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
-//     // Add pretty logger in debug mode
-//     if (AppConfig.enableLogging) {
-//       dio.interceptors.add(
-//         PrettyDioLogger(
-//           requestHeader: true,
-//           requestBody: true,
-//           responseHeader: true,
-//         ),
-//       );
-//     }
+  sl.registerLazySingleton<Dio>(() {
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: AppConstants.baseUrl,
+        connectTimeout: AppConstants.connectionTimeout,
+        receiveTimeout: AppConstants.receiveTimeout,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
 
-//     return dio;
-//   });
+    // الترتيب مهم: Token الأول ثم Logger
+    dio.interceptors.add(TokenInterceptor());
+    dio.interceptors.add(ApiInterceptor());
 
-//   // Register your dependencies here
-//   // Example:
-//   // sl.registerFactory(() => LoginUseCase(sl()));
-//   // sl.registerFactory(() => AuthRepository(sl()));
-// }
+    return dio;
+  });
+
+  // ── Doctor Home ───────────────────────────────────────────
+  sl.registerFactory<DoctorHomeRemoteDataSource>(
+    () => DoctorHomeRemoteDataSourceImpl(dio: sl()),
+  );
+
+  sl.registerFactory<DoctorHomeRepository>(
+    () => DoctorHomeRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  sl.registerFactory(() => GetDoctorHomeDataUsecase(sl()));
+
+  sl.registerFactory(() => DoctorHomeCubit(getDoctorHomeData: sl()));
+
+  // ── Doctor Appointments ───────────────────────────────────────
+  sl.registerFactory<DoctorAppointmentsDatasource>(
+    () => DoctorAppointmentsRemoteDatasource(dio: sl()),
+  );
+
+  sl.registerFactory<DoctorAppointmentsRepository>(
+    () => DoctorAppointmentsRepositoryImpl(sl()),
+  );
+
+  sl.registerFactory(() => GetWeeklyScheduleUsecase(sl()));
+  sl.registerFactory(() => CancelFullDayUsecase(sl()));
+  sl.registerFactory(() => EditSlotUsecase(sl()));
+  sl.registerFactory(() => CancelSlotUsecase(sl()));
+  sl.registerFactory(() => AddAvailabilityUsecase(sl()));
+
+  sl.registerFactory(
+    () => DoctorAppointmentsCubit(
+      getWeeklySchedule: sl(),
+      cancelFullDay: sl(),
+      editSlot: sl(),
+      cancelSlot: sl(),
+      addAvailability: sl(),
+      doctorId: '',
+    ),
+  );
+
+  
+  
+  // ── Doctor Articles ───────────────────────────────────────
+  sl.registerFactory<DoctorArticleRemoteDatasource>(
+    () => DoctorArticleRemoteDatasourceImpl(sl()),
+  );
+
+  sl.registerFactory<DoctorArticleRepository>(
+    () => DoctorArticleRepositoryImpl(sl()),
+  );
+
+  sl.registerFactory(() => GetMyArticlesUseCase(sl()));
+  sl.registerFactory(() => AddArticleUseCase(sl()));
+  sl.registerFactory(() => DeleteArticleUseCase(sl()));
+
+  sl.registerFactory(
+    () => DoctorArticlesCubit(
+      getMyArticles: sl(),
+      addArticle: sl(),
+      deleteArticle: sl(),
+    ),
+  );
+}

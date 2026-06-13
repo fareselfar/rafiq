@@ -1,6 +1,7 @@
 // lib/features/doctor_side/doctor_appointments/domain/usecases/doctor_appointments_usecases.dart
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:rafiq/core/errors/failure.dart';
 import '../entities/doctor_appointments_entity.dart';
 import '../repositories/doctor_appointments_repository.dart';
@@ -12,11 +13,7 @@ class GetWeeklyScheduleUsecase {
   Future<Either<Failure, WeeklyScheduleEntity>> call({
     required String doctorId,
     required DateTime weekStart,
-  }) =>
-      repository.getWeeklySchedule(
-        doctorId: doctorId,
-        weekStart: weekStart,
-      );
+  }) => repository.getWeeklySchedule(doctorId: doctorId, weekStart: weekStart);
 }
 
 class CancelFullDayUsecase {
@@ -26,8 +23,7 @@ class CancelFullDayUsecase {
   Future<Either<Failure, void>> call({
     required String doctorId,
     required DateTime day,
-  }) =>
-      repository.cancelFullDay(doctorId: doctorId, day: day);
+  }) => repository.cancelFullDay(doctorId: doctorId, day: day);
 }
 
 class EditSlotUsecase {
@@ -38,8 +34,7 @@ class EditSlotUsecase {
     required String slotId,
     required DateTime newDateTime,
     required int newDurationMinutes,
-  }) =>
-      repository.editSlot(
+  }) => repository.editSlot(
         slotId: slotId,
         newDateTime: newDateTime,
         newDurationMinutes: newDurationMinutes,
@@ -52,4 +47,15 @@ class CancelSlotUsecase {
 
   Future<Either<Failure, void>> call({required String slotId}) =>
       repository.cancelSlot(slotId: slotId);
+}
+
+class AddAvailabilityUsecase {
+  final DoctorAppointmentsRepository repository;
+  AddAvailabilityUsecase(this.repository);
+
+  Future<Either<Failure, void>> call({
+    required DateTime date,
+    required TimeOfDay from,
+    required TimeOfDay to,
+  }) => repository.addAvailability(date: date, from: from, to: to);
 }
