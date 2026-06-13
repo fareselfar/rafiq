@@ -1,151 +1,135 @@
-// lib/features/doctor_side/doctor_appointments/data/datasources/doctor_appointments_datasource.dart
+// lib/features/doctor_side/doctor_appointments/data/datasources/doctor_appointments_remote_datasource.dart
 
-import '../models/appointment_slot_model.dart';
-import '../../domain/entities/doctor_appointments_entity.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:rafiq/core/errors/exceptions.dart';
+import '../models/add_availability_request_model.dart';
+import '../models/weekly_schedule_model.dart';
 
 abstract class DoctorAppointmentsDatasource {
-  Future<WeeklyScheduleModel> getWeeklySchedule({
-    required String doctorId,
-    required DateTime weekStart,
-  });
-  Future<void> cancelFullDay({required String doctorId, required DateTime day});
-  Future<AppointmentSlotModel> editSlot({
-    required String slotId,
-    required DateTime newDateTime,
-    required int newDurationMinutes,
-  });
+  Future<WeeklyScheduleModel> getWeeklySchedule({required DateTime weekStart});
+  Future<void> cancelFullDay({required DateTime day});
   Future<void> cancelSlot({required String slotId});
+  Future<void> editSlot({required String slotId, required String newFromTime});
+  Future<void> addAvailability({
+    required DateTime date,
+    required TimeOfDay from,
+    required TimeOfDay to,
+  });
 }
 
-class DoctorAppointmentsMockDatasource implements DoctorAppointmentsDatasource {
+class DoctorAppointmentsRemoteDatasource implements DoctorAppointmentsDatasource {
+  final Dio dio;
+
+  DoctorAppointmentsRemoteDatasource({required this.dio});
+
   @override
-  Future<WeeklyScheduleModel> getWeeklySchedule({
-    required String doctorId,
-    required DateTime weekStart,
-  }) async {
-    await Future.delayed(const Duration(milliseconds: 600));
+  Future<WeeklyScheduleModel> getWeeklySchedule({required DateTime weekStart}) async {
+    try {
+      final allSlots = <dynamic>[];
+      final allAppointments = <dynamic>[];
 
-    // Build Mon–Fri slots for the requested week
-    final slotsByDay = <DateTime, List<AppointmentSlotEntity>>{};
+      for (int i = 0; i < 7; i++) {
+        final day = weekStart.add(Duration(days: i));
+        final dateStr =
+            '${day.year}-${day.month.toString().padLeft(2, '0')}-${day.day.toString().padLeft(2, '0')}';
 
-    for (int dayOffset = 0; dayOffset < 5; dayOffset++) {
-      final day = weekStart.add(Duration(days: dayOffset));
-      slotsByDay[day] = _buildDaySlots(day);
+        final res = await dio.get(
+          '/Availability',
+          queryParameters: {'date': dateStr},
+        );
+
+        if (res.statusCode == 200 && res.data is List) {
+          allSlots.addAll(res.data as List);
+        }
+      }
+
+      final apptRes = await dio.get('/Appointments/my-appointments');
+      if (apptRes.statusCode == 200 && apptRes.data is List) {
+        allAppointments.addAll(apptRes.data as List);
+      }
+
+      return WeeklyScheduleModel.fromAvailabilityList(
+        allSlots,
+        allAppointments,
+        weekStart,
+      );
+    } on DioException catch (e) {
+      _handleError(e);
     }
-
-    return WeeklyScheduleModel(
-      weekStart: weekStart,
-      slotsByDay: slotsByDay,
-    );
   }
 
-  List<AppointmentSlotEntity> _buildDaySlots(DateTime day) {
-    // Monday 13 Jan matches the design exactly
-    final isFeatureDay = day.weekday == DateTime.monday;
-
-    if (isFeatureDay) {
-      return [
-        AppointmentSlotModel(
-          id: 'slot_${day.day}_1',
-          dateTime: DateTime(day.year, day.month, day.day, 9, 0),
-          durationMinutes: 30,
-          status: DoctorAppointmentStatus.pending,
-          visitType: 'كشف',
-          isBooked: true,
-          patientName: 'على محمد',
-          patientAvatarUrl: '',
-        ),
-        AppointmentSlotModel(
-          id: 'slot_${day.day}_2',
-          dateTime: DateTime(day.year, day.month, day.day, 9, 30),
-          durationMinutes: 30,
-          status: DoctorAppointmentStatus.pending,
-          visitType: 'كشف',
-          isBooked: true,
-          patientName: 'أحمد محدث',
-          patientAvatarUrl: '',
-        ),
-        AppointmentSlotModel(
-          id: 'slot_${day.day}_3',
-          dateTime: DateTime(day.year, day.month, day.day, 10, 0),
-          durationMinutes: 30,
-          status: DoctorAppointmentStatus.cancelled,
-          visitType: 'وقت السراحة',
-          isBooked: false,
-          patientName: null,
-        ),
-        AppointmentSlotModel(
-          id: 'slot_${day.day}_4',
-          dateTime: DateTime(day.year, day.month, day.day, 10, 30),
-          durationMinutes: 30,
-          status: DoctorAppointmentStatus.confirmed,
-          visitType: 'متابعة',
-          isBooked: false,
-          patientName: null,
-        ),
-        AppointmentSlotModel(
-          id: 'slot_${day.day}_5',
-          dateTime: DateTime(day.year, day.month, day.day, 11, 0),
-          durationMinutes: 30,
-          status: DoctorAppointmentStatus.confirmed,
-          visitType: 'كشف',
-          isBooked: false,
-          patientName: null,
-        ),
-      ];
+  // ← الميثود الصح هنا مش فيها remoteDataSource
+  @override
+  Future<void> addAvailability({
+    required DateTime date,
+    required TimeOfDay from,
+    required TimeOfDay to,
+  }) async {
+    try {
+      final request = AddAvailabilityRequestModel.fromDateTime(
+        date: date,
+        from: from,
+        to: to,
+      );
+      await dio.post('/Availability', data: request.toJson());
+    } on DioException catch (e) {
+      _handleError(e);
     }
-
-    // Generic day — mix of booked + free
-    return [
-      AppointmentSlotModel(
-        id: 'slot_${day.day}_1',
-        dateTime: DateTime(day.year, day.month, day.day, 9, 0),
-        durationMinutes: 30,
-        status: DoctorAppointmentStatus.confirmed,
-        visitType: 'كشف',
-        isBooked: true,
-        patientName: 'مريم سالم',
-        patientAvatarUrl: '',
-      ),
-      AppointmentSlotModel(
-        id: 'slot_${day.day}_2',
-        dateTime: DateTime(day.year, day.month, day.day, 10, 0),
-        durationMinutes: 30,
-        status: DoctorAppointmentStatus.confirmed,
-        visitType: 'متابعة',
-        isBooked: false,
-      ),
-    ];
   }
 
   @override
-  Future<void> cancelFullDay({
-    required String doctorId,
-    required DateTime day,
-  }) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    // API call goes here
-  }
-
-  @override
-  Future<AppointmentSlotModel> editSlot({
-    required String slotId,
-    required DateTime newDateTime,
-    required int newDurationMinutes,
-  }) async {
-    await Future.delayed(const Duration(milliseconds: 400));
-    return AppointmentSlotModel(
-      id: slotId,
-      dateTime: newDateTime,
-      durationMinutes: newDurationMinutes,
-      status: DoctorAppointmentStatus.confirmed,
-      visitType: 'كشف',
-      isBooked: false,
-    );
+  Future<void> cancelFullDay({required DateTime day}) async {
+    try {
+      final dateStr =
+          '${day.year}-${day.month.toString().padLeft(2, '0')}-${day.day.toString().padLeft(2, '0')}';
+      await dio.delete(
+        '/Availability/cancel-day',
+        queryParameters: {'date': dateStr},
+      );
+    } on DioException catch (e) {
+      _handleError(e);
+    }
   }
 
   @override
   Future<void> cancelSlot({required String slotId}) async {
-    await Future.delayed(const Duration(milliseconds: 400));
+    try {
+      await dio.delete('/Availability/$slotId');
+    } on DioException catch (e) {
+      _handleError(e);
+    }
+  }
+
+  @override
+  Future<void> editSlot({
+    required String slotId,
+    required String newFromTime,
+  }) async {
+    try {
+      await dio.put(
+        '/Availability/$slotId',
+        data: {'fromTime': newFromTime},
+      );
+    } on DioException catch (e) {
+      _handleError(e);
+    }
+  }
+
+  Never _handleError(DioException e) {
+    switch (e.response?.statusCode) {
+      case 401:
+        throw UnauthorizedException(message: 'غير مصرح', statusCode: 401);
+      case 404:
+        throw ServerException(message: 'الموعد غير موجود', statusCode: 404);
+      default:
+        if (e.type == DioExceptionType.connectionError) {
+          throw NetworkException(message: 'تحقق من اتصالك');
+        }
+        throw ServerException(
+          message: e.response?.data?['message'] ?? 'خطأ في السيرفر',
+          statusCode: e.response?.statusCode ?? 500,
+        );
+    }
   }
 }
