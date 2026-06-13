@@ -1,24 +1,43 @@
-part of 'doctor_articles_cubit.dart';
+import '../../domain/entities/article_entity.dart';
 
-abstract class DoctorArticlesState extends Equatable {
-  const DoctorArticlesState();
+abstract class DoctorArticlesState {}
 
-  @override
-  List<Object> get props => [];
-}
-
-class DoctorArticlesInitial extends DoctorArticlesState {
-  const DoctorArticlesInitial();
-}
+class DoctorArticlesInitial extends DoctorArticlesState {}
 
 class DoctorArticlesLoading extends DoctorArticlesState {}
 
-class DoctorArticlesLoaded extends DoctorArticlesState {}
+class DoctorArticlesLoaded extends DoctorArticlesState {
+  final List<ArticleEntity> articles;
+  DoctorArticlesLoaded(this.articles);
+}
 
 class DoctorArticlesError extends DoctorArticlesState {
   final String message;
-  const DoctorArticlesError(this.message);
+  DoctorArticlesError(this.message);
+}
 
-  @override
-  List<Object> get props => [message];
+// Add Article states
+class AddArticleLoading extends DoctorArticlesState {}
+
+class AddArticleSuccess extends DoctorArticlesState {
+  final bool isPublished;
+  AddArticleSuccess({required this.isPublished});
+}
+
+class AddArticleError extends DoctorArticlesState {
+  final String message;
+  AddArticleError(this.message);
+}
+
+// Delete Article states
+class DeleteArticleLoading extends DoctorArticlesState {
+  final int articleId;
+  DeleteArticleLoading(this.articleId);
+}
+
+class DeleteArticleSuccess extends DoctorArticlesState {}
+
+class DeleteArticleError extends DoctorArticlesState {
+  final String message;
+  DeleteArticleError(this.message);
 }
