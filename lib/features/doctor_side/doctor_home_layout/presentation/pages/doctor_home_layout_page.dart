@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/di/injection_container.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/features/doctor_side/doctor_appointment/presentation/pages/doctor_appointments_screen.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_cubit.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/pages/doctor_articles_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/presentation/pages/doctor_home_screen.dart';
+import 'package:rafiq/features/profile_doc/presentation/screens/profile_doc_screen.dart';
 
 class DoctorHomeLayout extends StatefulWidget {
   final int initialIndex;
@@ -15,14 +20,17 @@ class DoctorHomeLayout extends StatefulWidget {
 class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
   late int currentIndex;
 
-  final List<Widget> tabs = const [
-    DoctorHomeScreen(),
-    DoctorAppointmentsScreen(
+  final List<Widget> tabs = [
+    const DoctorHomeScreen(),
+    const DoctorAppointmentsScreen(
       doctorId: '',
       doctorName: '',
     ), // DoctorAppointmentsScreen()
-    Center(child: Text("مقالاتي")), // DoctorArticlesScreen()
-    Center(child: Text("حسابي الشخصي")), // ProfileTab()
+    BlocProvider(
+      create: (_) => sl<DoctorArticlesCubit>(),
+      child:  const DoctorArticlesScreen(),
+    ),
+    const ProfileDocScreen(),
   ];
 
   @override
