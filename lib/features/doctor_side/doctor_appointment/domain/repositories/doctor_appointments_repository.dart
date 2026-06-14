@@ -1,6 +1,7 @@
 // lib/features/doctor_side/doctor_appointments/domain/repositories/doctor_appointments_repository.dart
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:rafiq/core/errors/failure.dart';
 import '../entities/doctor_appointments_entity.dart';
 
@@ -26,4 +27,11 @@ abstract class DoctorAppointmentsRepository {
 
   /// Cancel a single slot
   Future<Either<Failure, void>> cancelSlot({required String slotId});
+
+  Future<Either<Failure, void>> addAvailability({
+    required DateTime date,
+    required TimeOfDay from,
+    required TimeOfDay to,
+  });
+
 }

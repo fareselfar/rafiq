@@ -7,7 +7,6 @@ import '../repositories/doctor_home_repository.dart';
 
 class GetDoctorHomeDataUsecase {
   final DoctorHomeRepository repository;
-
   GetDoctorHomeDataUsecase(this.repository);
 
   Future<Either<Failure, DoctorHomeEntity>> call() =>
