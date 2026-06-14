@@ -15,13 +15,17 @@ class ApiInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    debugPrint('📥 RESPONSE[${response.statusCode}] => ${response.requestOptions.path}');
+    debugPrint(
+      '📥 RESPONSE[${response.statusCode}] => ${response.requestOptions.path}',
+    );
     super.onResponse(response, handler);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    debugPrint('❌ ERROR[${err.response?.statusCode}] => ${err.requestOptions.path}');
+    debugPrint(
+      '❌ ERROR[${err.response?.statusCode}] => ${err.requestOptions.path}',
+    );
     super.onError(err, handler);
   }
 }
@@ -29,15 +33,18 @@ class ApiInterceptor extends Interceptor {
 /// يقرأ الـ token من SharedPreferences ويحطه في كل request
 class TokenInterceptor extends Interceptor {
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(AppConstants.tokenKey);
-    
+
     if (token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
       debugPrint('🔑 Token attached');
     }
-    
+
     super.onRequest(options, handler);
   }
 }

@@ -14,49 +14,55 @@ import 'package:rafiq/features/authentication/data/models/send_otp_request.dart'
 import 'package:rafiq/features/authentication/data/models/send_otp_response.dart';
 
 class AuthApiRemoteDataSource implements AuthRemoteDataSource {
-  Dio dio = Dio(BaseOptions(baseUrl: AppConstants.baseUrl));
+  final Dio dio;
+
+  AuthApiRemoteDataSource({required this.dio});
+
+  // ─── Register ─────────────────────────────────────────────────────────────
+  // POST /api/Auth/register
+  // Body: { name, email, password, role, age?, gender?, specialization?, description?, price? }
+  // Response: { token, email, name, role, expiresAt }
   @override
-  Future<RegiasterResponse> register(RegisterRequest request) async {
+  Future<RegisterResponse> register(RegisterRequest request) async {
     try {
-      var response = await dio.post(
+      final response = await dio.post(
         AppConstants.signUpEndpoint,
         data: request.toJson(),
       );
+      return RegisterResponse.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (exp) {
+      print('STATUS = ${exp.response?.statusCode}');
+      print('DATA = ${exp.response?.data}');
+      print('HEADERS = ${exp.response?.headers}');
+      print('REQUEST = ${request.toJson()}');
 
-      print('RAW RESPONSE => ${response.data}');
-      RegiasterResponse registerResponse = RegiasterResponse.fromJson(
-        response.data,
-      );
-      return registerResponse;
-    } catch (exp) {
-      String? message;
-      if (exp is DioException) {
-        message = exp.response?.data?["message"];
-      }
-
-      throw RemoteException(message: message ?? "Failed to register");
+      final message = _extractMessage(exp) ?? 'فشل إنشاء الحساب';
+      throw RemoteException(message: message);
     }
   }
 
+  // ─── Login ────────────────────────────────────────────────────────────────
+  // POST /api/Auth/login
+  // Body: { email, password }
+  // Response: { token, email, name, role, expiresAt }
   @override
   Future<LoginResponse> login(LoginRequest request) async {
     try {
-      var response = await dio.post(
+      final response = await dio.post(
         AppConstants.signInEndpoint,
         data: request.toJson(),
       );
-
-      LoginResponse loginResponse = LoginResponse.fromJson(response.data);
-      return loginResponse;
-    } catch (exp) {
-      String? message;
-      if (exp is DioException) {
-        message = exp.response!.data["message"];
-      }
-      throw RemoteException(message: message ?? "Failed to login");
+      print("LOGIN RESPONSE => ${response.data}");
+      return LoginResponse.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (exp) {
+      final message = _extractMessage(exp) ?? 'فشل تسجيل الدخول';
+      throw RemoteException(message: message);
     }
   }
 
+  // ─── Verify OTP ───────────────────────────────────────────────────────────
+  // POST /api/Auth/verify-otp
+  // Body: { code, email }
   @override
   Future<VerifyResetOtpResponse> verifyResetOtp(
     VerifyResetOtpRequest request,
@@ -66,17 +72,19 @@ class AuthApiRemoteDataSource implements AuthRemoteDataSource {
         AppConstants.verifyOtpEndpoint,
         data: request.toJson(),
       );
-
-      return VerifyResetOtpResponse.fromJson(response.data);
-    } catch (exp) {
-      String? message;
-      if (exp is DioException) {
-        message = exp.response?.data['message'] ?? 'Failed to verify OTP';
-      }
-      throw RemoteException(message: message ?? "Failed to verify OTP");
+      return VerifyResetOtpResponse.fromJson(
+        response.data as Map<String, dynamic>,
+      );
+    } on DioException catch (exp) {
+      throw RemoteException(
+        message: _extractMessage(exp) ?? 'فشل التحقق من الكود',
+      );
     }
   }
 
+  // ─── Send OTP ─────────────────────────────────────────────────────────────
+  // POST /api/Auth/send-otp
+  // Body: { email }
   @override
   Future<SendResetOtpResponse> sendResetOtp(SendResetOtpRequest request) async {
     try {
@@ -84,35 +92,40 @@ class AuthApiRemoteDataSource implements AuthRemoteDataSource {
         AppConstants.sendResetOtpEndpoint,
         data: request.toJson(),
       );
-
-      return SendResetOtpResponse.fromJson(response.data);
-    } catch (exp) {
-      String? message;
-      if (exp is DioException) {
-        message = exp.response?.data['message'] ?? 'Failed to send OTP';
-      }
-      throw RemoteException(message: message ?? "Failed to send OTP");
+      return SendResetOtpResponse.fromJson(
+        response.data as Map<String, dynamic>,
+      );
+    } on DioException catch (exp) {
+      throw RemoteException(message: _extractMessage(exp) ?? 'فشل إرسال الكود');
     }
   }
 
+  // ─── Reset Password ───────────────────────────────────────────────────────
   @override
   Future<ResetPasswordResponse> restPassword({
     required ResetPasswordRequest request,
   }) async {
     try {
-      var response = await dio.post(
+      final response = await dio.post(
         AppConstants.resetPasswordEndpoint,
         data: request.toJson(),
       );
-      ResetPasswordResponse resetPasswordResponse =
-          ResetPasswordResponse.fromJson(response.data);
-      return resetPasswordResponse;
-    } catch (exp) {
-      String? message;
-      if (exp is DioException) {
-        message = exp.response?.data['message'] ?? 'Failed to reset password';
-      }
-      throw RemoteException(message: message ?? "Failed to reset password");
+      return ResetPasswordResponse.fromJson(
+        response.data as Map<String, dynamic>,
+      );
+    } on DioException catch (exp) {
+      throw RemoteException(
+        message: _extractMessage(exp) ?? 'فشل تغيير كلمة المرور',
+      );
     }
+  }
+
+  // ─── Helper ───────────────────────────────────────────────────────────────
+  String? _extractMessage(DioException exp) {
+    try {
+      final data = exp.response?.data;
+      if (data is Map) return data['message'] as String?;
+    } catch (_) {}
+    return null;
   }
 }

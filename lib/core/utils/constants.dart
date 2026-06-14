@@ -8,18 +8,26 @@ class AppConstants {
   static const String baseUrl = 'http://rafiqapp.runasp.net';
   static const String signUpEndpoint = '/Auth/register';
   static const String signInEndpoint = '/Auth/login';
+  static const String changePassEndpoint = '/Appointments/change-password';
   static const String verifyOtpEndpoint = '/Auth/verify-reset-otp';
   static const String sendResetOtpEndpoint = '/Auth/send-reset-otp';
   static const String resetPasswordEndpoint = "/Auth/reset-password";
   static const String getProfileEndpoint = '/Appointments/info';
-  static const String updateProfileEndpoint = '/Profile/update-profile';
-  static const String uploadFileEndpoint = '/Profile/upload-file';
+  static const String updateProfileEndpoint = '/Appointments/update-profile';
+  static const String updateMedicalRecordEndpoint =
+      '/Appointments/update-medical-profile';
+
+  static const String uploadFileEndpoint = '/Appointments/upload-file';
+  static const String getUploadFileEndpoint =
+      '/Appointments/my-files?fileType=string';
+
   static const String changePasswordEndpoint = '/Profile/change-password';
   static const String getSpecializationsEndpoint = '/Specializations/get-all';
   static const String getArticlesEndpoint = '/Articles/get-all';
   static const String getArticleByIdEndpoint = '/Articles/get-by-id';
   static const String getAppointmentsEndpoint = '/Appointments/get-all';
   static const String getAppointmentByIdEndpoint = '';
+
   static const String aiSocketUrl =
       'wss://rafeeq-ai-dev-production.up.railway.app/chat/ws';
   static const String apiVersion = 'v1';
@@ -35,7 +43,4 @@ class AppConstants {
   static const String languageKey = 'language_code';
   static const String onboardingKey = 'onboarding_completed';
   static const String tokenKey = 'token';
-
- 
-
 }

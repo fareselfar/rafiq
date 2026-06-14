@@ -36,6 +36,7 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
   @override
   void initState() {
     super.initState();
+    print("DOCTOR HOME LAYOUT OPENED");
     currentIndex = widget.initialIndex;
   }
 

@@ -4,6 +4,7 @@ import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/features/authentication/data/datasources/local/auth_shared_prefs.dart';
 import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
 import 'package:rafiq/features/patient_profile/presentation/widgets/profile_editing.dart';
 
@@ -33,7 +34,7 @@ class OptionsCard extends StatelessWidget {
           HeightSpace(23),
           ProfileEditing(
             onTap: () {
-              context.navigateTo(Routes.editFiels);
+              context.navigateTo(Routes.editMedicalFileScreen);
             },
             icon: SvgManger.doc,
             label: "تعديل الملف الطبي",
@@ -48,7 +49,15 @@ class OptionsCard extends StatelessWidget {
           ),
           HeightSpace(23),
           ProfileEditing(
-            onTap: () {},
+            onTap: () async {
+              await AuthSharedPrefs().clearAll();
+
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                Routes.login,
+                (route) => false,
+              );
+            },
             icon: SvgManger.logout,
             label: "تسجيل الخروج",
           ),

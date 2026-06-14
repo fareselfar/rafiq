@@ -13,7 +13,6 @@ import 'package:rafiq/features/authentication/data/models/verify_otp_request.dar
 import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
 import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
 
-
 class OtpScreen extends StatefulWidget {
   final String email;
 

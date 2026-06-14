@@ -29,7 +29,7 @@ class ServicesCard extends StatelessWidget {
       borderWidth: 1,
       width: 161.w,
       borderColor: borderColor,
-      horizontalPadding: 16.r,
+      horizontalPadding: 8.r,
       verticalPadding: 16.r,
       widget: InkWell(
         onTap: onTap,

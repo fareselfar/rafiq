@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
@@ -17,8 +18,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rafiq/features/authentication/data/models/login_request.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
+  const LoginScreen({super.key, required this.userType});
+  final UserType userType;
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -29,7 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
   @override
   void dispose() {
     emailController.dispose();
@@ -46,14 +46,42 @@ class _LoginScreenState extends State<LoginScreen> {
           UiUtils.showLoading(context);
         }
 
-        if (state is AuthenticationLoaded) {
+        if (state is LoginSuccess) {
           UiUtils.hideDialog(context);
+          if (widget.userType == UserType.doctor &&
+              state.role != UserRole.doctor) {
+            UiUtils.showMessage(
+              message: "هذا الحساب ليس حساب طبيب",
+              bgColor: Colors.red,
+              fgColor: Colors.white,
+            );
+
+            return;
+          }
+
+          if (widget.userType == UserType.patient &&
+              state.role != UserRole.patient) {
+            UiUtils.showMessage(
+              message: "هذا الحساب ليس حساب مريض",
+              bgColor: Colors.red,
+              fgColor: Colors.white,
+            );
+
+            return;
+          }
+
           UiUtils.showMessage(
             message: "تم تسجيل الدخول بنجاح",
             bgColor: Colors.green,
             fgColor: Colors.white,
           );
-          context.navigateAndReplace(Routes.patientHome);
+          if (state.role == UserRole.doctor) {
+            context.navigateAndReplace(Routes.doctorHome);
+            print("GO TO DOCTOR HOME");
+          } else {
+            context.navigateAndReplace(Routes.patientHome);
+            print("GO TO PATIENT HOME");
+          }
         }
 
         if (state is AuthenticationError) {
@@ -200,7 +228,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               CustomFooterText(
                                 textTitel: 'مستخدم جديد؟ ',
                                 onTap: () {
-                                  context.navigateTo('/register');
+                                  context.navigateTo(
+                                    '/register',
+                                    arguments: widget.userType,
+                                  );
                                 },
                                 linkTitel: "انشاء حساب الان",
                               ),

@@ -171,13 +171,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  void _navigateToAuth() {
-    context.navigateAndReplace('/getStart', arguments: widget.selectedUserType);
-  }
-
   // void _navigateToAuth() {
-  //   context.navigateAndReplace(
-  //     widget.selectedUserType == UserType.patient ? ('/login') : ('/docLogin'),
-  //   );
+  //   context.navigateAndReplace('/getStart', arguments: widget.selectedUserType);
   // }
+
+  void _navigateToAuth() {
+    context.navigateAndReplace('/register', arguments: widget.selectedUserType);
+  }
 }

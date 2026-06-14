@@ -1,96 +1,121 @@
 import 'package:dartz/dartz.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:rafiq/core/errors/app_exception.dart';
-import 'package:rafiq/core/errors/failuree.dart';
+import 'package:rafiq/core/errors/failure.dart';
 import 'package:rafiq/features/authentication/data/datasources/local/auth_local_data_source.dart';
 import 'package:rafiq/features/authentication/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:rafiq/features/authentication/data/models/login_request.dart';
+import 'package:rafiq/features/authentication/data/models/login_response.dart';
 import 'package:rafiq/features/authentication/data/models/register_request.dart';
+import 'package:rafiq/features/authentication/data/models/register_response.dart';
 import 'package:rafiq/features/authentication/data/models/reset_password_pesponse.dart';
 import 'package:rafiq/features/authentication/data/models/reset_password_request.dart';
 import 'package:rafiq/features/authentication/data/models/send_otp_request.dart';
 import 'package:rafiq/features/authentication/data/models/send_otp_response.dart';
-import 'package:rafiq/features/authentication/data/models/verify_otp_response.dart';
 import 'package:rafiq/features/authentication/data/models/verify_otp_request.dart';
-import 'package:rafiq/features/authentication/domain/entities/auth_entity.dart';
+import 'package:rafiq/features/authentication/data/models/verify_otp_response.dart';
 import 'package:rafiq/features/authentication/domain/repositories/auth_repository.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 
-class AuthRepoImpl implements AuthenticationRepository {
-  AuthRemoteDataSource authRemoteDataSource;
-  AuthLocalDataSource authLocalDataSource;
+class AuthRepositoryImpl implements AuthRepository {
+  final AuthRemoteDataSource _remoteDataSource;
+  final AuthLocalDataSource _localDataSource;
 
-  AuthRepoImpl({
-    required this.authRemoteDataSource,
-    required this.authLocalDataSource,
-  });
+  const AuthRepositoryImpl({
+    required AuthRemoteDataSource remoteDataSource,
+    required AuthLocalDataSource localDataSource,
+  }) : _remoteDataSource = remoteDataSource,
+       _localDataSource = localDataSource;
+
+  // ─── Register ────────────────────────────────────────────────────────────────
+  // السيرفر بيرجع: { token, email, name, role, expiresAt }
   @override
-  Future<Either<Failures, AuthEntity>> register({
-    required RegisterRequest request,
-  }) async {
+  Future<Either<Failure, RegisterResponse>> register(
+    RegisterRequest request,
+  ) async {
     try {
-      var response = await authRemoteDataSource.register(request);
-      authLocalDataSource.saveToken(token: response.token!);
-      return right(response.toAuthEntity());
-    } on AuthExpetions catch (exp) {
-      return left(Failures(message: exp.message));
+      final response = await _remoteDataSource.register(request);
+
+      // حفظ التوكن والـ role (role جاي من السيرفر مباشرة "Patient" أو "Doctor")
+      await _localDataSource.saveToken(token: response.token);
+      await _localDataSource.saveRole(role: response.role);
+
+      return Right(response);
+    } on RemoteException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    } on LocalException catch (e) {
+      return Left(CacheFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 
+  // ─── Login ───────────────────────────────────────────────────────────────────
+  // السيرفر بيرجع نفس الـ shape: { token, email, name, role, expiresAt }
   @override
-  Future<Either<Failures, AuthEntity>> login({
-    required LoginRequest request,
-    req,
-  }) async {
+  Future<Either<Failure, LoginResponse>> login(LoginRequest request) async {
     try {
-      var response = await authRemoteDataSource.login(request);
-      authLocalDataSource.saveToken(token: response.token!);
-      final decodedToken = JwtDecoder.decode(response.token!);
+      final response = await _remoteDataSource.login(request);
+      print("LOGIN ROLE => ${response.role}");
+      // response.role و response.token ممكن يكونوا null → نستخدم ?? ''
+      await _localDataSource.saveToken(token: response.token ?? '');
+      final decodedToken = JwtDecoder.decode(response.token ?? '');
+
       final role =
           decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-
-      print('ROLE => $role');
-      await authLocalDataSource.saveRole(role: role);
-      return right(response.toAuthEntity());
-    } on AuthExpetions catch (exp) {
-      return left(Failures(message: exp.message));
+      await _localDataSource.saveRole(role: role ?? '');
+      print("SAVED ROLE => ${await _localDataSource.getRole()}");
+      return Right(response);
+    } on RemoteException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    } on LocalException catch (e) {
+      return Left(CacheFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 
+  // ─── Verify OTP ──────────────────────────────────────────────────────────────
   @override
-  Future<Either<Failures, VerifyResetOtpResponse>> verifyResetOtp({
-    required VerifyResetOtpRequest request,
-  }) async {
+  Future<Either<Failure, VerifyResetOtpResponse>> verifyResetOtp(
+    VerifyResetOtpRequest request,
+  ) async {
     try {
-      final result = await authRemoteDataSource.verifyResetOtp(request);
-
-      return Right(result);
+      final response = await _remoteDataSource.verifyResetOtp(request);
+      return Right(response);
     } on RemoteException catch (e) {
-      return Left(Failures(message: e.message));
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 
+  // ─── Send OTP ────────────────────────────────────────────────────────────────
   @override
-  Future<Either<Failures, SendResetOtpResponse>> sendResetOtp({
-    required SendResetOtpRequest request,
-  }) async {
+  Future<Either<Failure, SendResetOtpResponse>> sendResetOtp(
+    SendResetOtpRequest request,
+  ) async {
     try {
-      final result = await authRemoteDataSource.sendResetOtp(request);
-
-      return Right(result);
+      final response = await _remoteDataSource.sendResetOtp(request);
+      return Right(response);
     } on RemoteException catch (e) {
-      return Left(Failures(message: e.message));
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 
+  // ─── Reset Password ──────────────────────────────────────────────────────────
   @override
-  Future<Either<Failures, ResetPasswordResponse>> resetPassword({
-    required ResetPasswordRequest request,
-  }) async {
+  Future<Either<Failure, ResetPasswordResponse>> resetPassword(
+    ResetPasswordRequest request,
+  ) async {
     try {
-      final result = await authRemoteDataSource.restPassword(request: request);
-      return Right(result);
+      final response = await _remoteDataSource.restPassword(request: request);
+      return Right(response);
     } on RemoteException catch (e) {
-      return Left(Failures(message: e.message));
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 }

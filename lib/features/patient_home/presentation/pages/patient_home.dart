@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,22 +8,57 @@ import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
+import 'package:rafiq/core/widgets/custom_article_view.dart';
+
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/features/articles/data/models/articles_model.dart';
 import 'package:rafiq/features/patient_home/data/models/patient_time_model.dart';
 import 'package:rafiq/features/patient_home/presentation/widgets/classify_widget.dart';
+import 'package:rafiq/features/patient_home/presentation/widgets/custom_text_button.dart';
 import 'package:rafiq/features/patient_home/presentation/widgets/gradient_card.dart';
 import 'package:rafiq/features/patient_home/presentation/widgets/patient_time.dart';
+import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
+import 'package:rafiq/features/patient_profile/presentation/bloc/profile_state.dart';
 
 class PatientHomeScreen extends StatelessWidget {
-  const PatientHomeScreen({super.key});
+  PatientHomeScreen({super.key});
+  final article = ArticlesModel(
+    id: 1,
+    title: "نصائح للحفاظ على صحة القلب",
+    image: "https://i.imgur.com/8Km9tLL.jpg",
+    category: "تغذية",
+    readTime: 10,
+    authorName: "د/ خالد محمد",
+    authorImage: "https://i.pravatar.cc/150?img=3",
+    content: [
+      ArticleSection(
+        title: "التغذية السليمة",
+        description:
+            "التغذية السليمة هي الأساس للحفاظ على صحة القلب وتقليل خطر الإصابة بالأمراض القلبية.",
+      ),
+      ArticleSection(
+        title: "ممارسة الرياضة",
+        description:
+            "ممارسة الرياضة بانتظام تحسن الدورة الدموية وتقوي عضلة القلب.",
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('محمد علي'),
+        title: BlocBuilder<ProfileCubit, ProfileState>(
+          builder: (context, state) {
+            if (state is ProfileLoaded) {
+              return Text(state.profile.fullName);
+            }
+
+            return const Text('...');
+          },
+        ),
         leading: Padding(
           padding: REdgeInsets.only(top: 8, bottom: 8),
           child: SvgPicture.asset(SvgManger.profile),
@@ -73,7 +109,7 @@ class PatientHomeScreen extends StatelessWidget {
                             style: AppTypography.profileServicesStyle,
                           ),
                           Spacer(),
-                          CustomButton(
+                          CustomTextButton(
                             onPressed: () {
                               Navigator.pushNamed(
                                 context,
@@ -189,7 +225,7 @@ class PatientHomeScreen extends StatelessWidget {
                             'مواعيدي القادمة',
                             style: AppTypography.profileServicesStyle,
                           ),
-                          CustomButton(onPressed: () {}, text: 'عرض الكل'),
+                          CustomTextButton(onPressed: () {}, text: 'عرض الكل'),
                         ],
                       ),
                       HeightSpace(20),
@@ -216,7 +252,7 @@ class PatientHomeScreen extends StatelessWidget {
                               color: AppColors.selectedText,
                             ),
                           ),
-                          CustomButton(
+                          CustomTextButton(
                             onPressed: () {
                               context.navigateTo(Routes.articlesScreen);
                             },
@@ -224,7 +260,7 @@ class PatientHomeScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-              //        CustomArticleView(article: article),
+                      CustomArticleView(article: article),
                     ],
                   ),
                 ),
