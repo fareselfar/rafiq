@@ -10,7 +10,7 @@ import 'package:rafiq/features/authentication/data/models/verify_otp_response.da
 import 'package:rafiq/features/authentication/data/models/verify_otp_request.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<RegiasterResponse> register(RegisterRequest request);
+  Future<RegisterResponse> register(RegisterRequest request);
   Future<LoginResponse> login(LoginRequest request);
   Future<VerifyResetOtpResponse> verifyResetOtp(VerifyResetOtpRequest request);
   Future<SendResetOtpResponse> sendResetOtp(SendResetOtpRequest request);

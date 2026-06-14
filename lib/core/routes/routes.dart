@@ -6,6 +6,8 @@ class Routes {
   static const String userTypeScreen = '/userTypeScreen';
   static const String onbordingScreen = '/onbordingScreen';
   static const String patientHome = '/patientHome';
+  static const String home = '/Home';
+
   static const String getStart = '/getStart';
   static const String login = '/login';
   static const String docLogin = '/docLogin';
@@ -17,6 +19,7 @@ class Routes {
   static const String otpScreen = '/otpScreen';
   static const String register = '/register';
   static const String docRegister = '/docRegister';
+  static const String editMedicalFileScreen = '/editMedicalFileScreen';
 
   static const String profile = '/profile';
   static const String settings = '/settings';

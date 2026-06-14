@@ -45,6 +45,8 @@ class _ChangePasswordState extends State<ChangePassword> {
     return BlocListener<ProfileCubit, ProfileState>(
       listener: (context, state) {
         if (state is PasswordChanged) {
+          UiUtils.hideDialog(context);
+
           showDialog(
             context: context,
             barrierDismissible: false,
@@ -54,6 +56,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           );
         }
         if (state is ProfileError) {
+          UiUtils.hideDialog(context);
           UiUtils.showMessage(
             message: state.message,
             bgColor: Colors.red,

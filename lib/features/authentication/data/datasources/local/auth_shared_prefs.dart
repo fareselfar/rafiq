@@ -4,49 +4,70 @@ import 'package:rafiq/features/authentication/data/datasources/local/auth_local_
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthSharedPrefs implements AuthLocalDataSource {
+  // ─── Save Token ───────────────────────────────────────────────────────────
   @override
   Future<void> saveToken({required String token}) async {
     try {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      sharedPreferences.setString(AppConstants.tokenKey, token);
-    } catch (exp) {
-      throw LocalException(message: "Failed to save token");
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(AppConstants.tokenKey, token);
+    } catch (_) {
+      throw LocalException(message: 'فشل حفظ التوكن');
     }
   }
 
+  // ─── Get Token ────────────────────────────────────────────────────────────
   @override
   Future<String> getToken() async {
     try {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      return sharedPreferences.getString(AppConstants.tokenKey) ?? '';
-    } catch (exp) {
-      throw LocalException(message: "Failed to get token");
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getString(AppConstants.tokenKey) ?? '';
+    } catch (_) {
+      throw LocalException(message: 'فشل جلب التوكن');
     }
   }
 
+  // ─── Save Role ────────────────────────────────────────────────────────────
   @override
   Future<void> saveRole({required String role}) async {
     try {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-
-      await sharedPreferences.setString(AppConstants.roleKey, role);
-    } catch (exp) {
-      throw LocalException(message: "Failed to save role");
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(AppConstants.roleKey, role);
+    } catch (_) {
+      throw LocalException(message: 'فشل حفظ الدور');
     }
   }
 
+  // ─── Get Role ─────────────────────────────────────────────────────────────
   @override
   Future<String> getRole() async {
     try {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getString(AppConstants.roleKey) ?? '';
+    } catch (_) {
+      throw LocalException(message: 'فشل جلب الدور');
+    }
+  }
 
-      return sharedPreferences.getString(AppConstants.roleKey) ?? '';
-    } catch (exp) {
-      throw LocalException(message: "Failed to get role");
+  // ─── Clear All (logout) ───────────────────────────────────────────────────
+  @override
+  Future<void> clearAll() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(AppConstants.tokenKey);
+      await prefs.remove(AppConstants.roleKey);
+    } catch (_) {
+      throw LocalException(message: 'فشل مسح البيانات المحلية');
+    }
+  }
+
+  // ─── Is Logged In ─────────────────────────────────────────────────────────
+  @override
+  Future<bool> isLoggedIn() async {
+    try {
+      final token = await getToken();
+      return token.isNotEmpty;
+    } catch (_) {
+      return false;
     }
   }
 }

@@ -1,26 +1,27 @@
-import 'package:rafiq/features/authentication/domain/entities/auth_entity.dart';
+class RegisterResponse {
+  final String token;
+  final String email;
+  final String name;
+  final String role;
+  final DateTime? expiresAt;
 
-class RegiasterResponse {
-  RegiasterResponse({this.displayName, this.email, this.token});
+  const RegisterResponse({
+    required this.token,
+    required this.email,
+    required this.name,
+    required this.role,
+    this.expiresAt,
+  });
 
-  RegiasterResponse.fromJson(dynamic json) {
-    displayName = json['displayName'];
-    email = json['email'];
-    token = json['token'];
-  }
-  String? displayName;
-  String? email;
-  String? token;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['displayName'] = displayName;
-    map['email'] = email;
-    map['token'] = token;
-    return map;
-  }
-
-  AuthEntity toAuthEntity() {
-    return AuthEntity(email: email, name: displayName, role: '');
+  factory RegisterResponse.fromJson(Map<String, dynamic> json) {
+    return RegisterResponse(
+      token: json['token'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      role: json['role'] as String? ?? '',
+      expiresAt: json['expiresAt'] != null
+          ? DateTime.tryParse(json['expiresAt'] as String)
+          : null,
+    );
   }
 }

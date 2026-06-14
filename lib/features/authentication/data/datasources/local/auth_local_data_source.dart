@@ -3,4 +3,6 @@ abstract class AuthLocalDataSource {
   Future<String> getToken();
   Future<void> saveRole({required String role});
   Future<String> getRole();
+  Future<void> clearAll();
+  Future<bool> isLoggedIn();
 }

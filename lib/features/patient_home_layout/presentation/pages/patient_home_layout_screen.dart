@@ -26,8 +26,9 @@ class _PatientHomeLayoutState extends State<PatientHomeLayout> {
   @override
   void initState() {
     super.initState();
+    print("PATIENT HOME LAYOUT OPENED");
     currentIndex = widget.initialIndex;
-    tabs = const [
+    tabs = [
       PatientHomeScreen(),
       ChatBotScreen(),
       DoctorsScreen(),

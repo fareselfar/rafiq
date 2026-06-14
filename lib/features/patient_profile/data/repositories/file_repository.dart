@@ -1,11 +1,11 @@
-import '../models/file_model.dart';
+// import '../models/file_model.dart';
 
-class FileRepository {
-  final List<FileModel> _files = [];
+// class FileRepository {
+//   final List<FileModel> _files = [];
 
-  List<FileModel> getFiles() => _files;
+//   List<FileModel> getFiles() => _files;
 
-  void addFile(FileModel file) {
-    _files.add(file);
-  }
-}
+//   void addFile(FileModel file) {
+//     _files.add(file);
+//   }
+// }

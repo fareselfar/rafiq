@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rafiq/core/routes/navigation_extension.dart';
+import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
@@ -29,12 +31,13 @@ class _ProfileTabState extends State<ProfileTab> {
 
   Future<void> loadRole() async {
     role = await AuthSharedPrefs().getRole();
-
+    print("PROFILE ROLE => $role");
     setState(() {});
   }
 
   @override
   void initState() {
+    print("PATIENT PROFILE OPENED");
     profileCubit = context.read<ProfileCubit>();
     profileCubit.getProfile();
     loadRole();
@@ -123,7 +126,9 @@ class _ProfileTabState extends State<ProfileTab> {
                         ),
                         WidthSpace(20),
                         ServicesCard(
-                          onTap: () {},
+                          onTap: () {
+                            context.navigateTo(Routes.editFiels);
+                          },
                           icon: SvgManger.files,
                           textColor: AppColors.purple,
                           serviceName: "ملفاتي الطبية",
@@ -136,10 +141,12 @@ class _ProfileTabState extends State<ProfileTab> {
                     Row(
                       children: [
                         ServicesCard(
-                          onTap: () {},
+                          onTap: () {
+                            context.navigateTo(Routes.uploadFiels);
+                          },
                           icon: SvgManger.upload,
-                          serviceName: "حجوزاتي",
-                          servicesDetails: "مواعيدك القادمة",
+                          serviceName: "رفع ملف",
+                          servicesDetails: "اضافه مستندات",
                           borderColor: AppColors.primary,
                         ),
                         WidthSpace(20),
@@ -147,8 +154,8 @@ class _ProfileTabState extends State<ProfileTab> {
                           onTap: () {},
 
                           icon: SvgManger.articles,
-                          serviceName: "ملفاتي الطبية",
-                          servicesDetails: "تقارير وتحاليل",
+                          serviceName: "مقالات محفوظة",
+                          servicesDetails: "للقراءة لاحقا",
                           borderColor: AppColors.primary,
                         ),
                       ],

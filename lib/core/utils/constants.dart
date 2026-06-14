@@ -8,21 +8,26 @@ class AppConstants {
   static const String baseUrl = 'https://rafiqapp.runasp.net/api';
   static const String signUpEndpoint = '/Auth/register';
   static const String signInEndpoint = '/Auth/login';
+  static const String changePassEndpoint = '/Appointments/change-password';
   static const String verifyOtpEndpoint = '/Auth/verify-reset-otp';
   static const String sendResetOtpEndpoint = '/Auth/send-reset-otp';
   static const String resetPasswordEndpoint = "/Auth/reset-password";
   static const String getProfileEndpoint = '/Appointments/info';
-  static const String updateProfileEndpoint = '/Profile/update-profile';
-  static const String uploadFileEndpoint = '/Profile/upload-file';
+  static const String updateProfileEndpoint = '/Appointments/update-profile';
+  static const String updateMedicalRecordEndpoint =
+      '/Appointments/update-medical-profile';
+
+  static const String uploadFileEndpoint = '/Appointments/upload-file';
+  static const String getUploadFileEndpoint =
+      '/Appointments/my-files?fileType=string';
+
   static const String changePasswordEndpoint = '/Profile/change-password';
   static const String getSpecializationsEndpoint = '/Specializations/get-all';
   static const String getArticlesEndpoint = '/Articles/get-all';
   static const String getArticleByIdEndpoint = '/Articles/get-by-id';
   static const String getAppointmentsEndpoint = '/Appointments/get-all';
-  static const String changePassEndpoint = '/Appointments/change-password';
-
   static const String getAppointmentByIdEndpoint = '';
-  //static const String baseUrl = 'http://rafiqapp.runasp.net';
+
   static const String aiSocketUrl =
       'wss://rafeeq-ai-dev-production.up.railway.app/chat/ws';
   static const String apiVersion = 'v1';
@@ -38,79 +43,4 @@ class AppConstants {
   static const String languageKey = 'language_code';
   static const String onboardingKey = 'onboarding_completed';
   static const String tokenKey = 'token';
-
-  // Pagination
-  static const int defaultPageSize = 20;
-  static const int maxPageSize = 100;
-
-  // Animation Durations
-  static const Duration shortAnimationDuration = Duration(milliseconds: 200);
-  static const Duration mediumAnimationDuration = Duration(milliseconds: 300);
-  static const Duration longAnimationDuration = Duration(milliseconds: 500);
-
-  // Spacing
-  static const double spacingXS = 4.0;
-  static const double spacingSM = 8.0;
-  static const double spacingMD = 16.0;
-  static const double spacingLG = 24.0;
-  static const double spacingXL = 32.0;
-
-  // Border Radius
-  static const double radiusSM = 4.0;
-  static const double radiusMD = 8.0;
-  static const double radiusLG = 12.0;
-  static const double radiusXL = 16.0;
-  static const double radiusRound = 999.0;
-
-  // Icon Sizes
-  static const double iconSizeSM = 16.0;
-  static const double iconSizeMD = 24.0;
-  static const double iconSizeLG = 32.0;
-  static const double iconSizeXL = 48.0;
-
-  // Image Sizes
-  static const double avatarSizeSM = 32.0;
-  static const double avatarSizeMD = 48.0;
-  static const double avatarSizeLG = 64.0;
-  static const double avatarSizeXL = 96.0;
-
-  // Validation
-  static const int minPasswordLength = 8;
-  static const int maxPasswordLength = 128;
-  static const int minUsernameLength = 3;
-  static const int maxUsernameLength = 30;
-
-  // File Upload
-  static const int maxFileSize = 10 * 1024 * 1024; // 10 MB
-  static const List<String> allowedImageExtensions = [
-    'jpg',
-    'jpeg',
-    'png',
-    'gif',
-  ];
-  static const List<String> allowedDocumentExtensions = ['pdf', 'doc', 'docx'];
-
-  // Date Formats
-  static const String dateFormat = 'dd/MM/yyyy';
-  static const String timeFormat = 'HH:mm';
-  static const String dateTimeFormat = 'dd/MM/yyyy HH:mm';
-
-  // Regular Expressions
-  static final RegExp emailRegex = RegExp(
-    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-  );
-  static final RegExp phoneRegex = RegExp(r'^\+?[0-9]{10,15}$');
-  static final RegExp urlRegex = RegExp(
-    r'^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$',
-  );
-
-  // Error Messages
-  static const String genericErrorMessage =
-      'Something went wrong. Please try again.';
-  static const String networkErrorMessage =
-      'No internet connection. Please check your network.';
-  static const String timeoutErrorMessage =
-      'Request timeout. Please try again.';
-  static const String unauthorizedErrorMessage =
-      'Unauthorized. Please login again.';
 }

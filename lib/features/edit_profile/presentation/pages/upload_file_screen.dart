@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart' as fp;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
@@ -8,10 +12,11 @@ import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/patient_profile/data/models/file_type.dart';
-import 'package:rafiq/features/patient_profile/data/repositories/file_repository.dart';
+
+import 'package:rafiq/features/patient_profile/data/models/upload_file_request.dart';
+import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
 import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
 import 'package:rafiq/features/patient_profile/presentation/widgets/dropdown_card.dart';
-import 'package:rafiq/features/patient_profile/presentation/widgets/file_controller.dart';
 
 class UploadFileScreen extends StatefulWidget {
   const UploadFileScreen({super.key});
@@ -21,14 +26,21 @@ class UploadFileScreen extends StatefulWidget {
 }
 
 class _UploadFileScreenState extends State<UploadFileScreen> {
+  fp.PlatformFile? selectedFile;
+  FileType selectedType = FileType.tests;
   final TextEditingController _notesControler = TextEditingController();
 
-  late final FileController controller;
+  Future<void> pickFile() async {
+    final result = await fp.FilePicker.platform.pickFiles(
+      type: fp.FileType.custom,
+      allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png'],
+    );
 
-  @override
-  void initState() {
-    controller = FileController(FileRepository());
-    super.initState();
+    if (result != null) {
+      setState(() {
+        selectedFile = result.files.first;
+      });
+    }
   }
 
   @override
@@ -60,15 +72,7 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
                   padding: REdgeInsets.symmetric(vertical: 36, horizontal: 33),
                   child: InkWell(
                     onTap: () async {
-                      final error = await controller.pickFile();
-
-                      if (error != null) {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text(error)));
-                      }
-
-                      setState(() {});
+                      await pickFile();
                     },
                     child: CardWidget(
                       width: 2,
@@ -89,10 +93,10 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
                               "حتى 10 ميجا PNG , JPG ,PDF",
                               style: AppTypography.inputTextFormStyle,
                             ),
-                            if (controller.selectedFile != null) ...[
+                            if (selectedFile != null) ...[
                               HeightSpace(12),
                               Text(
-                                controller.selectedFile!.name,
+                                selectedFile?.name ?? '',
                                 style: AppTypography.bodymid,
                               ),
                             ],
@@ -118,7 +122,7 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
                         title: "نوع الملف",
                         width: double.infinity,
                         customDropdownOptions: DropdownButton<FileType>(
-                          value: controller.selectedType,
+                          value: selectedType,
                           icon: Icon(
                             Icons.arrow_drop_down,
                             color: AppColors.hintStyle,
@@ -129,13 +133,13 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
                               .map((type) {
                                 return DropdownMenuItem<FileType>(
                                   value: type,
-                                  child: Text(type.displayName),
+                                  child: Text(type.name),
                                 );
                               })
                               .toList(),
                           onChanged: (value) {
                             setState(() {
-                              controller.selectedType = value!;
+                              selectedType = value!;
                             });
                           },
                         ),
@@ -161,20 +165,22 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
                         child: CustomButton(
                           text: 'رفع الملف',
                           onPressed: () {
-                            final error = controller.addFile(
-                              _notesControler.text,
-                            );
-
-                            if (error != null) {
-                              ScaffoldMessenger.of(
-                                context,
-                              ).showSnackBar(SnackBar(content: Text(error)));
+                            if (selectedFile == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('اختر ملف أولاً')),
+                              );
                               return;
                             }
 
-                            Navigator.pop(context);
+                            context.read<ProfileCubit>().uploadFile(
+                              request: UploadFileRequest(
+                                file: File(selectedFile!.path!),
+                                fileType: selectedType.name,
+                                fileName: selectedFile!.name,
+                                notes: _notesControler.text,
+                              ),
+                            );
                           },
-                          height: 45.h,
                         ),
                       ),
                     ],

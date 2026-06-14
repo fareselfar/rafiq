@@ -4,7 +4,6 @@ import 'package:rafiq/core/errors/exceptions.dart';
 import 'package:rafiq/core/utils/constants.dart';
 import 'api_consumer.dart'; // تأكد من مسار الـ import عندك
 
-
 class DioConsumer implements ApiConsumer {
   final Dio dio;
 
@@ -15,14 +14,22 @@ class DioConsumer implements ApiConsumer {
     dio.options.responseType = ResponseType.json;
 
     dio.interceptors.add(ApiInterceptor());
-    
+
     // ملحوظة: الـ AuthInterceptor هنضيفه هنا أول ما صديقك يجهز كود الـ Token
   }
 
   @override
-  Future<dynamic> get(String path, {Map<String, dynamic>? queryParameters, Map<String, String>? headers}) async {
+  Future<dynamic> get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) async {
     try {
-      final response = await dio.get(path, queryParameters: queryParameters, options: Options(headers: headers));
+      final response = await dio.get(
+        path,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
+      );
       return response.data;
     } on DioException catch (e) {
       _handleDioException(e);
@@ -30,9 +37,19 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future<dynamic> post(String path, {Map<String, dynamic>? body, Map<String, dynamic>? queryParameters, Map<String, String>? headers}) async {
+  Future<dynamic> post(
+    String path, {
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) async {
     try {
-      final response = await dio.post(path, data: body, queryParameters: queryParameters, options: Options(headers: headers));
+      final response = await dio.post(
+        path,
+        data: body,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
+      );
       return response.data;
     } on DioException catch (e) {
       _handleDioException(e);
@@ -40,10 +57,19 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future<dynamic> put(String path, {Map<String, dynamic>? body, Map<String, dynamic>? queryParameters, Map<String, String>? headers}) async {
+  Future<dynamic> put(
+    String path, {
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) async {
     try {
-      
-      final response = await dio.put(path, data: body, queryParameters: queryParameters, options: Options(headers: headers));
+      final response = await dio.put(
+        path,
+        data: body,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
+      );
       return response.data;
     } on DioException catch (e) {
       _handleDioException(e);
@@ -51,9 +77,17 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future<dynamic> delete(String path, {Map<String, dynamic>? queryParameters, Map<String, String>? headers}) async {
+  Future<dynamic> delete(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) async {
     try {
-      final response = await dio.delete(path, queryParameters: queryParameters, options: Options(headers: headers));
+      final response = await dio.delete(
+        path,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
+      );
       return response.data;
     } on DioException catch (e) {
       _handleDioException(e);
@@ -61,9 +95,19 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future<dynamic> patch(String path, {Map<String, dynamic>? body, Map<String, dynamic>? queryParameters, Map<String, String>? headers}) async {
+  Future<dynamic> patch(
+    String path, {
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) async {
     try {
-      final response = await dio.patch(path, data: body, queryParameters: queryParameters, options: Options(headers: headers));
+      final response = await dio.patch(
+        path,
+        data: body,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
+      );
       return response.data;
     } on DioException catch (e) {
       _handleDioException(e);
@@ -79,7 +123,10 @@ class DioConsumer implements ApiConsumer {
       case DioExceptionType.badResponse:
         switch (error.response?.statusCode) {
           case 400: // Bad Request
-            throw ServerException(message: error.response?.data['message'] ?? "طلب خاطئ", statusCode: 400);
+            throw ServerException(
+              message: error.response?.data['message'] ?? "طلب خاطئ",
+              statusCode: 400,
+            );
           case 401:
             throw UnauthorizedException();
           case 403:

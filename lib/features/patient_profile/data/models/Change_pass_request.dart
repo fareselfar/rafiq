@@ -1,8 +1,9 @@
 class ChangePassRequest {
   ChangePassRequest({
-      this.confirmPassword, 
-      this.currentPassword, 
-      this.newPassword,});
+    this.confirmPassword,
+    this.currentPassword,
+    this.newPassword,
+  });
 
   ChangePassRequest.fromJson(dynamic json) {
     confirmPassword = json['confirmPassword'];
@@ -20,5 +21,4 @@ class ChangePassRequest {
     map['newPassword'] = newPassword;
     return map;
   }
-
 }
