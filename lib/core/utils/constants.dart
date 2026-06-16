@@ -43,4 +43,5 @@ class AppConstants {
   static const String languageKey = 'language_code';
   static const String onboardingKey = 'onboarding_completed';
   static const String tokenKey = 'token';
+  static const String isFirstLaunchKey = 'is_first_launch';
 }

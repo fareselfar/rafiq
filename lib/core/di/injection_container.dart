@@ -1,9 +1,8 @@
-// lib/core/di/injection_container.dart
-
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:rafiq/core/utils/constants.dart';
+import 'package:rafiq/features/authentication/data/datasources/local/auth_shared_prefs.dart';
 import 'package:rafiq/features/doctor_side/doctor_appointment/data/datasources/doctor_appointments_datasource.dart';
 import 'package:rafiq/features/doctor_side/doctor_appointment/data/repositories/doctor_appointment_repository_impl.dart';
 import 'package:rafiq/features/doctor_side/doctor_appointment/domain/repositories/doctor_appointments_repository.dart';
@@ -16,6 +15,7 @@ import 'package:rafiq/features/doctor_side/doctor_articles/domain/usecases/add_a
 import 'package:rafiq/features/doctor_side/doctor_articles/domain/usecases/delete_article_usecase.dart';
 import 'package:rafiq/features/doctor_side/doctor_articles/domain/usecases/get_my_articles_usecase.dart';
 import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_cubit.dart';
+import 'package:rafiq/features/splash/cubit/splash_cubit.dart';
 import '../network/network_info.dart';
 import '../api/api_interceptors.dart';
 
@@ -47,12 +47,18 @@ Future<void> init() async {
       ),
     );
 
-    // الترتيب مهم: Token الأول ثم Logger
     dio.interceptors.add(TokenInterceptor());
     dio.interceptors.add(ApiInterceptor());
 
     return dio;
   });
+
+  // ── Splash ────────────────────────────────────────────────
+  sl.registerLazySingleton<AuthSharedPrefs>(() => AuthSharedPrefs());
+
+  sl.registerFactory<SplashCubit>(
+    () => SplashCubit(prefs: sl<AuthSharedPrefs>()),
+  );
 
   // ── Doctor Home ───────────────────────────────────────────
   sl.registerFactory<DoctorHomeRemoteDataSource>(
@@ -67,7 +73,7 @@ Future<void> init() async {
 
   sl.registerFactory(() => DoctorHomeCubit(getDoctorHomeData: sl()));
 
-  // ── Doctor Appointments ───────────────────────────────────────
+  // ── Doctor Appointments ───────────────────────────────────
   sl.registerFactory<DoctorAppointmentsDatasource>(
     () => DoctorAppointmentsRemoteDatasource(dio: sl()),
   );
@@ -93,8 +99,6 @@ Future<void> init() async {
     ),
   );
 
-  
-  
   // ── Doctor Articles ───────────────────────────────────────
   sl.registerFactory<DoctorArticleRemoteDatasource>(
     () => DoctorArticleRemoteDatasourceImpl(sl()),

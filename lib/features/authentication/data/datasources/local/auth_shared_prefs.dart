@@ -70,4 +70,24 @@ class AuthSharedPrefs implements AuthLocalDataSource {
       return false;
     }
   }
+
+  @override
+Future<bool> isFirstLaunch() async {
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(AppConstants.isFirstLaunchKey) ?? true;
+  } catch (_) {
+    return true;
+  }
+}
+
+@override
+Future<void> setLaunched() async {
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(AppConstants.isFirstLaunchKey, false);
+  } catch (_) {
+    throw LocalException(message: 'فشل حفظ حالة الإطلاق');
+  }
+}
 }
