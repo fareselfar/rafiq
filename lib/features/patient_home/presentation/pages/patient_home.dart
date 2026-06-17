@@ -102,7 +102,15 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                     Text('أهلًا، كيف نقدر', style: AppTypography.homeTitle),
                     Text('نساعدك اليوم؟', style: AppTypography.homeSubTitle),
                     HeightSpace(16),
-                    CustomSearchField(hint: 'البحث'),
+                    GestureDetector(
+                      onTap: () {
+                        context.navigateTo(Routes.homeSearchScreen);
+                      },
+                      child: CustomSearchField(
+                        hint: 'البحث',
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                    ),
                   ],
                 ),
               ),

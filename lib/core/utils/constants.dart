@@ -35,6 +35,7 @@ class AppConstants {
   static const String getArticleByIdEndpoint = '/Articles/get-by-id';
   static const String getAppointmentsEndpoint = '/Appointments/get-all';
   static const String getAppointmentByIdEndpoint = '';
+  static const String getDoctorEndpoint = '/Doctors/Search';
 
   static const String aiSocketUrl =
       'wss://rafeeq-ai-dev-production.up.railway.app/chat/ws';

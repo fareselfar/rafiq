@@ -45,6 +45,7 @@ class Routes {
   static const String bookingSuccessScreen = '/bookingSuccessScreen';
   static const String bookingDetailsScreen = '/bookingDetailsScreen';
   static const String editAppointmentScreen = '/editAppointmentScreen';
+  static const String homeSearchScreen = '/homeSearchScreen ';
   // Doctor
   static const String doctorHome = '/doctorHome';
   static const String doctorAppointments = '/doctorAppointments';

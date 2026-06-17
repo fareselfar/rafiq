@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,7 +36,12 @@ import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
 import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctor_details_screen.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
+import 'package:rafiq/features/patient_home/data/datasources/home_remote_datasource.dart';
+import 'package:rafiq/features/patient_home/data/repositories/home_repository_impl.dart';
+import 'package:rafiq/features/patient_home/domain/usecases/search_doctor_usecase.dart';
+import 'package:rafiq/features/patient_home/presentation/bloc/home_cubit.dart';
 import 'package:rafiq/features/patient_home/presentation/pages/home.dart';
+import 'package:rafiq/features/patient_home/presentation/pages/home_search_screen.dart';
 import 'package:rafiq/features/patient_home_layout/presentation/pages/patient_home_layout_screen.dart';
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
@@ -160,6 +166,21 @@ class AppRouter {
 
       case Routes.docProfile:
         return _buildRoute(const ProfileDocScreen(), settings);
+
+      case Routes.homeSearchScreen:
+        return _buildRoute(
+          BlocProvider(
+            create: (_) => SearchCubit(
+              searchDoctorsUseCase: SearchDoctorsUseCase(
+                repository: HomeRepositoryImpl(
+                  remoteDataSource: HomeRemoteDataSourceImpl(),
+                ),
+              ),
+            ),
+            child: const HomeSearchScreen(),
+          ),
+          settings,
+        );
       case Routes.doctorNotificationScreen:
         return _buildRoute(const DoctorNotificationScreen(), settings);
       case Routes.changeDocPassword:
