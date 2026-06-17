@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/validators.dart';
@@ -6,6 +7,8 @@ import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/data/models/update_clinic_info_request.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_cubit.dart';
 import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
 
 class EditClinic extends StatefulWidget {
@@ -15,8 +18,8 @@ class EditClinic extends StatefulWidget {
   State<EditClinic> createState() => _EditClinicState();
 }
 
-final TextEditingController _idController = TextEditingController();
-final TextEditingController _clinicController = TextEditingController();
+final TextEditingController _medicalLicenseController = TextEditingController();
+final TextEditingController _clinicNameController = TextEditingController();
 final TextEditingController _locationController = TextEditingController();
 final TextEditingController _fromController = TextEditingController();
 final TextEditingController _toController = TextEditingController();
@@ -27,8 +30,8 @@ GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 class _EditClinicState extends State<EditClinic> {
   @override
   void dispose() {
-    _clinicController.dispose();
-    _idController.dispose();
+    _clinicNameController.dispose();
+    _medicalLicenseController.dispose();
     _locationController.dispose();
     _fromController.dispose();
     _toController.dispose();
@@ -67,13 +70,13 @@ class _EditClinicState extends State<EditClinic> {
                         label: "رقم الترخيص الطبي",
                         prefixIcon: Icon(Icons.person_pin_outlined),
                         validator: (value) => Validators.required(value),
-                        controller: _idController,
+                        controller: _medicalLicenseController,
                       ),
                       HeightSpace(18),
                       CustomTextField(
                         prefixIcon: Icon(Icons.business_outlined),
                         label: "المستشفى /  العيادة",
-                        controller: _clinicController,
+                        controller: _clinicNameController,
                         validator: (value) => Validators.required(value),
                       ),
                       HeightSpace(18),
@@ -152,6 +155,7 @@ class _EditClinicState extends State<EditClinic> {
 
   void _saveClinic() async {
     if (!_formKey.currentState!.validate()) return;
+    // context.read<DoctorProfileCubit>().updateClinicInfo(request: UpdateClinicInfoRequest(medicalLicense: _medicalLicenseController.text, clinicName:_clinicNameController.text , address: _locationController.text, workHours: workHours, price: _priceController.));
     showDialog(
       context: context,
       builder: (_) =>

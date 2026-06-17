@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/features/doctor_side/doctor_appointment/presentation/pages/doctor_appointments_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/presentation/pages/doctor_home_screen.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/data/data_source/profile_doctor_remote_api_data_source.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/data/repo/profile_doctor_repository_impl.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/change_doctor_pass_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/create_coupon_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/profile_doctor_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/update_clinic_record_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/update_doctor_profile_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/update_payment_info_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_cubit.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
 
 class DoctorHomeLayout extends StatefulWidget {
   final int initialIndex;
@@ -15,14 +26,48 @@ class DoctorHomeLayout extends StatefulWidget {
 class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
   late int currentIndex;
 
-  final List<Widget> tabs = const [
+  final List<Widget> tabs = [
     DoctorHomeScreen(),
     DoctorAppointmentsScreen(
       doctorId: '',
       doctorName: '',
     ), // DoctorAppointmentsScreen()
     Center(child: Text("مقالاتي")), // DoctorArticlesScreen()
-    Center(child: Text("حسابي الشخصي")), // ProfileTab()
+    BlocProvider(
+      create: (_) => DoctorProfileCubit(
+        updatePaymentInfoUseCase: UpdatePaymentInfoUseCase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
+          ),
+        ),
+        createCouponUseCase: CreateCouponUseCase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
+          ),
+        ),
+        getProfileUsecase: GetProfileDoctorUsecase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
+          ),
+        ),
+        changePassUseCase: ChangeDoctorPassUseCase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
+          ),
+        ),
+        updateDoctorProfileUseCase: UpdateDoctorProfileUseCase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
+          ),
+        ),
+        updateClinicInfoUseCase: UpdateClinicInfoUseCase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
+          ),
+        ),
+      ),
+      child: ProfileDocScreen(),
+    ), // ProfileTab()
   ];
 
   @override

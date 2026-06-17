@@ -27,7 +27,7 @@ class SpecialContainer extends StatelessWidget {
           title ?? "مستخدم",
           style: TextStyle(
             fontFamily: AppFonts.mainFontName,
-            fontSize: 10.sp,
+            fontSize: 13.sp,
             fontWeight: FontWeight.w600,
             color: titleColor ?? AppColors.primary,
           ),

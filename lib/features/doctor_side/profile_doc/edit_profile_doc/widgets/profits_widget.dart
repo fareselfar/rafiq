@@ -29,11 +29,12 @@ class ProfitsWidget extends StatelessWidget {
       verticalPadding: 21.h,
       widget: Row(
         children: [
-          SvgPicture.asset(icon ?? ""),
+          SvgPicture.asset(icon ?? "", width: 40.w),
           WidthSpace(16),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title1 ?? '', style: AppTypography.inputTextFormStyle),
+              Text(title1 ?? '', style: AppTypography.paymentTiltle),
               WidthSpace(2),
               Text(title2 ?? '', style: AppTypography.inputTextFormStyle),
             ],

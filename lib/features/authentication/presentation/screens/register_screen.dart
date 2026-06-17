@@ -275,16 +275,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     // أخفي الـ loading في كل الحالات التانية
-    if (state is! AuthenticationLoading) {
-      UiUtils.hideDialog(context);
-      UiUtils.showMessage(
-        message: "تم إنشاء الحساب بنجاح",
-        bgColor: Colors.red,
-        fgColor: Colors.white,
-      );
-    }
 
     if (state is RegisterSuccess) {
+      UiUtils.hideDialog(context);
+
+      UiUtils.showMessage(
+        message: "تم إنشاء الحساب بنجاح",
+        bgColor: Colors.green,
+        fgColor: Colors.white,
+      );
       // بعد التسجيل الناجح → روح لصفحة الـ OTP أو الـ Home حسب تصميمك
       // حالياً بنوجه لصفحة الـ OTP (السيرفر بيبعت OTP تلقائياً عند التسجيل)
       context.navigateAndReplace('/login', arguments: widget.userType);

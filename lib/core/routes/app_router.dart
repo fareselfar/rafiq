@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:rafiq/features/articles/presentation/pages/articles_screen.dart';
 import 'package:rafiq/features/authentication/data/models/reset_pass_arrgs.dart';
@@ -8,10 +9,14 @@ import 'package:rafiq/features/authentication/presentation/screens/login_screen.
 import 'package:rafiq/features/authentication/presentation/screens/reset_pass_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home_layout/presentation/pages/doctor_home_layout_page.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/entity/Profile_doctor_entity.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/doctor_notification_screen.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/change_doc_pass.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/edit_clinic.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/edit_doc_profile.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/payment_screen.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/profits.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_cubit.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
 import 'package:rafiq/features/edit_profile/presentation/pages/edit_medical_files.dart';
 import 'package:rafiq/features/edit_profile/presentation/pages/medical_files.dart';
@@ -130,6 +135,14 @@ class AppRouter {
 
       case Routes.specializationScreen:
         return _buildRoute(SpecializationsScreen(), settings);
+
+      case Routes.paymentInfo:
+        final cubit = settings.arguments as DoctorProfileCubit;
+        return _buildRoute(
+          BlocProvider.value(value: cubit, child: PaymentScreenInfo()),
+          settings,
+        );
+
       case Routes.editScreen:
         return _buildRoute(const EditProfilePage(), settings);
       case Routes.chatBotScreen:
@@ -147,14 +160,33 @@ class AppRouter {
 
       case Routes.docProfile:
         return _buildRoute(const ProfileDocScreen(), settings);
+      case Routes.doctorNotificationScreen:
+        return _buildRoute(const DoctorNotificationScreen(), settings);
       case Routes.changeDocPassword:
-        return _buildRoute(const ChangeDocPassword(), settings);
+        final cubit = settings.arguments as DoctorProfileCubit;
+        return _buildRoute(
+          BlocProvider.value(value: cubit, child: const ChangeDoctorPassword()),
+          settings,
+        );
       case Routes.editDocClinic:
-        return _buildRoute(const EditClinic(), settings);
+        final cubit = settings.arguments as DoctorProfileCubit;
+        return _buildRoute(
+          BlocProvider.value(value: cubit, child: const EditClinic()),
+          settings,
+        );
       case Routes.profits:
         return _buildRoute(const ProfitsScrren(), settings);
       case Routes.editDocProfile:
-        return _buildRoute(const EditDocProfileScreen(), settings);
+        final args = settings.arguments as Map<String, dynamic>;
+        final profile = args['profile'] as DoctorProfileEntity;
+        final cubit = args['cubit'] as DoctorProfileCubit;
+        return _buildRoute(
+          BlocProvider.value(
+            value: cubit,
+            child: EditDocProfileScreen(profile: profile),
+          ),
+          settings,
+        );
 
       case Routes.resetPass:
         final args = settings.arguments as ResetPassArgs;

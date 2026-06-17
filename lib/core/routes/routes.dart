@@ -49,4 +49,5 @@ class Routes {
   static const String doctorHome = '/doctorHome';
   static const String doctorAppointments = '/doctorAppointments';
   static const String doctorArticles = '/doctorArticles';
+  static const String doctorNotificationScreen = '/doctornotificationScreen ';
 }
