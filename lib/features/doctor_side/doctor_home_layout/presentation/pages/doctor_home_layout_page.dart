@@ -7,7 +7,7 @@ import 'package:rafiq/features/doctor_side/doctor_appointment/presentation/pages
 import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_cubit.dart';
 import 'package:rafiq/features/doctor_side/doctor_articles/presentation/pages/doctor_articles_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/presentation/pages/doctor_home_screen.dart';
-import 'package:rafiq/features/profile_doc/presentation/screens/profile_doc_screen.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
 
 class DoctorHomeLayout extends StatefulWidget {
   final int initialIndex;
@@ -28,7 +28,7 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
     ), // DoctorAppointmentsScreen()
     BlocProvider(
       create: (_) => sl<DoctorArticlesCubit>(),
-      child:  const DoctorArticlesScreen(),
+      child: const DoctorArticlesScreen(),
     ),
     const ProfileDocScreen(),
   ];

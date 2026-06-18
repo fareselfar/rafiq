@@ -5,7 +5,7 @@ class AppConstants {
   AppConstants._();
 
   // API Configuration
-  static const String baseUrl = 'http://rafiqapp.runasp.net';
+  static const String baseUrl = 'https://rafiqapp.runasp.net/api';
   static const String signUpEndpoint = '/Auth/register';
   static const String signInEndpoint = '/Auth/login';
   static const String changePassEndpoint = '/Appointments/change-password';

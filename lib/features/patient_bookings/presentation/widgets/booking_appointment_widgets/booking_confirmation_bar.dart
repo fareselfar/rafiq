@@ -9,20 +9,19 @@ import 'package:rafiq/core/widgets/spacing_widget.dart';
 class BookingConfirmationBar extends StatelessWidget {
   final DateTime selectedDate;
   final String? selectedTime;
-  final VoidCallback onConfirm;
+  final VoidCallback? onConfirm;
+  final bool isLoading;
 
   const BookingConfirmationBar({
     super.key,
     required this.selectedDate,
     required this.selectedTime,
     required this.onConfirm,
-    required String buttonText,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (selectedTime == null) return const SizedBox.shrink();
-
     return Container(
       padding: EdgeInsets.only(
         top: 12.h,
@@ -55,18 +54,24 @@ class BookingConfirmationBar extends StatelessWidget {
                 style: AppTypography.doctorName.copyWith(fontSize: 16.sp),
               ),
               Text(
-                '$selectedTime - ${DateFormat('d MMMM', 'ar').format(selectedDate)}',
+                selectedTime != null
+                    ? '$selectedTime - ${DateFormat('d MMMM', 'ar').format(selectedDate)}'
+                    : 'اختر موعداً أولاً',
                 style: AppTypography.bodymid.copyWith(
-                  color: AppColors.primary,
-                  fontWeight: FontWeight.bold,
+                  color: selectedTime != null
+                      ? AppColors.primary
+                      : AppColors.textSecondary,
                 ),
               ),
             ],
           ),
-          HeightSpace(12),
+          const HeightSpace(12),
           SizedBox(
             width: double.infinity,
-            child: CustomButton(text: 'تأكيد الحجز', onPressed: onConfirm),
+            child: CustomButton(
+              text: 'تأكيد الحجز',
+              onPressed: selectedTime != null ? onConfirm : null,
+            ),
           ),
         ],
       ),
