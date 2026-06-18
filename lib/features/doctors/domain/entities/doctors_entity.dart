@@ -1,59 +1,64 @@
-import 'package:equatable/equatable.dart';
-import 'package:rafiq/core/enums/doctor_availability.dart';
-import 'patient_review.dart';
-import 'working_hours.dart';
-
-class DoctorsEntity extends Equatable {
+class DoctorEntity {
   final int id;
-  final String name;
+  final String fullName;
   final String specialization;
-  final double rating;
-  final int reviewCount;
+  final String? imagePath;
+  final double rate;
+  final double? price;
   final String address;
-  final String imageUrl;
-  final DoctorAvailability availability;
-  final int consultationPrice;
-  final int yearsOfExperience;
-  final int patientCount;
-  final int waitingTime;
-  final String bio;
-  final List<WorkingHours> workingHours;
-  final List<PatientReview> reviews;
+  final bool isAvailableToday;
 
-  const DoctorsEntity({
+  const DoctorEntity({
     required this.id,
-    required this.name,
+    required this.fullName,
     required this.specialization,
-    required this.rating,
-    required this.reviewCount,
+    this.imagePath,
+    required this.rate,
+    this.price,
     required this.address,
-    required this.imageUrl,
-    required this.availability,
-    required this.consultationPrice,
-    required this.yearsOfExperience,
-    required this.patientCount,
-    required this.waitingTime,
-    required this.bio,
-    required this.workingHours,
-    required this.reviews,
+    required this.isAvailableToday,
   });
+}
+class WeeklyScheduleEntity {
+  final String dayName;
+  final String timeRange;
+  final bool isClosed;
 
-  @override
-  List<Object?> get props => [
-    id,
-    name,
-    specialization,
-    rating,
-    reviewCount,
-    address,
-    imageUrl,
-    availability,
-    consultationPrice,
-    yearsOfExperience,
-    patientCount,
-    waitingTime,
-    bio,
-    workingHours,
-    reviews,
-  ];
+  const WeeklyScheduleEntity({
+    required this.dayName,
+    required this.timeRange,
+    required this.isClosed,
+  });
+}
+
+class DoctorProfileEntity {
+  final int id;
+  final String fullName;
+  final String specialization;
+  final String? imagePath;
+  final double rate;
+  final int reviewsCount;
+  final String bio;
+  final double? price;
+  final int yearsOfExperience;
+  final int patientsCount;
+  final int waitingTime;
+  final String? address;
+  final List<WeeklyScheduleEntity> weeklySchedule;
+
+  const DoctorProfileEntity({
+    required this.id,
+    required this.fullName,
+    required this.specialization,
+    this.imagePath,
+    required this.rate,
+    required this.reviewsCount,
+    required this.bio,
+    this.price,
+    required this.yearsOfExperience,
+    required this.patientsCount,
+    required this.waitingTime,
+    this.address,
+    required this.weeklySchedule,
+  });
 }

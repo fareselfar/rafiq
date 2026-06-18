@@ -1,24 +1,17 @@
 part of 'doctors_cubit.dart';
 
-abstract class DoctorsState extends Equatable {
-  const DoctorsState();
+abstract class DoctorsState {}
 
-  @override
-  List<Object> get props => [];
-}
-
-class DoctorsInitial extends DoctorsState {
-  const DoctorsInitial();
-}
+class DoctorsInitial extends DoctorsState {}
 
 class DoctorsLoading extends DoctorsState {}
 
-class DoctorsLoaded extends DoctorsState {}
+class DoctorsLoaded extends DoctorsState {
+  final List<DoctorEntity> doctors;
+  DoctorsLoaded(this.doctors);
+}
 
 class DoctorsError extends DoctorsState {
   final String message;
-  const DoctorsError(this.message);
-
-  @override
-  List<Object> get props => [message];
+  DoctorsError(this.message);
 }
