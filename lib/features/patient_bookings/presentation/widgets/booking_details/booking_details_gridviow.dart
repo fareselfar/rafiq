@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
+import 'package:rafiq/features/patient_bookings/domain/entities/patient_booking_entities.dart';
 
-class BookingDetailsGridViow extends StatelessWidget {
-  final BookingEntity booking;
+class BookingDetailsGridView extends StatelessWidget {
+  final AppointmentDetailsEntity details;
 
-  const BookingDetailsGridViow({super.key, required this.booking});
+  const BookingDetailsGridView({super.key, required this.details});
 
   @override
   Widget build(BuildContext context) {
-    String getDayName(DateTime date) {
-      return DateFormat('EEEE', 'ar').format(date);
-    }
-
-    String getFormattedDate(DateTime date) {
-      return DateFormat('d MMMM yyyy', 'ar').format(date);
-    }
-
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -28,23 +19,12 @@ class BookingDetailsGridViow extends StatelessWidget {
       crossAxisSpacing: 14.w,
       childAspectRatio: 1.7,
       children: [
-        _buildDetailItem(
-          "اليوم",
-          getDayName(booking.date),
-          Icons.calendar_month,
-        ),
-
-        _buildDetailItem(
-          "التاريخ",
-          getFormattedDate(booking.date),
-          Icons.date_range,
-        ),
-
-        _buildDetailItem("الوقت", booking.time, Icons.access_time),
-
+        _buildDetailItem("اليوم", details.dayName, Icons.calendar_month),
+        _buildDetailItem("التاريخ", details.date, Icons.date_range),
+        _buildDetailItem("الوقت", details.time, Icons.access_time),
         _buildDetailItem(
           "العنوان",
-          booking.doctor.address,
+          details.location,
           Icons.location_on_outlined,
         ),
       ],
@@ -54,7 +34,6 @@ class BookingDetailsGridViow extends StatelessWidget {
   Widget _buildDetailItem(String label, String value, IconData icon) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(18.r),
@@ -63,19 +42,17 @@ class BookingDetailsGridViow extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(.25),
+            color: AppColors.primary.withOpacity(0.05),
             blurRadius: 10.r,
-            offset: const Offset(0, 6),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
-
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Icon(icon, size: 16.sp, color: AppColors.primary),
               const WidthSpace(6),
@@ -89,15 +66,13 @@ class BookingDetailsGridViow extends StatelessWidget {
               ),
             ],
           ),
-          // const Spacer(),
           Flexible(
             child: Text(
               value,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              softWrap: true,
               style: TextStyle(
-                fontSize: 15.sp,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
               ),

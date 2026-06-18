@@ -15,6 +15,7 @@ class BookingStatusBadge extends StatelessWidget {
     String label;
 
     switch (status) {
+      case BookingStatus.pending:
       case BookingStatus.upcoming:
         background = AppColors.lightBlue;
         text = AppColors.primary;
@@ -25,7 +26,7 @@ class BookingStatusBadge extends StatelessWidget {
         text = AppColors.success;
         label = "مكتمل";
         break;
-      default:
+      case BookingStatus.cancelled:
         background = AppColors.redWhite;
         text = AppColors.error;
         label = "ملغي";

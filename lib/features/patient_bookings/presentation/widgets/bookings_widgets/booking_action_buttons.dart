@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/routes/navigation_extension.dart';
 import 'package:rafiq/core/routes/routes.dart';
@@ -6,11 +7,12 @@ import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/core/enums/booking__status.dart';
-import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
+import 'package:rafiq/features/patient_bookings/domain/entities/patient_booking_entities.dart';
+import 'package:rafiq/features/patient_bookings/presentation/bloc/appointments_cubit.dart';
 import '../../../../../core/widgets/cancel_booking_dialog.dart';
 
 class BookingActionButtons extends StatelessWidget {
-  final BookingEntity booking;
+  final PatientAppointmentEntity booking;
 
   const BookingActionButtons({super.key, required this.booking});
 
@@ -24,12 +26,12 @@ class BookingActionButtons extends StatelessWidget {
           child: CustomButton(
             text: "عرض التفاصيل",
             onPressed: () {
-              context.navigateTo("/bookingDetailsScreen", arguments: booking);
+              context.navigateTo(Routes.bookingDetailsScreen, arguments: booking.id);
             },
             height: 40.h,
           ),
         ),
-        if (booking.status == BookingStatus.upcoming) ...[
+        if (booking.status == BookingStatus.upcoming.toString().toLowerCase()) ...[
           SizedBox(height: 8.h),
           Row(
             children: [
@@ -55,9 +57,12 @@ class BookingActionButtons extends StatelessWidget {
                     text: "إلغاء",
                     onPressed: () {
                       showDialog(
-                        context: context,
-                        builder: (_) => const CancelBookingDialog(),
-                      );
+                      context: context,
+                      builder: (_) => BlocProvider.value(
+                        value: context.read<AppointmentsCubit>(),
+                        child: CancelBookingDialog(appointmentId: booking.id),
+                      ),
+                    );
                     },
                     height: 40.h,
                     backgroundColor: AppColors.darkRed,

@@ -12,12 +12,11 @@ class InfoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max, // مهم
+      mainAxisSize: MainAxisSize.max,
       children: [
         Icon(icon, size: 18.sp, color: AppColors.textSecondary),
         SizedBox(width: 4.w),
 
-        /// 🔥 الحل الحقيقي هنا
         Flexible(
           child: Text(
             text,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:rafiq/features/articles/presentation/pages/articles_screen.dart';
 import 'package:rafiq/features/authentication/data/models/reset_pass_arrgs.dart';
 import 'package:rafiq/features/authentication/presentation/screens/forget_password_screen.dart';
@@ -17,7 +16,8 @@ import 'package:rafiq/features/edit_profile/presentation/pages/edit_medical_file
 import 'package:rafiq/features/edit_profile/presentation/pages/medical_files.dart';
 import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
 import 'package:rafiq/features/edit_profile/presentation/pages/upload_file_screen.dart';
-import 'package:rafiq/features/patient_bookings/data/models/payment_arguments.dart';
+import 'package:rafiq/features/patient_bookings/data/models/appointment_details_model.dart';
+import 'package:rafiq/features/patient_bookings/domain/entities/booking_result_args.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/book_appointment_screen.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/booking_details_screen.dart';
@@ -27,8 +27,6 @@ import 'package:rafiq/features/patient_bookings/presentation/pages/edit_appointm
 import 'package:rafiq/features/patient_bookings/presentation/pages/payment_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/success_reset_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
-import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
-import 'package:rafiq/features/doctors/presentation/pages/doctor_details_screen.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
 import 'package:rafiq/features/patient_home/presentation/pages/home.dart';
 import 'package:rafiq/features/patient_home_layout/presentation/pages/patient_home_layout_screen.dart';
@@ -93,41 +91,40 @@ class AppRouter {
         );
       case Routes.doctorsScreen:
         return _buildRoute(const DoctorsScreen(), settings);
-      case Routes.doctorDetailsScreen:
-        final doctor = settings.arguments as DoctorsEntity;
-        return _buildRoute(DoctorDetailsScreen(doctor: doctor), settings);
+
+      case Routes.bookingDetailsScreen:
+        final appointmentId = settings.arguments as int;
+        return _buildRoute(
+          BookingDetailsScreen(appointmentId: appointmentId),
+          settings,
+        );
+
       case Routes.bookAppointmentScreen:
-        final booking = settings.arguments as BookingEntity;
-        return _buildRoute(BookAppointmentScreen(booking: booking), settings);
+        final args = settings.arguments as BookingArgs;
+        return _buildRoute(BookAppointmentScreen(args: args), settings);
 
       case Routes.paymentScreen:
-        final args = settings.arguments as PaymentArguments;
+        final args = settings.arguments as AppointmentDetailsModel;
         return _buildRoute(
           PaymentScreen(
-            booking: args.booking,
-            selectedDate: args.date,
-            selectedTime: args.time,
+            
           ),
           settings,
         );
 
       case Routes.bookingSuccessScreen:
-        final args = settings.arguments as PaymentArguments;
+        final args = settings.arguments as BookingResultArgs;
+        return _buildRoute(BookingSuccessScreen(args: args), settings);
+
+      case Routes.editAppointmentScreen:
+        final args = settings.arguments as Map<String, dynamic>;
         return _buildRoute(
-          BookingSuccessScreen(
-            booking: args.booking,
-            selectedDate: args.date,
-            selectedTime: args.time,
+          EditAppointmentScreen(
+            appointmentId: args['appointmentId'] as int,
+            args: args['bookingArgs'] as BookingArgs,
           ),
           settings,
         );
-      case Routes.bookingDetailsScreen:
-        final args = settings.arguments as BookingEntity;
-        return _buildRoute(BookingDetailsScreen(booking: args), settings);
-      case Routes.editAppointmentScreen:
-        final booking = settings.arguments as BookingEntity;
-        return _buildRoute(EditAppointmentScreen(booking: booking), settings);
-
       case Routes.specializationScreen:
         return _buildRoute(SpecializationsScreen(), settings);
       case Routes.editScreen:

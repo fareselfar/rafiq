@@ -28,7 +28,7 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
     ), // DoctorAppointmentsScreen()
     BlocProvider(
       create: (_) => sl<DoctorArticlesCubit>(),
-      child:  const DoctorArticlesScreen(),
+      child: const DoctorArticlesScreen(),
     ),
     const ProfileDocScreen(),
   ];
