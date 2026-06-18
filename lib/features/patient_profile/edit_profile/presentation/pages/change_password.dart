@@ -46,12 +46,16 @@ class _ChangePasswordState extends State<ChangePassword> {
       listener: (context, state) {
         if (state is PasswordChanged) {
           UiUtils.hideDialog(context);
-
+          context.read<ProfileCubit>().getProfile();
+          Navigator.pop(context);
           showDialog(
             context: context,
             barrierDismissible: false,
             builder: (context) {
-              return CustomDialog(title: "تم تحديث كلمة المرور بنجاح");
+              return CustomDialog(
+                title: "تم تحديث كلمة المرور بنجاح",
+                isButton: false,
+              );
             },
           );
         }

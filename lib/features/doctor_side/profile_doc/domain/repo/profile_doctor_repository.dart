@@ -9,7 +9,7 @@ import 'package:rafiq/features/doctor_side/profile_doc/data/models/update_doctor
 import 'package:rafiq/features/doctor_side/profile_doc/data/models/update_payment_info_request.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/data/models/update_payment_info_response.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/domain/entity/Profile_doctor_entity.dart';
-import 'package:rafiq/features/edit_profile/data/models/update_profile_response.dart';
+import 'package:rafiq/features/patient_profile/data/models/update_profile_response.dart';
 import 'package:rafiq/features/patient_profile/data/models/Change_pass_request.dart';
 import 'package:rafiq/features/patient_profile/data/models/Change_pass_response.dart';
 

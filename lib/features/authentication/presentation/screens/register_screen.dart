@@ -12,7 +12,7 @@ import 'package:rafiq/core/widgets/widgets.dart';
 import 'package:rafiq/features/authentication/data/models/register_request.dart';
 import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
 import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
-import 'package:rafiq/features/edit_profile/presentation/widgets/gender_item.dart';
+import 'package:rafiq/features/patient_profile/edit_profile/presentation/widgets/gender_item.dart';
 
 // ─── خريطة التخصصات: العربي (للعرض) → الإنجليزي (للـ API) ───────────────────
 const Map<String, String> _specializationsMap = {

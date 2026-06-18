@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +10,7 @@ import 'package:rafiq/features/authentication/presentation/screens/reset_pass_sc
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home_layout/presentation/pages/doctor_home_layout_page.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/domain/entity/Profile_doctor_entity.dart';
-import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/doctor_notification_screen.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/doctor_notification_screen.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/change_doc_pass.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/edit_clinic.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/edit_doc_profile.dart';
@@ -19,10 +18,10 @@ import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presenta
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/profits.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_cubit.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
-import 'package:rafiq/features/edit_profile/presentation/pages/edit_medical_files.dart';
-import 'package:rafiq/features/edit_profile/presentation/pages/medical_files.dart';
-import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
-import 'package:rafiq/features/edit_profile/presentation/pages/upload_file_screen.dart';
+import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/edit_medical_files.dart';
+import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/medical_files.dart';
+import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/edit_profile_page.dart';
+import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/upload_file_screen.dart';
 import 'package:rafiq/features/patient_bookings/data/models/payment_arguments.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/book_appointment_screen.dart';
@@ -45,7 +44,8 @@ import 'package:rafiq/features/patient_home/presentation/pages/home_search_scree
 import 'package:rafiq/features/patient_home_layout/presentation/pages/patient_home_layout_screen.dart';
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
-import 'package:rafiq/features/patient_profile/presentation/pages/change_password.dart';
+import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
+import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/change_password.dart';
 import 'package:rafiq/features/patient_profile/presentation/pages/profile_page.dart';
 
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
@@ -150,19 +150,35 @@ class AppRouter {
         );
 
       case Routes.editScreen:
-        return _buildRoute(const EditProfilePage(), settings);
+        final cubit = settings.arguments as ProfileCubit;
+        return _buildRoute(
+          BlocProvider.value(value: cubit, child: const EditProfilePage()),
+          settings,
+        );
       case Routes.chatBotScreen:
         return _buildRoute(const ChatBotScreen(), settings);
       case Routes.editFiels:
-        return _buildRoute(const MedicalFiels(), settings);
+        final cubit = settings.arguments as ProfileCubit;
+        return _buildRoute(
+          BlocProvider.value(value: cubit, child: const MedicalFiels()),
+          settings,
+        );
       case Routes.uploadFiels:
-        return _buildRoute(const UploadFileScreen(), settings);
+        final cubit = settings.arguments as ProfileCubit;
+        return _buildRoute(
+          BlocProvider.value(value: cubit, child: const UploadFileScreen()),
+          settings,
+        );
       case Routes.profile:
         return _buildRoute(const ProfileTab(), settings);
       case Routes.articlesScreen:
         return _buildRoute(const ArticlesScreen(), settings);
       case Routes.changePassword:
-        return _buildRoute(const ChangePassword(), settings);
+        final cubit = settings.arguments as ProfileCubit;
+        return _buildRoute(
+          BlocProvider.value(value: cubit, child: const ChangePassword()),
+          settings,
+        );
 
       case Routes.docProfile:
         return _buildRoute(const ProfileDocScreen(), settings);
@@ -228,7 +244,11 @@ class AppRouter {
       case Routes.home:
         return _buildRoute(Home(), settings);
       case Routes.editMedicalFileScreen:
-        return _buildRoute(EditMedicalFileScreen(), settings);
+        final cubit = settings.arguments as ProfileCubit;
+        return _buildRoute(
+          BlocProvider.value(value: cubit, child: EditMedicalFileScreen()),
+          settings,
+        );
       default:
         return _buildRoute(
           Scaffold(

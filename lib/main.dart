@@ -14,16 +14,6 @@ import 'package:rafiq/features/authentication/domain/usecases/reset_pass_usecase
 import 'package:rafiq/features/authentication/domain/usecases/send_otp_usecase.dart';
 import 'package:rafiq/features/authentication/domain/usecases/verify_otp_usecase.dart';
 import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
-import 'package:rafiq/features/patient_profile/data/datasources/profile_remote_api_data_source.dart';
-import 'package:rafiq/features/patient_profile/data/repositories/profile_repository_impl.dart';
-import 'package:rafiq/features/patient_profile/domain/usecases/change_pass_usecase.dart';
-import 'package:rafiq/features/patient_profile/domain/usecases/get_files_usecase.dart';
-import 'package:rafiq/features/patient_profile/domain/usecases/profile_usecase.dart';
-import 'package:rafiq/features/patient_profile/domain/usecases/update_medical_record_usecase.dart';
-import 'package:rafiq/features/patient_profile/domain/usecases/update_profile_usecase.dart';
-import 'package:rafiq/features/patient_profile/domain/usecases/upload_files_usecase.dart';
-import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
-
 import 'core/routes/app_router.dart';
 import 'core/routes/routes.dart';
 import 'core/theme/app_theme.dart';
@@ -64,9 +54,6 @@ void main() async {
     localDataSource: AuthSharedPrefs(),
   );
   // ── Profile dependencies ───────────────────────────────────────────────────
-  final profileRepo = ProfileRepositoryImpl(
-    remoteDataSource: ProfileRemoteApiDataSource(),
-  );
 
   runApp(
     EasyLocalization(
@@ -74,8 +61,7 @@ void main() async {
       path: LocalizationManager.translationsPath,
       fallbackLocale: LocalizationManager.fallbackLocale,
       startLocale: LocalizationManager.fallbackLocale,
-      child: MultiBlocProvider(
-        providers: [
+      child:
           // ── Auth Cubit ─────────────────────────────────────────────────────
           BlocProvider(
             create: (_) => AuthenticationCubit(
@@ -85,26 +71,10 @@ void main() async {
               sendOtpUsecase: SendResetOtpUseCase(authRepo),
               resetPassUsecase: ResetPassUsecase(authRepo),
             ),
-          ),
 
-          // ── Profile Cubit ──────────────────────────────────────────────────
-          BlocProvider(
-            create: (_) => ProfileCubit(
-              updateMedicalRecordUseCase: UpdateMedicalRecordUseCase(
-                repository: profileRepo,
-              ),
-              getFilesUseCase: GetFilesUseCase(repository: profileRepo),
-              uploadFileUseCase: UploadFileUseCase(repository: profileRepo),
-              updateProfileUseCase: UpdateProfileUseCase(
-                repository: profileRepo,
-              ),
-              changePassUseCase: ChangePassUseCase(repository: profileRepo),
-              getProfileUsecase: GetProfileUsecase(repository: profileRepo),
-            ),
+            // ── Profile Cubit ──────────────────────────────────────────────────
+            child: const Rafiq(),
           ),
-        ],
-        child: const Rafiq(),
-      ),
     ),
   );
 }
