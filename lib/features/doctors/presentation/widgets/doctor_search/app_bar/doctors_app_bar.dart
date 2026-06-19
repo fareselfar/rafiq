@@ -28,7 +28,18 @@ class DoctorsAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             children: [
-              const FilterChipsSection(),
+              BlocBuilder<DoctorsCubit, DoctorsState>(
+                builder: (context, state) {
+                  final currentFilter = state is DoctorsLoaded
+                      ? state.currentFilter
+                      : DoctorFilter.nearest;
+                  return FilterChipsSection(
+                    selectedFilter: currentFilter,
+                    onFilterChanged: (filter) =>
+                        context.read<DoctorsCubit>().changeFilter(filter),
+                  );
+                },
+              ),
               SizedBox(height: 12.h),
               CustomSearchField(
                 hint: 'البحث',

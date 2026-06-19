@@ -27,7 +27,12 @@ class PatientAppointmentModel {
       id: json['id'] ?? 0,
       doctorName: json['doctorName'] ?? '',
       specialization: json['specialization'] ?? '',
-      imagePath: json['imagePath'],
+      imagePath: (() {
+        final p = json['imagePath'] as String?;
+        if (p == null) return null;
+        if (p == 'http://rafiqapp.runasp.net' || p.isEmpty) return null;
+        return p;
+      })(),
       appointmentDate: json['appointmentDate'] ?? '',
       appointmentTime: json['appointmentTime'] ?? '',
       location: json['location'] ?? '',

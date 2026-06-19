@@ -3,17 +3,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 
-class FilterChipsSection extends StatefulWidget {
-  const FilterChipsSection({super.key});
+enum DoctorFilter { nearest, topRated, availableToday }
 
-  @override
-  State<FilterChipsSection> createState() => _FilterChipsSectionState();
-}
+class FilterChipsSection extends StatelessWidget {
+  final DoctorFilter selectedFilter;
+  final ValueChanged<DoctorFilter> onFilterChanged;
 
-class _FilterChipsSectionState extends State<FilterChipsSection> {
-  String selectedFilter = "الأقرب";
+  const FilterChipsSection({
+    super.key,
+    required this.selectedFilter,
+    required this.onFilterChanged,
+  });
 
-  final List<String> filters = ["الأقرب", "الأعلى تقييماً", "المتاح اليوم"];
+  static const _labels = {
+    DoctorFilter.nearest: 'الأقرب',
+    DoctorFilter.topRated: 'الأعلى تقييماً',
+    DoctorFilter.availableToday: 'المتاح اليوم',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -21,37 +27,29 @@ class _FilterChipsSectionState extends State<FilterChipsSection> {
       height: 40.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: filters.length,
+        itemCount: DoctorFilter.values.length,
         separatorBuilder: (context, index) => SizedBox(width: 10.w),
         itemBuilder: (context, index) {
-          final filter = filters[index];
+          final filter = DoctorFilter.values[index];
           final isSelected = selectedFilter == filter;
 
           return GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedFilter = filter;
-              });
-            },
+            onTap: () => onFilterChanged(filter),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
               decoration: BoxDecoration(
                 color: isSelected ? AppColors.primary : Colors.white,
                 borderRadius: BorderRadius.circular(20.r),
                 border: Border.all(
-                  color: isSelected
-                      ? AppColors.primary
-                      : const Color(0xFFE0E0E0),
+                  color: isSelected ? AppColors.primary : const Color(0xFFE0E0E0),
                 ),
               ),
               child: Center(
                 child: Text(
-                  filter,
+                  _labels[filter]!,
                   style: AppTypography.bodySmall.copyWith(
                     color: isSelected ? Colors.white : AppColors.textPrimary,
-                    fontWeight: isSelected
-                        ? FontWeight.bold
-                        : FontWeight.normal,
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
               ),

@@ -21,9 +21,10 @@ class DoctorInfoSection extends StatelessWidget {
           radius: 70.r,
           backgroundColor: const Color(0xFFE3F2FD),
           backgroundImage: hasImage ? NetworkImage(profile.imagePath!) : null,
-          child: !hasImage
-              ? Icon(Icons.person, size: 60.r, color: const Color(0xFF90CAF9))
-              : null,
+          onBackgroundImageError: hasImage ? (_, __) {} : null,
+  child: !hasImage
+      ? Icon(Icons.person, size:0.8, color: const Color(0xFF90CAF9))
+      : null,
         ),
         HeightSpace(8.h),
 

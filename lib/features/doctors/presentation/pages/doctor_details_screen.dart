@@ -45,7 +45,7 @@ class DoctorDetailsScreen extends StatelessWidget {
                     const DoctorAlertBox(),
                     HeightSpace(24.h),
                     const DoctorProfessionalFiles(),
-                    HeightSpace(100.h), // space for bottom button
+                    HeightSpace(100.h), 
                   ],
                 ),
               );

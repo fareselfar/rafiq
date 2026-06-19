@@ -10,7 +10,6 @@ abstract class DoctorsRepository {
   Future<DoctorProfileEntity> getDoctorProfile(int id);
 }
 
-// Impl — mapping هنا من Model → Entity
 class DoctorsRepositoryImpl implements DoctorsRepository {
   final DoctorsRemoteDatasource datasource;
   DoctorsRepositoryImpl(this.datasource);
@@ -35,7 +34,7 @@ class DoctorsRepositoryImpl implements DoctorsRepository {
         rate: m.rate,
         price: m.price,
         address: m.address,
-        isAvailableToday: m.isAvailableToday,
+        isAvailableToday: true, // ← مؤقتاً لحد ما الباك يصلحها
       );
 
   DoctorProfileEntity _mapProfileModel(DoctorProfileModel m) =>

@@ -14,9 +14,11 @@ class PatientBookingsDatasourceImpl implements PatientBookingsDatasource {
   PatientBookingsDatasourceImpl(this.dio);
 
   @override
-  Future<List<PatientAppointmentModel>> getMyAppointments({String? status}) async {
+  Future<List<PatientAppointmentModel>> getMyAppointments({
+    String? status,
+  }) async {
     final response = await dio.get(
-      '/api/Appointments/patient-bookings',
+      '/Appointments/patient-bookings',
       queryParameters: status != null ? {'status': status} : null,
     );
     return (response.data as List)
@@ -25,20 +27,22 @@ class PatientBookingsDatasourceImpl implements PatientBookingsDatasource {
   }
 
   @override
-  Future<AppointmentDetailsModel> getAppointmentDetails(int appointmentId) async {
-    final response = await dio.get('/api/Appointments/details/$appointmentId');
+  Future<AppointmentDetailsModel> getAppointmentDetails(
+    int appointmentId,
+  ) async {
+    final response = await dio.get('/Appointments/details/$appointmentId');
     return AppointmentDetailsModel.fromJson(response.data);
   }
 
   @override
   Future<void> cancelAppointment(int appointmentId) async {
-    await dio.put('/api/Appointments/$appointmentId/cancel');
+    await dio.put('/Appointments/$appointmentId/cancel');
   }
 
   @override
   Future<void> rescheduleAppointment(int appointmentId, int slotId) async {
     await dio.put(
-      '/api/Appointments/Update-book',
+      '/Appointments/Update-book',
       data: {'appointmentId': appointmentId, 'slotId': slotId},
     );
   }
