@@ -82,7 +82,7 @@ class BookingDetailsScreen extends StatelessWidget {
                                 const HeightSpace(8),
                                 BookingDetailsGridView(details: details),
                                 const HeightSpace(20),
-                                PaymentBillSummary(details: details),
+                                // PaymentBillSummary(details: details),
                               ],
                             ),
                           )

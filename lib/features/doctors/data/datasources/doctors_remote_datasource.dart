@@ -14,7 +14,7 @@ class DoctorsRemoteDatasourceImpl implements DoctorsRemoteDatasource {
   @override
   Future<List<DoctorListModel>> getDoctors({String? search}) async {
     final response = await dio.get(
-      '/api/Doctors/allDoctors',
+      '/Doctors/allDoctors',
       queryParameters: search != null ? {'search': search} : null,
     );
     return (response.data as List)
@@ -24,7 +24,7 @@ class DoctorsRemoteDatasourceImpl implements DoctorsRemoteDatasource {
 
   @override
   Future<DoctorProfileModel> getDoctorProfile(int id) async {
-    final response = await dio.get('/api/Doctors/$id/details');
+    final response = await dio.get('/Doctors/$id/details');
     return DoctorProfileModel.fromJson(response.data);
   }
 }

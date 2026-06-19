@@ -37,8 +37,9 @@ class SuccessDoctorCard extends StatelessWidget {
                 radius: 35.r,
                 backgroundColor: const Color(0xFFE8F1FF),
                 backgroundImage: hasImage ? NetworkImage(args.imagePath!) : null,
+                onBackgroundImageError: hasImage ? (_, __) {} : null,
                 child: !hasImage
-                    ? Icon(Icons.person, color: AppColors.primary, size: 28.sp)
+                    ? Icon(Icons.person, size:0.8, color: const Color(0xFF90CAF9))
                     : null,
               ),
               const WidthSpace(16),
