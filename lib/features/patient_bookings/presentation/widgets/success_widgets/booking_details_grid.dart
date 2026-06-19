@@ -4,10 +4,18 @@ import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 
 class BookingDetailsGrid extends StatelessWidget {
-  final DateTime date;
+  final String date;
+  final String dayName;
   final String time;
+  final String location;
 
-  const BookingDetailsGrid({super.key, required this.date, required this.time});
+  const BookingDetailsGrid({
+    super.key,
+    required this.date,
+    required this.dayName,
+    required this.time,
+    required this.location,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,34 +27,21 @@ class BookingDetailsGrid extends StatelessWidget {
       crossAxisSpacing: 14.w,
       childAspectRatio: 1.7,
       children: [
-        _buildDetailItem("اليوم", "الاثنين", Icons.calendar_month),
-
-        _buildDetailItem(
-          "التاريخ",
-          "${date.day} يناير ${date.year}",
-          Icons.date_range,
-        ),
-        _buildDetailItem("الوقت", time, Icons.access_time),
-
-        _buildDetailItem(
-          "العنوان",
-          "طنطا شارع البحر",
-          Icons.location_on_outlined,
-        ),
+        _buildItem('اليوم', dayName, Icons.calendar_month),
+        _buildItem('التاريخ', date, Icons.date_range),
+        _buildItem('الوقت', time, Icons.access_time),
+        _buildItem('العنوان', location, Icons.location_on_outlined),
       ],
     );
   }
 
-  Widget _buildDetailItem(String label, String value, IconData icon) {
+  Widget _buildItem(String label, String value, IconData icon) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(18.r),
-        border: Border(
-          left: BorderSide(color: AppColors.primary, width: 1.w),
-        ),
+        border: Border(left: BorderSide(color: AppColors.primary, width: 1.w)),
         boxShadow: [
           BoxShadow(
             color: AppColors.primary.withOpacity(.25),
@@ -55,12 +50,11 @@ class BookingDetailsGrid extends StatelessWidget {
           ),
         ],
       ),
-
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Icon(icon, size: 16.sp, color: AppColors.primary),
               const WidthSpace(6),
@@ -75,17 +69,14 @@ class BookingDetailsGrid extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          Flexible(
-            child: Text(
-              value,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              softWrap: true,
-              style: TextStyle(
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
+          Text(
+            value,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 15.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
             ),
           ),
         ],

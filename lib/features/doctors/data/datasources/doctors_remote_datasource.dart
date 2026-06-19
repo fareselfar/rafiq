@@ -1,32 +1,30 @@
-import 'package:rafiq/core/enums/doctor_availability.dart';
-import 'package:rafiq/features/doctors/data/models/doctor_model.dart';
+import 'package:dio/dio.dart';
+import 'package:rafiq/features/doctors/data/models/profile_models.dart';
+import '../models/doctor_list_model.dart';
 
-abstract class DoctorsRemoteDataSource {
-  Future<List<DoctorsModel>> getDoctors();
+abstract class DoctorsRemoteDatasource {
+  Future<List<DoctorListModel>> getDoctors({String? search});
+  Future<DoctorProfileModel> getDoctorProfile(int id);
 }
 
-class DoctorsRemoteDataSourceImpl implements DoctorsRemoteDataSource {
+class DoctorsRemoteDatasourceImpl implements DoctorsRemoteDatasource {
+  final Dio dio;
+  DoctorsRemoteDatasourceImpl(this.dio);
+
   @override
-  Future<List<DoctorsModel>> getDoctors() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return [
-      const DoctorsModel(
-        id: 1,
-        name: 'د. مالك محمد حماد',
-        specialization: 'أخصائي عظام',
-        rating: 4.9,
-        reviewCount: 320,
-        address: 'طنطا - أول شارع البحر',
-        imageUrl: 'https://cdn-icons-png.flaticon.com/512/3774/3774299.png',
-        availability: DoctorAvailability.availableNow,
-        consultationPrice: 150,
-        yearsOfExperience: 8,
-        patientCount: 500,
-        waitingTime: 15,
-        bio: 'طبيب متخصص في علاج أمراض وإصابات العظام والمفاصل...',
-        workingHours: [],
-        reviews: [],
-      ),
-    ];
+  Future<List<DoctorListModel>> getDoctors({String? search}) async {
+    final response = await dio.get(
+      '/api/Doctors/allDoctors',
+      queryParameters: search != null ? {'search': search} : null,
+    );
+    return (response.data as List)
+        .map((e) => DoctorListModel.fromJson(e))
+        .toList();
+  }
+
+  @override
+  Future<DoctorProfileModel> getDoctorProfile(int id) async {
+    final response = await dio.get('/api/Doctors/$id/details');
+    return DoctorProfileModel.fromJson(response.data);
   }
 }

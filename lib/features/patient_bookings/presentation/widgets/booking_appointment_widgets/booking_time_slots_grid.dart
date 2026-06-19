@@ -2,30 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
+import 'package:rafiq/features/patient_bookings/domain/entities/slot_entity.dart';
 
 class BookingTimeSlotsGrid extends StatelessWidget {
-  final String? selectedTimeSlot;
-  final Function(String) onTimeSelected;
+  final List<SlotEntity> slots;
+  final int? selectedSlotId;
+  final Function(SlotEntity) onSlotSelected;
 
   const BookingTimeSlotsGrid({
     super.key,
-    required this.selectedTimeSlot,
-    required this.onTimeSelected,
+    required this.slots,
+    this.selectedSlotId,
+    required this.onSlotSelected,
   });
 
   @override
   Widget build(BuildContext context) {
-    final List<String> slots = [
-      "09:00 ص",
-      "09:15 ص",
-      "09:30 ص",
-      "09:45 ص",
-      "10:00 ص",
-      "10:30 ص",
-      "04:00 م",
-      "04:15 م",
-      "04:30 م",
-    ];
+    if (slots.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 24.h),
+          child: Text(
+            'لا توجد مواعيد متاحة في هذا اليوم',
+            style: AppTypography.bodyLarge,
+          ),
+        ),
+      );
+    }
 
     return GridView.builder(
       shrinkWrap: true,
@@ -38,11 +41,12 @@ class BookingTimeSlotsGrid extends StatelessWidget {
       ),
       itemCount: slots.length,
       itemBuilder: (context, index) {
-        bool isSelected = selectedTimeSlot == slots[index];
-        bool isBooked = index == 0 || index == 3 || index == 8;
+        final slotItem = slots[index]; 
+        final bool isSelected = slotItem.id == selectedSlotId;
+        final bool isBooked = slotItem.isReserved;
 
         return GestureDetector(
-          onTap: isBooked ? null : () => onTimeSelected(slots[index]),
+          onTap: isBooked ? null : () => onSlotSelected(slotItem),
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -55,7 +59,7 @@ class BookingTimeSlotsGrid extends StatelessWidget {
               ),
             ),
             child: Text(
-              slots[index],
+              slotItem.time,
               style: AppTypography.bodySmall.copyWith(
                 color: isBooked
                     ? Colors.grey

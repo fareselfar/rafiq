@@ -9,7 +9,8 @@ import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
 
 class DoctorActionButton extends StatelessWidget {
   final bool isAvailable;
-  final DoctorsEntity doctor;
+  final DoctorEntity doctor;
+
   const DoctorActionButton({
     super.key,
     required this.isAvailable,
@@ -19,26 +20,18 @@ class DoctorActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButton(
-      text: isAvailable ? "احجز الآن" : "يرجى الانتظار",
-
+      text: isAvailable ? 'احجز الآن' : 'يرجى الانتظار',
       onPressed: isAvailable
           ? () {
-              context.navigateTo(Routes.doctorDetailsScreen, arguments: doctor);
+              context.navigateTo(Routes.doctorDetailsScreen, arguments: doctor.id);
             }
           : null,
-
       width: double.infinity,
       height: 45.h,
-
-      backgroundColor: isAvailable
-          ? AppColors.primary
-          : const Color(0xFFD9D9D9),
-
+      backgroundColor: isAvailable ? AppColors.primary : const Color(0xFFD9D9D9),
       textColor: isAvailable ? Colors.white : const Color(0xFF919191),
-
       elevation: 0,
       borderRadius: 10.r,
-
       textStyle: AppTypography.bodyLarge.copyWith(
         color: isAvailable ? Colors.white : const Color(0xFF919191),
       ),

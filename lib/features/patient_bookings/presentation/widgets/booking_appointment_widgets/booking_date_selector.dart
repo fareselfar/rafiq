@@ -1,3 +1,4 @@
+// presentation/widgets/booking_appointment_widgets/booking_date_selector.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
@@ -14,6 +15,19 @@ class BookingDateSelector extends StatelessWidget {
     required this.onDateSelected,
   });
 
+  String _getDayName(int weekday) {
+    const days = [
+      'الاثنين',
+      'الثلاثاء',
+      'الأربعاء',
+      'الخميس',
+      'الجمعة',
+      'السبت',
+      'الأحد',
+    ];
+    return days[weekday - 1];
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -25,7 +39,7 @@ class BookingDateSelector extends StatelessWidget {
         itemCount: 7,
         separatorBuilder: (_, _) => SizedBox(width: 16.w),
         itemBuilder: (context, index) {
-          DateTime date = DateTime.now().add(Duration(days: index));
+          DateTime date = DateTime.now().add(Duration(days: index + 1)); // الحجز يبدأ من الغد بناءً على الـ Cubit عندك
           bool isSelected =
               date.day == selectedDate.day && date.month == selectedDate.month;
 
@@ -37,24 +51,18 @@ class BookingDateSelector extends StatelessWidget {
                 color: isSelected ? AppColors.primary : AppColors.surface,
                 borderRadius: BorderRadius.circular(15.r),
                 border: Border.all(
-                  color: isSelected ? AppColors.primary : Colors.grey.shade100,
+                  color: isSelected ? AppColors.primary : Colors.grey.shade200,
                 ),
-                boxShadow: isSelected
-                    ? [
-                        BoxShadow(
-                          color: AppColors.primary.withOpacity(0.3),
-                          blurRadius: 10,
-                          spreadRadius: 1,
-                          offset: const Offset(0, 6),
-                        ),
-                      ]
-                    : [
-                        BoxShadow(
-                          color: AppColors.primary.withOpacity(0.3),
-                          blurRadius: 4,
-                          offset: const Offset(0, 6),
-                        ),
-                      ],
+                boxShadow: [
+                  BoxShadow(
+                    color: isSelected 
+                        ? AppColors.primary.withOpacity(0.3) 
+                        : Colors.black.withOpacity(0.02),
+                    blurRadius: isSelected ? 10 : 4,
+                    spreadRadius: isSelected ? 1 : 0,
+                    offset: Offset(0, isSelected ? 6 : 2),
+                  ),
+                ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -83,18 +91,5 @@ class BookingDateSelector extends StatelessWidget {
         },
       ),
     );
-  }
-
-  String _getDayName(int weekday) {
-    const days = [
-      'الاثنين',
-      'الثلاثاء',
-      'الأربعاء',
-      'الخميس',
-      'الجمعة',
-      'السبت',
-      'الأحد',
-    ];
-    return days[weekday - 1];
   }
 }

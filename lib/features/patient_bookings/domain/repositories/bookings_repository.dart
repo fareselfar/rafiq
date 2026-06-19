@@ -1,14 +1,11 @@
-// domain/repositories/bookings_repository.dart
-import 'package:dartz/dartz.dart';
-import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
+// features/patient_bookings/domain/repositories/booking_repository.dart
+import 'package:rafiq/features/patient_bookings/domain/entities/patient_booking_entities.dart';
 
-abstract class BookingsRepo {
-  Future<Either<String, List<BookingEntity>>> getBookings();
-  Future<Either<String, BookingEntity>> getBookingDetails(String id);
-  Future<Either<String, Unit>> cancelBooking(String id);
-  Future<Either<String, Unit>> rescheduleBooking({
-    required String id,
-    required DateTime newDate,
-    required String newTime,
-  });
+import '../entities/slot_entity.dart';
+abstract class BookingRepository {
+  Future<List<SlotEntity>> getAvailableSlots(int doctorId, DateTime date);
+  Future<int> bookAppointment(int doctorId, int slotId);
+  Future<List<PatientAppointmentEntity>> getMyAppointments({String? status});
+  Future<bool> cancelAppointment(int appointmentId);
+  Future<bool> rescheduleAppointment(int appointmentId, int slotId);
 }
