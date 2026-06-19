@@ -33,7 +33,20 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
       doctorName: '',
     ), // DoctorAppointmentsScreen()
     Center(child: Text("مقالاتي")), // DoctorArticlesScreen()
-    BlocProvider(
+    ProfileDocScreen(),
+    // ProfileTab()
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    print("DOCTOR HOME LAYOUT OPENED");
+    currentIndex = widget.initialIndex;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
       create: (_) => DoctorProfileCubit(
         updatePaymentInfoUseCase: UpdatePaymentInfoUseCase(
           repository: ProfileDoctorRepositoryImpl(
@@ -66,60 +79,48 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
           ),
         ),
       ),
-      child: ProfileDocScreen(),
-    ), // ProfileTab()
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    print("DOCTOR HOME LAYOUT OPENED");
-    currentIndex = widget.initialIndex;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: tabs[currentIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(color: Colors.grey.shade200, width: 1),
+      child: Scaffold(
+        body: tabs[currentIndex],
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(color: Colors.grey.shade200, width: 1),
+            ),
           ),
-        ),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: currentIndex,
-          selectedItemColor: AppColors.primary,
-          unselectedItemColor: Colors.grey,
-          selectedLabelStyle: TextStyle(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w600,
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: currentIndex,
+            selectedItemColor: AppColors.primary,
+            unselectedItemColor: Colors.grey,
+            selectedLabelStyle: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+            ),
+            unselectedLabelStyle: TextStyle(fontSize: 12.sp),
+            onTap: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_filled),
+                label: 'الرئيسية',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_month_outlined),
+                label: 'حجوزاتي',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.menu_book_outlined),
+                label: 'المقالات',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline),
+                label: 'حسابي',
+              ),
+            ],
           ),
-          unselectedLabelStyle: TextStyle(fontSize: 12.sp),
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled),
-              label: 'الرئيسية',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month_outlined),
-              label: 'حجوزاتي',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_outlined),
-              label: 'المقالات',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: 'حسابي',
-            ),
-          ],
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:rafiq/features/patient_profile/data/models/update_profile_request.dart';
 import 'package:rafiq/features/patient_profile/data/models/update_profile_response.dart';
 import 'package:rafiq/features/patient_profile/data/models/Change_pass_request.dart';
@@ -10,6 +11,7 @@ import 'package:rafiq/features/patient_profile/data/models/upload_file_response.
 
 import '../models/profile_model.dart';
 
+@singleton
 abstract class ProfileRemoteDataSource {
   Future<ProfileModel> getProfile();
   Future<ChangePassResponse> changePass(ChangePassRequest request);

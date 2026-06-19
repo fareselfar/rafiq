@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:rafiq/core/errors/app_exception.dart';
 import 'package:rafiq/core/errors/failure.dart';
 import 'package:rafiq/core/errors/failuree.dart';
@@ -15,6 +16,7 @@ import 'package:rafiq/features/patient_profile/domain/entities/ProfileEntity.dar
 import '../../domain/repositories/profile_repository.dart';
 import '../datasources/profile_remote_data_source.dart';
 
+@Singleton(as: ProfileRepository)
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remoteDataSource;
 

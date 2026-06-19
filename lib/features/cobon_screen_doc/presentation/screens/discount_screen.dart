@@ -42,7 +42,7 @@ class _DiscountScreenState extends State<DiscountScreen> {
             context: context,
             barrierDismissible: false,
             builder: (context) {
-              return CustomDialog();
+              return CustomDialog(title: "تم انشاء كوبون خصم بنجاح");
             },
           );
         }
@@ -104,12 +104,12 @@ class _DiscountScreenState extends State<DiscountScreen> {
 
   void _createCoupon() {
     if (_formKey.currentState!.validate()) {
-      // context.read<DoctorProfileCubit>().createCoupon(
-      //   request: CreateCouponRequest(
-      //     code: _codeController.text,
-      //     usageLimit: _nUsersController.text
-      //   ),
-      // );
+      context.read<DoctorProfileCubit>().createCoupon(
+        request: CreateCouponRequest(
+          code: _codeController.text,
+          usageLimit: int.parse(_nUsersController.text.trim()),
+        ),
+      );
     }
   }
 }

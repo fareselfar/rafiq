@@ -39,7 +39,6 @@ import 'package:rafiq/features/patient_home/data/datasources/home_remote_datasou
 import 'package:rafiq/features/patient_home/data/repositories/home_repository_impl.dart';
 import 'package:rafiq/features/patient_home/domain/usecases/search_doctor_usecase.dart';
 import 'package:rafiq/features/patient_home/presentation/bloc/home_cubit.dart';
-import 'package:rafiq/features/patient_home/presentation/pages/home.dart';
 import 'package:rafiq/features/patient_home/presentation/pages/home_search_screen.dart';
 import 'package:rafiq/features/patient_home_layout/presentation/pages/patient_home_layout_screen.dart';
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
@@ -241,8 +240,6 @@ class AppRouter {
           DoctorHomeLayout(initialIndex: initialIndex),
           settings,
         );
-      case Routes.home:
-        return _buildRoute(Home(), settings);
       case Routes.editMedicalFileScreen:
         final cubit = settings.arguments as ProfileCubit;
         return _buildRoute(

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:rafiq/core/errors/app_exception.dart';
 import 'package:rafiq/core/utils/constants.dart';
 import 'package:rafiq/features/authentication/data/datasources/local/auth_shared_prefs.dart';
@@ -14,6 +15,7 @@ import 'package:rafiq/features/patient_profile/data/models/update_medical_record
 import 'package:rafiq/features/patient_profile/data/models/upload_file_request.dart';
 import 'package:rafiq/features/patient_profile/data/models/upload_file_response.dart';
 
+@Singleton(as: ProfileRemoteDataSource)
 class ProfileRemoteApiDataSource implements ProfileRemoteDataSource {
   Dio dio = Dio(BaseOptions(baseUrl: AppConstants.baseUrl));
 

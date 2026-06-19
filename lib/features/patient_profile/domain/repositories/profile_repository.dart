@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:rafiq/core/errors/failure.dart';
 import 'package:rafiq/core/errors/failuree.dart';
 import 'package:rafiq/features/patient_profile/data/models/update_profile_request.dart';
@@ -12,6 +13,7 @@ import 'package:rafiq/features/patient_profile/data/models/upload_file_request.d
 import 'package:rafiq/features/patient_profile/data/models/upload_file_response.dart';
 import 'package:rafiq/features/patient_profile/domain/entities/ProfileEntity.dart';
 
+@singleton
 abstract class ProfileRepository {
   Future<Either<Failures, ProfileEntity>> getProfile();
   Future<Either<Failures, ChangePassResponse>> changePass(
