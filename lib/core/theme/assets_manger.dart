@@ -58,4 +58,5 @@ abstract class SvgManger {
   static const String timer = '${base}timer.svg';
   static const String profits = '${base}profits.svg';
   static const String bank = '${base}bank.svg';
+  static const String articleNotification = '${base}article_notification.svg';
 }

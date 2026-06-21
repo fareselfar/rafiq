@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:rafiq/core/errors/app_exception.dart';
 import 'package:rafiq/core/utils/constants.dart';
 import 'package:rafiq/features/authentication/data/datasources/local/auth_shared_prefs.dart';
-import 'package:rafiq/features/edit_profile/data/models/update_profile_request.dart';
-import 'package:rafiq/features/edit_profile/data/models/update_profile_response.dart';
+import 'package:rafiq/features/patient_profile/data/models/update_profile_request.dart';
+import 'package:rafiq/features/patient_profile/data/models/update_profile_response.dart';
 import 'package:rafiq/features/patient_profile/data/datasources/profile_remote_data_source.dart';
 import 'package:rafiq/features/patient_profile/data/models/Change_pass_request.dart';
 import 'package:rafiq/features/patient_profile/data/models/Change_pass_response.dart';
@@ -14,6 +15,7 @@ import 'package:rafiq/features/patient_profile/data/models/update_medical_record
 import 'package:rafiq/features/patient_profile/data/models/upload_file_request.dart';
 import 'package:rafiq/features/patient_profile/data/models/upload_file_response.dart';
 
+@Singleton(as: ProfileRemoteDataSource)
 class ProfileRemoteApiDataSource implements ProfileRemoteDataSource {
   Dio dio = Dio(BaseOptions(baseUrl: AppConstants.baseUrl));
 
@@ -151,7 +153,7 @@ class ProfileRemoteApiDataSource implements ProfileRemoteDataSource {
         queryParameters: {if (fileType != null) 'fileType': fileType},
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
-
+      print("FILE TYPE SENT => $fileType");
       return (response.data as List)
           .map((e) => MedicalFileResponse.fromJson(e))
           .toList();

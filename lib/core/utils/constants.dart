@@ -9,24 +9,32 @@ class AppConstants {
   static const String signUpEndpoint = '/Auth/register';
   static const String signInEndpoint = '/Auth/login';
   static const String changePassEndpoint = '/Appointments/change-password';
+  static const String changeDoctorPassEndpoint = '/Doctors/ChangePassword';
+
   static const String verifyOtpEndpoint = '/Auth/verify-reset-otp';
   static const String sendResetOtpEndpoint = '/Auth/send-reset-otp';
   static const String resetPasswordEndpoint = "/Auth/reset-password";
   static const String getProfileEndpoint = '/Appointments/info';
+  static const String getProfileDoctorEndpoint = '/Doctors/GetProfile';
   static const String updateProfileEndpoint = '/Appointments/update-profile';
+  static const String updateDoctorProfileEndpoint = '/Doctors/UpdateProfile';
+  static const String updateClinicInfoEndpoint = '/Doctors/UpdateClinicInfo';
   static const String updateMedicalRecordEndpoint =
       '/Appointments/update-medical-profile';
-
+  static const String createCouponEndpoint = "/Doctors/CreateCoupon";
+  static const String updatePaymentInfoEndpoint = '/Doctors/UpdatePaymentInfo';
   static const String uploadFileEndpoint = '/Appointments/upload-file';
   static const String getUploadFileEndpoint =
       '/Appointments/my-files?fileType=string';
 
   static const String changePasswordEndpoint = '/Profile/change-password';
-  static const String getSpecializationsEndpoint = '/Specializations/get-all';
+
+  static const String getSpecializationsEndpoint = '/Doctors/Specializations';
   static const String getArticlesEndpoint = '/Articles/get-all';
   static const String getArticleByIdEndpoint = '/Articles/get-by-id';
   static const String getAppointmentsEndpoint = '/Appointments/get-all';
   static const String getAppointmentByIdEndpoint = '';
+  static const String getDoctorEndpoint = '/Doctors/Search';
 
   static const String aiSocketUrl =
       'wss://rafeeq-ai-dev-production.up.railway.app/chat/ws';

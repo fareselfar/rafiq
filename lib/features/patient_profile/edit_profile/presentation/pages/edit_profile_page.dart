@@ -11,8 +11,8 @@ import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/edit_profile/data/models/update_profile_request.dart';
-import 'package:rafiq/features/edit_profile/presentation/widgets/gender_item.dart';
+import 'package:rafiq/features/patient_profile/data/models/update_profile_request.dart';
+import 'package:rafiq/features/patient_profile/edit_profile/presentation/widgets/gender_item.dart';
 import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
 import 'package:rafiq/features/patient_profile/presentation/bloc/profile_state.dart';
 import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
@@ -35,14 +35,32 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final ImagePicker picker = ImagePicker();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
+  void dispose() {
+    ageController.dispose();
+    _namecontroller.dispose();
+    _emailControler.dispose();
+    _phoneControler.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
         if (state is ProfileUpdated) {
           UiUtils.hideDialog(context);
           context.read<ProfileCubit>().getProfile();
-
-          Navigator.pop(context);
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return CustomDialog(
+                title: "تم تحديث البيانات بنجاح",
+                isButton: false,
+              );
+            },
+          );
+          // Navigator.pop(context);
         }
         // if (state is UpdateProfileLoading) {
         //   UiUtils.showLoading(context);
@@ -216,13 +234,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
           gender: selectedGender,
           image: selectedImage,
         ),
-      );
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          return CustomDialog(title: "تم تحديث البيانات بنجاح", isButton: true);
-        },
       );
     }
   }

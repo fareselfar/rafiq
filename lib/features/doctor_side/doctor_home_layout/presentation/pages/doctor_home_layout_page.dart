@@ -7,6 +7,18 @@ import 'package:rafiq/features/doctor_side/doctor_appointment/presentation/pages
 import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_cubit.dart';
 import 'package:rafiq/features/doctor_side/doctor_articles/presentation/pages/doctor_articles_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/presentation/pages/doctor_home_screen.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/data/data_source/profile_doctor_remote_api_data_source.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/data/repo/profile_doctor_repository_impl.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/change_doctor_pass_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/create_coupon_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/profile_doctor_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/update_clinic_record_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/update_doctor_profile_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/update_payment_info_usecase.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_cubit.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
+import 'package:rafiq/features/profile_doc/presentation/screens/profile_doc_screen.dart';
+
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
 
 class DoctorHomeLayout extends StatefulWidget {
@@ -38,43 +50,81 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(index: currentIndex, children: tabs),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(color: Colors.grey.shade200, width: 1),
+    return BlocProvider(
+      create: (_) => DoctorProfileCubit(
+        updatePaymentInfoUseCase: UpdatePaymentInfoUseCase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
           ),
         ),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: currentIndex,
-          selectedItemColor: AppColors.primary,
-          unselectedItemColor: Colors.grey,
-          selectedLabelStyle: TextStyle(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w600,
+        createCouponUseCase: CreateCouponUseCase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
           ),
-          unselectedLabelStyle: TextStyle(fontSize: 12.sp),
-          onTap: (index) => setState(() => currentIndex = index),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled),
-              label: 'الرئيسية',
+        ),
+        getProfileUsecase: GetProfileDoctorUsecase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
+          ),
+        ),
+        changePassUseCase: ChangeDoctorPassUseCase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
+          ),
+        ),
+        updateDoctorProfileUseCase: UpdateDoctorProfileUseCase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
+          ),
+        ),
+        updateClinicInfoUseCase: UpdateClinicInfoUseCase(
+          repository: ProfileDoctorRepositoryImpl(
+            remoteDataSource: ProfileDoctorRemoteApiDataSource(),
+          ),
+        ),
+      ),
+      child: Scaffold(
+        body: IndexedStack(index: currentIndex, children: tabs),,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(color: Colors.grey.shade200, width: 1),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month_outlined),
-              label: 'حجوزاتي',
+          ),
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: currentIndex,
+            selectedItemColor: AppColors.primary,
+            unselectedItemColor: Colors.grey,
+            selectedLabelStyle: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_outlined),
-              label: 'المقالات',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: 'حسابي',
-            ),
-          ],
+            unselectedLabelStyle: TextStyle(fontSize: 12.sp),
+            onTap: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_filled),
+                label: 'الرئيسية',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_month_outlined),
+                label: 'حجوزاتي',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.menu_book_outlined),
+                label: 'المقالات',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline),
+                label: 'حسابي',
+              ),
+            ],
+          ),
         ),
       ),
     );

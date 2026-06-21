@@ -44,6 +44,7 @@ class ProfitsScrren extends StatelessWidget {
               AllRecentTransactionsCard(),
               HeightSpace(16),
               CustomButton(onPressed: () {}, text: "عرض المزيد"),
+              HeightSpace(40),
             ],
           ),
         ),

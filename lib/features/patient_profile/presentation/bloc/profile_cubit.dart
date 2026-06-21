@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rafiq/features/edit_profile/data/models/update_profile_request.dart';
+import 'package:rafiq/features/patient_profile/data/models/update_profile_request.dart';
 import 'package:rafiq/features/patient_profile/data/models/Change_pass_request.dart';
 import 'package:rafiq/features/patient_profile/data/models/update_medical_record_request.dart';
 import 'package:rafiq/features/patient_profile/data/models/upload_file_request.dart';

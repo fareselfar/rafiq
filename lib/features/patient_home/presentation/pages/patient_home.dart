@@ -22,8 +22,14 @@ import 'package:rafiq/features/patient_home/presentation/widgets/patient_time.da
 import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
 import 'package:rafiq/features/patient_profile/presentation/bloc/profile_state.dart';
 
-class PatientHomeScreen extends StatelessWidget {
+class PatientHomeScreen extends StatefulWidget {
   PatientHomeScreen({super.key});
+
+  @override
+  State<PatientHomeScreen> createState() => _PatientHomeScreenState();
+}
+
+class _PatientHomeScreenState extends State<PatientHomeScreen> {
   final article = ArticlesModel(
     id: 1,
     title: "نصائح للحفاظ على صحة القلب",
@@ -45,6 +51,12 @@ class PatientHomeScreen extends StatelessWidget {
       ),
     ],
   );
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<ProfileCubit>().getProfile();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +102,15 @@ class PatientHomeScreen extends StatelessWidget {
                     Text('أهلًا، كيف نقدر', style: AppTypography.homeTitle),
                     Text('نساعدك اليوم؟', style: AppTypography.homeSubTitle),
                     HeightSpace(16),
-                    CustomSearchField(hint: 'البحث'),
+                    GestureDetector(
+                      onTap: () {
+                        context.navigateTo(Routes.homeSearchScreen);
+                      },
+                      child: CustomSearchField(
+                        hint: 'البحث',
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                    ),
                   ],
                 ),
               ),
