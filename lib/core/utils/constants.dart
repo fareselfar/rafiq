@@ -23,14 +23,13 @@ class AppConstants {
       '/Appointments/update-medical-profile';
   static const String createCouponEndpoint = "/Doctors/CreateCoupon";
   static const String updatePaymentInfoEndpoint = '/Doctors/UpdatePaymentInfo';
-
   static const String uploadFileEndpoint = '/Appointments/upload-file';
   static const String getUploadFileEndpoint =
       '/Appointments/my-files?fileType=string';
 
   static const String changePasswordEndpoint = '/Profile/change-password';
 
-  static const String getSpecializationsEndpoint = '/Specializations/get-all';
+  static const String getSpecializationsEndpoint = '/Doctors/Specializations';
   static const String getArticlesEndpoint = '/Articles/get-all';
   static const String getArticleByIdEndpoint = '/Articles/get-by-id';
   static const String getAppointmentsEndpoint = '/Appointments/get-all';

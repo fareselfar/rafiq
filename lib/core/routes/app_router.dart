@@ -46,6 +46,10 @@ import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/change_password.dart';
 import 'package:rafiq/features/patient_profile/presentation/pages/profile_page.dart';
+import 'package:rafiq/features/specialization/data/datasources/specialization_remote_api_data_source.dart';
+import 'package:rafiq/features/specialization/data/repositories/specialization_repository_impl.dart';
+import 'package:rafiq/features/specialization/domain/usecase/get_specialization_usecase.dart';
+import 'package:rafiq/features/specialization/presentation/bloc/specialization_cubit.dart';
 
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
@@ -139,7 +143,19 @@ class AppRouter {
         return _buildRoute(EditAppointmentScreen(booking: booking), settings);
 
       case Routes.specializationScreen:
-        return _buildRoute(SpecializationsScreen(), settings);
+        return _buildRoute(
+          BlocProvider(
+            create: (_) => SpecializationCubit(
+              getSpecializationsUseCase: GetSpecializationsUseCase(
+                repository: SpecializationRepositoryImpl(
+                  remoteDataSource: SpecializationRemoteDataSourceImpl(),
+                ),
+              ),
+            ),
+            child: const SpecializationsScreen(),
+          ),
+          settings,
+        );
 
       case Routes.paymentInfo:
         final cubit = settings.arguments as DoctorProfileCubit;
@@ -183,6 +199,7 @@ class AppRouter {
         return _buildRoute(const ProfileDocScreen(), settings);
 
       case Routes.homeSearchScreen:
+        final specialization = settings.arguments as String?;
         return _buildRoute(
           BlocProvider(
             create: (_) => SearchCubit(
@@ -192,7 +209,7 @@ class AppRouter {
                 ),
               ),
             ),
-            child: const HomeSearchScreen(),
+            child: HomeSearchScreen(specialization: specialization),
           ),
           settings,
         );

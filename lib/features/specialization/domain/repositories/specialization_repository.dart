@@ -1,10 +1,7 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/errors/failure.dart';
-import '../entities/specialization_entity.dart';
+import 'package:rafiq/core/errors/failuree.dart';
+import 'package:rafiq/features/specialization/domain/entities/specialization_entity.dart';
 
 abstract class SpecializationRepository {
-  Future<Either<Failure, List<SpecializationEntity>>> getSpecializations();
-  Future<Either<Failure, SpecializationEntity>> getSpecializationById(
-    String id,
-  );
+  Future<Either<Failures, List<SpecializationEntity>>> getSpecializations();
 }
