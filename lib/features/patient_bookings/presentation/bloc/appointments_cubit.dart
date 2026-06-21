@@ -1,12 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rafiq/features/patient_bookings/presentation/bloc/appointments_state.dart';
-import '../../domain/usecases/patient_bookings_usecases.dart';
+
+import '../../domain/usecases/patient_bookings_usecases.dart' as patient_uc;
 
 class AppointmentsCubit extends Cubit<AppointmentsState> {
-  final GetMyAppointmentsUseCase getAppointmentsUseCase;
-  final GetAppointmentDetailsUseCase getDetailsUseCase;
-  final CancelAppointmentUseCase cancelUseCase;
-  final RescheduleAppointmentUseCase rescheduleUseCase;
+  final patient_uc.GetMyAppointmentsUseCase getAppointmentsUseCase;
+  final patient_uc.GetAppointmentDetailsUseCase getDetailsUseCase;
+  final patient_uc.CancelAppointmentUseCase cancelUseCase;
+  final patient_uc.RescheduleAppointmentUseCase rescheduleUseCase;
 
   AppointmentsCubit({
     required this.getAppointmentsUseCase,

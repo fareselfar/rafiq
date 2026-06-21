@@ -17,19 +17,27 @@ class BookingRemoteDatasourceImpl implements BookingRemoteDatasource {
 
   @override
   Future<List<SlotModel>> getAvailableSlots(int doctorId, DateTime date) async {
+    final dateStr =
+        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+
+    print('DoctorId = $doctorId');
+    print('Date = $dateStr');
+
     final response = await dio.get(
-      '/api/Doctors/$doctorId/available-slots',
-      queryParameters: {'date': date.toIso8601String()},
+      '/Doctors/$doctorId/available-slots',
+      queryParameters: {'date': dateStr},
     );
-    return (response.data as List)
-        .map((e) => SlotModel.fromJson(e))
-        .toList();
+
+    print('Status = ${response.statusCode}');
+    print('Response = ${response.data}');
+
+    return (response.data as List).map((e) => SlotModel.fromJson(e)).toList();
   }
 
   @override
   Future<int> bookAppointment(int doctorId, int slotId) async {
     final response = await dio.post(
-      '/api/Doctors/book',
+      '/Doctors/book',
       data: {'doctorId': doctorId, 'slotId': slotId},
     );
     // الباك بيرجع appointmentId في الـ response
@@ -37,9 +45,11 @@ class BookingRemoteDatasourceImpl implements BookingRemoteDatasource {
   }
 
   @override
-  Future<List<PatientAppointmentModel>> getMyAppointments({String? status}) async {
+  Future<List<PatientAppointmentModel>> getMyAppointments({
+    String? status,
+  }) async {
     final response = await dio.get(
-      '/api/Appointments/patient-bookings',
+      '/Appointments/patient-bookings',
       queryParameters: status != null ? {'status': status} : null,
     );
     return (response.data as List)
@@ -49,14 +59,14 @@ class BookingRemoteDatasourceImpl implements BookingRemoteDatasource {
 
   @override
   Future<bool> cancelAppointment(int appointmentId) async {
-    await dio.put('/api/Appointments/cancel/$appointmentId');
+    await dio.put('/Appointments/cancel/$appointmentId');
     return true;
   }
 
   @override
   Future<bool> rescheduleAppointment(int appointmentId, int slotId) async {
     await dio.put(
-      '/api/Appointments/Update-book',
+      '/Appointments/Update-book',
       data: {'appointmentId': appointmentId, 'slotId': slotId},
     );
     return true;

@@ -21,12 +21,19 @@ import 'package:rafiq/features/doctors/data/repositories/doctors_repository_impl
 import 'package:rafiq/features/doctors/domain/usecase/get_doctors_usecase.dart';
 import 'package:rafiq/features/doctors/presentation/bloc/doctor_profile_cubit.dart';
 import 'package:rafiq/features/doctors/presentation/bloc/doctors_cubit.dart';
+import 'package:rafiq/features/patient_bookings/data/datasources/bookings_remote_datasource.dart';
 import 'package:rafiq/features/patient_bookings/data/datasources/patient_bookings_datasource.dart';
+import 'package:rafiq/features/patient_bookings/data/repositories/bookings_repository_impl.dart';
 import 'package:rafiq/features/patient_bookings/data/repositories/patient_bookings_repository_impl.dart';
+import 'package:rafiq/features/patient_bookings/domain/repositories/bookings_repository.dart';
 import 'package:rafiq/features/patient_bookings/domain/repositories/patient_bookings_repository.dart';
 import 'package:rafiq/features/patient_bookings/domain/usecases/booking_usecases.dart';
-import 'package:rafiq/features/patient_bookings/domain/usecases/patient_bookings_usecases.dart' hide GetMyAppointmentsUseCase, CancelAppointmentUseCase, RescheduleAppointmentUseCase;
+import 'package:rafiq/features/patient_bookings/domain/usecases/booking_usecases.dart'
+    as booking_uc;
+import 'package:rafiq/features/patient_bookings/domain/usecases/patient_bookings_usecases.dart'
+    as patient_uc;
 import 'package:rafiq/features/patient_bookings/presentation/bloc/appointments_cubit.dart';
+import 'package:rafiq/features/patient_bookings/presentation/bloc/book_appointment_cubit.dart';
 import '../network/network_info.dart';
 import '../api/api_interceptors.dart';
 
@@ -145,27 +152,44 @@ Future<void> init() async {
   sl.registerFactory(() => DoctorProfileCubit(sl()));
   // ─────────────────────────────────────────────────────────
 
+  // ── Patient Bookings ──────────────────────────────────────
+  sl.registerFactory<PatientBookingsDatasource>(
+    () => PatientBookingsDatasourceImpl(sl()),
+  );
+  sl.registerFactory<PatientBookingsRepository>(
+    () => PatientBookingsRepositoryImpl(sl()),
+  );
+  sl.registerFactory(() => GetMyAppointmentsUseCase(sl()));
+  sl.registerFactory(() => patient_uc.GetAppointmentDetailsUseCase(sl()));
+  sl.registerFactory(() => CancelAppointmentUseCase(sl()));
+  sl.registerFactory(() => RescheduleAppointmentUseCase(sl()));
+  sl.registerFactory(
+    () => AppointmentsCubit(
+      getAppointmentsUseCase: sl(),
+      getDetailsUseCase: sl(),
+      cancelUseCase: sl(),
+      rescheduleUseCase: sl(),
+    ),
+  );
 
-  // في injection_container.dart أضف:
+  // ── Patient Bookings ──────────────────────────────────────
+  
 
-// ── Patient Bookings ──────────────────────────────────────
-sl.registerFactory<PatientBookingsDatasource>(
-  () => PatientBookingsDatasourceImpl(sl()),
-);
-sl.registerFactory<PatientBookingsRepository>(
-  () => PatientBookingsRepositoryImpl(sl()),
-);
-sl.registerFactory(() => GetMyAppointmentsUseCase(sl()));
-sl.registerFactory(() => GetAppointmentDetailsUseCase(sl()));
-sl.registerFactory(() => CancelAppointmentUseCase(sl()));
-sl.registerFactory(() => RescheduleAppointmentUseCase(sl()));
-sl.registerFactory(() => AppointmentsCubit(
-  getAppointmentsUseCase: sl(),
-  getDetailsUseCase: sl(),
-  cancelUseCase: sl(),
-  rescheduleUseCase: sl(),
-));
-// ─────────────────────────────────────────────────────────
+  // ── Book Appointment ──────────────────────────────────────
+  sl.registerFactory<BookingRemoteDatasource>(
+    () => BookingRemoteDatasourceImpl(sl()),
+  );
+  sl.registerFactory<BookingRepository>(() => BookingRepositoryImpl(sl()));
 
+  sl.registerFactory(() => booking_uc.GetAvailableSlotsUseCase(sl()));
+  sl.registerFactory(() => booking_uc.BookAppointmentUseCase(sl()));
 
+  sl.registerFactory(
+    () => BookAppointmentCubit(
+      sl<booking_uc.GetAvailableSlotsUseCase>(),
+      sl<booking_uc.BookAppointmentUseCase>(),
+    ),
+  );
+
+  // ──────────────────────────────────────────────────────────
 }

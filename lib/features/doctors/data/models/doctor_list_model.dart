@@ -24,7 +24,12 @@ class DoctorListModel {
       id: json['id'] ?? 0,
       fullName: json['fullName'] ?? '',
       specialization: json['specialization'] ?? '',
-      imagePath: json['imagePath'],
+      imagePath: (() {
+        final p = json['imagePath'] as String?;
+        if (p == null) return null;
+        if (p == 'http://rafiqapp.runasp.net' || p.isEmpty) return null;
+        return p;
+      })(),
       rate: (json['rate'] ?? 0.0).toDouble(),
       price: json['price'] != null ? (json['price'] as num).toDouble() : null,
       address: json['address'] ?? '',

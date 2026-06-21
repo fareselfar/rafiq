@@ -151,7 +151,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                     ),
             ),
             bottomNavigationBar: isLoading
-                ? const BookingBottomBarShimmer() // شيمر للبار السفلي
+                ? const BookingBottomBarShimmer()
                 : BookingBottomBar(
                     doctorId: widget.args.doctorId,
                     selectedDate: selectedDate,

@@ -25,7 +25,7 @@ class DoctorHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<DoctorHomeCubit>()..loadData(), // ← sl() بدل بناء يدوي
+      create: (_) => sl<DoctorHomeCubit>()..loadData(),
       child: const _DoctorHomeView(),
     );
   }
@@ -80,12 +80,10 @@ class _HomeContentView extends StatelessWidget {
           children: [
             HeightSpace(16),
 
-            // ── Top bar: Bell | Name + Avatar ──
             DoctorHomeTopBar(doctorName: data.doctorName),
 
             HeightSpace(16),
 
-            // ── Greeting: أهلاً بك دكتور... + count ──
             DoctorGreetingSection(
               doctorName: data.doctorName,
               todayAppointmentsCount: data.todayAppointmentsCount,
@@ -93,12 +91,10 @@ class _HomeContentView extends StatelessWidget {
 
             HeightSpace(20),
 
-            // ── 2×2 Stats grid ──
             DoctorStatsGrid(stats: data.stats),
 
             HeightSpace(24),
 
-            // ── Today's schedule ──
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: TodayScheduleSection(appointments: data.todaySchedule),
@@ -106,7 +102,6 @@ class _HomeContentView extends StatelessWidget {
 
             HeightSpace(24),
 
-            // ── Articles ──
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: ArticlesSection(articles: data.articles),
@@ -114,7 +109,6 @@ class _HomeContentView extends StatelessWidget {
 
             HeightSpace(24),
 
-            // ── Last bookings ──
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: LastBookingsSection(bookings: data.lastBookings),
@@ -122,7 +116,6 @@ class _HomeContentView extends StatelessWidget {
 
             HeightSpace(24),
 
-            // ── Quick actions ──
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: const QuickActionsSection(),

@@ -8,7 +8,8 @@ class DoctorsLoading extends DoctorsState {}
 
 class DoctorsLoaded extends DoctorsState {
   final List<DoctorEntity> doctors;
-  DoctorsLoaded(this.doctors);
+  final DoctorFilter currentFilter;
+  DoctorsLoaded(this.doctors, this.currentFilter);
 }
 
 class DoctorsError extends DoctorsState {

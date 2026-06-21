@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rafiq/core/di/injection_container.dart';
-
 import 'package:rafiq/features/articles/presentation/pages/articles_screen.dart';
 import 'package:rafiq/features/authentication/data/models/reset_pass_arrgs.dart';
 import 'package:rafiq/features/authentication/presentation/screens/forget_password_screen.dart';
@@ -15,6 +14,7 @@ import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presenta
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/edit_doc_profile.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/profits.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
+import 'package:rafiq/features/doctors/presentation/pages/doctor_details_screen.dart';
 import 'package:rafiq/features/edit_profile/presentation/pages/edit_medical_files.dart';
 import 'package:rafiq/features/edit_profile/presentation/pages/medical_files.dart';
 import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
@@ -22,6 +22,7 @@ import 'package:rafiq/features/edit_profile/presentation/pages/upload_file_scree
 import 'package:rafiq/features/patient_bookings/data/models/appointment_details_model.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/booking_result_args.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
+import 'package:rafiq/features/patient_bookings/presentation/bloc/book_appointment_cubit.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/book_appointment_screen.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/booking_details_screen.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/booking_success_screen.dart';
@@ -102,6 +103,10 @@ class AppRouter {
       case Routes.doctorsScreen:
         return _buildRoute(const DoctorsScreen(), settings);
 
+      case Routes.doctorDetailsScreen:
+        final doctorId = settings.arguments as int;
+        return _buildRoute(DoctorDetailsScreen(doctorId: doctorId), settings);
+
       case Routes.bookingDetailsScreen:
         final appointmentId = settings.arguments as int;
         return _buildRoute(
@@ -111,16 +116,20 @@ class AppRouter {
 
       case Routes.bookAppointmentScreen:
         final args = settings.arguments as BookingArgs;
-        return _buildRoute(BookAppointmentScreen(args: args), settings);
-
-      case Routes.paymentScreen:
-        final args = settings.arguments as AppointmentDetailsModel;
         return _buildRoute(
-          PaymentScreen(
-            
+          BlocProvider(
+            create: (_) => sl<BookAppointmentCubit>()
+              ..loadSlots(
+                args.doctorId,
+                DateTime.now().add(const Duration(days: 1)),
+              ),
+            child: BookAppointmentScreen(args: args),
           ),
           settings,
         );
+      case Routes.paymentScreen:
+        final args = settings.arguments as AppointmentDetailsModel;
+        return _buildRoute(PaymentScreen(), settings);
 
       case Routes.bookingSuccessScreen:
         final args = settings.arguments as BookingResultArgs;
