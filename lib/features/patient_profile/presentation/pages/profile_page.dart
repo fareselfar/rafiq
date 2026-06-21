@@ -46,6 +46,8 @@ class _ProfileTabState extends State<ProfileTab> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ProfileCubit>();
+
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         if (state is ProfileLoading) {
@@ -127,7 +129,10 @@ class _ProfileTabState extends State<ProfileTab> {
                         WidthSpace(20),
                         ServicesCard(
                           onTap: () {
-                            context.navigateTo(Routes.editFiels);
+                            context.navigateTo(
+                              Routes.editFiels,
+                              arguments: cubit,
+                            );
                           },
                           icon: SvgManger.files,
                           textColor: AppColors.purple,
@@ -142,7 +147,10 @@ class _ProfileTabState extends State<ProfileTab> {
                       children: [
                         ServicesCard(
                           onTap: () {
-                            context.navigateTo(Routes.uploadFiels);
+                            context.navigateTo(
+                              Routes.uploadFiels,
+                              arguments: cubit,
+                            );
                           },
                           icon: SvgManger.upload,
                           serviceName: "رفع ملف",

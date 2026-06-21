@@ -42,8 +42,9 @@ class RecentTransactionsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title1 ?? '', style: AppTypography.inputTextFormStyle),
+                  Text(title1 ?? '', style: AppTypography.paymentTiltle),
                   WidthSpace(4),
                   Text(title2 ?? '', style: AppTypography.inputTextFormStyle),
                 ],
@@ -59,11 +60,11 @@ class RecentTransactionsCard extends StatelessWidget {
           Divider(color: AppColors.divider),
           HeightSpace(8),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SvgPicture.asset(icon ?? ""),
               WidthSpace(4),
-              Text(title3 ?? '', style: AppTypography.inputTextFormStyle),
+              Text(title3 ?? '', style: AppTypography.paymentTiltle),
+              Spacer(),
               Text(
                 price ?? '',
                 style: GoogleFonts.cairo(

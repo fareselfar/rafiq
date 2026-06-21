@@ -8,6 +8,7 @@ import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/patient_profile/data/models/file_model.dart';
 import 'package:rafiq/features/patient_profile/data/models/file_type.dart';
+import 'package:rafiq/features/patient_profile/data/models/medical_file_response.dart';
 import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
 import 'package:rafiq/features/patient_profile/presentation/bloc/profile_state.dart';
 import 'package:rafiq/features/patient_profile/presentation/widgets/classify_files_serach.dart';
@@ -22,6 +23,10 @@ class MedicalFiels extends StatefulWidget {
 }
 
 class _MedicalFielsState extends State<MedicalFiels> {
+  final TextEditingController searchController = TextEditingController();
+
+  List<MedicalFileResponse> allFiles = [];
+  List<MedicalFileResponse> filteredFiles = [];
   FileType selectedType = FileType.all;
 
   @override
@@ -30,18 +35,28 @@ class _MedicalFielsState extends State<MedicalFiels> {
     context.read<ProfileCubit>().getFiles();
   }
 
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   void filterFiles(FileType? type) {
     setState(() {
       selectedType = type ?? FileType.all;
     });
-
-    context.read<ProfileCubit>().getFiles(
-      fileType: type == FileType.all ? null : type?.name,
-    );
+    if (selectedType == FileType.all) {
+      filteredFiles = List.from(allFiles);
+    } else {
+      filteredFiles = allFiles.where((file) {
+        return file.fileType == selectedType.name;
+      }).toList();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ProfileCubit>();
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         if (state is FilesListLoading) {
@@ -51,17 +66,27 @@ class _MedicalFielsState extends State<MedicalFiels> {
           return Text(state.message);
         }
         if (state is FilesListLoaded) {
-          context.navigateTo(Routes.patientHome);
+          if (allFiles.isEmpty) {
+            allFiles = state.files;
+            filteredFiles = state.files;
+          }
           return Scaffold(
             appBar: AppBar(
               title: Text('ملفاتي', style: AppTypography.appBarTitelStyle),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  context.read<ProfileCubit>().getProfile();
+                  Navigator.pop(context);
+                },
+              ),
               actions: [
                 Padding(
                   padding: REdgeInsets.only(left: 16),
                   child: SmallCard(
                     isList: false,
                     onTap: () {
-                      context.navigateTo(Routes.uploadFiels);
+                      context.navigateTo(Routes.uploadFiels, arguments: cubit);
                     },
                     title: "+ رفع ملف ",
                     hightPadding: 4,
@@ -75,6 +100,11 @@ class _MedicalFielsState extends State<MedicalFiels> {
               child: Column(
                 children: [
                   CustomSearchField(
+                    onChanged: (value) {
+                      if (value.trim().isNotEmpty) {
+                        searchFiles(value);
+                      }
+                    },
                     hint: 'البحث',
                     prefixIcon: Icon(Icons.search),
                     suffixIcon: Icon(Icons.filter_list),
@@ -90,7 +120,7 @@ class _MedicalFielsState extends State<MedicalFiels> {
                   Expanded(
                     child: ListView.separated(
                       itemBuilder: (context, index) {
-                        final file = state.files[index];
+                        final file = filteredFiles[index];
 
                         return FileCard(
                           fileModel: FileModel(
@@ -103,7 +133,7 @@ class _MedicalFielsState extends State<MedicalFiels> {
                         );
                       },
                       separatorBuilder: (context, index) => HeightSpace(20),
-                      itemCount: state.files.length,
+                      itemCount: filteredFiles.length,
                     ),
                   ),
                 ],
@@ -114,5 +144,15 @@ class _MedicalFielsState extends State<MedicalFiels> {
         return SizedBox.shrink();
       },
     );
+  }
+
+  void searchFiles(String query) {
+    setState(() {
+      filteredFiles = allFiles
+          .where(
+            (file) => file.title.toLowerCase().contains(query.toLowerCase()),
+          )
+          .toList();
+    });
   }
 }

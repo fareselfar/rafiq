@@ -12,7 +12,7 @@ import 'package:rafiq/core/widgets/widgets.dart';
 import 'package:rafiq/features/authentication/data/models/register_request.dart';
 import 'package:rafiq/features/authentication/presentation/bloc/authentication_cubit.dart';
 import 'package:rafiq/features/authentication/presentation/widgets/custom_footer_text.dart';
-import 'package:rafiq/features/edit_profile/presentation/widgets/gender_item.dart';
+import 'package:rafiq/features/patient_profile/edit_profile/presentation/widgets/gender_item.dart';
 
 // ─── خريطة التخصصات: العربي (للعرض) → الإنجليزي (للـ API) ───────────────────
 const Map<String, String> _specializationsMap = {
@@ -275,16 +275,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     // أخفي الـ loading في كل الحالات التانية
-    if (state is! AuthenticationLoading) {
-      UiUtils.hideDialog(context);
-      UiUtils.showMessage(
-        message: "تم إنشاء الحساب بنجاح",
-        bgColor: Colors.red,
-        fgColor: Colors.white,
-      );
-    }
 
     if (state is RegisterSuccess) {
+      UiUtils.hideDialog(context);
+
+      UiUtils.showMessage(
+        message: "تم إنشاء الحساب بنجاح",
+        bgColor: Colors.green,
+        fgColor: Colors.white,
+      );
       // بعد التسجيل الناجح → روح لصفحة الـ OTP أو الـ Home حسب تصميمك
       // حالياً بنوجه لصفحة الـ OTP (السيرفر بيبعت OTP تلقائياً عند التسجيل)
       context.navigateAndReplace('/login', arguments: widget.userType);

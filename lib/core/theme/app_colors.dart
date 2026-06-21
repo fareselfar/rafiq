@@ -62,4 +62,6 @@ class AppColors {
   static const Color oil = Color(0xff4C719A);
   static const Color priceColor = Color(0xff0059BB);
   static const Color doctorName = Color(0xff121212);
+  static const Color pinkPaymentProcessColor = Color(0xffFFDAD6);
+  static const Color redPaymentProcessColor = Color(0xff93000A);
 }

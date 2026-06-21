@@ -1,24 +1,19 @@
-part of 'specialization_cubit.dart';
+import 'package:rafiq/features/specialization/domain/entities/specialization_entity.dart';
 
-abstract class SpecializationState extends Equatable {
-  const SpecializationState();
+abstract class SpecializationState {}
 
-  @override
-  List<Object> get props => [];
-}
-
-class SpecializationInitial extends SpecializationState {
-  const SpecializationInitial();
-}
+class SpecializationInitial extends SpecializationState {}
 
 class SpecializationLoading extends SpecializationState {}
 
-class SpecializationLoaded extends SpecializationState {}
+class SpecializationLoaded extends SpecializationState {
+  final List<SpecializationEntity> specializations;
+
+  SpecializationLoaded(this.specializations);
+}
 
 class SpecializationError extends SpecializationState {
   final String message;
-  const SpecializationError(this.message);
 
-  @override
-  List<Object> get props => [message];
+  SpecializationError(this.message);
 }
