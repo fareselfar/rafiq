@@ -1,6 +1,7 @@
 // lib/features/doctor_side/doctor_appointments/presentation/cubit/doctor_appointments_cubit.dart
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/doctor_appointments_entity.dart';
 import '../../domain/usecases/doctor_appointments_usecases.dart';
@@ -12,6 +13,8 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
   final CancelFullDayUsecase cancelFullDay;
   final EditSlotUsecase editSlot;
   final CancelSlotUsecase cancelSlot;
+  final AddAvailabilityUsecase addAvailability;
+
 
   final String doctorId;
 
@@ -20,6 +23,7 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
     required this.cancelFullDay,
     required this.editSlot,
     required this.cancelSlot,
+    required this.addAvailability, 
     required this.doctorId,
   }) : super(const DoctorAppointmentsInitial());
 
@@ -184,4 +188,25 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
       },
     );
   }
+
+  Future<void> addNewAvailability({
+  required DateTime date,
+  required TimeOfDay from,
+  required TimeOfDay to,
+}) async {
+  final loaded = _loaded;
+  if (loaded == null) return;
+
+  emit(loaded.copyWith(isSlotActionLoading: true));
+
+  final result = await addAvailability(date: date, from: from, to: to);
+
+  result.fold(
+    (f) => emit(DoctorAppointmentsError(f.message)),
+    (_) {
+      emit(const DoctorAppointmentsActionSuccess('تم إضافة الموعد بنجاح'));
+      loadSchedule(initialDay: date);
+    },
+  );
+}
 }

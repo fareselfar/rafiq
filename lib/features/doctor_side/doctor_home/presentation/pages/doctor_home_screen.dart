@@ -3,16 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/di/injection_container.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/data/datasources/doctor_home_dummy_data.dart';
-import 'package:rafiq/features/doctor_side/doctor_home/data/datasources/doctor_home_remote_datasource_mock.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/presentation/bloc/doctor_home_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import '../../data/repositories/doctor_home_repository_impl.dart';
 import '../../domain/entities/doctor_home_entity.dart';
-import '../../domain/usecases/get_doctor_home_data_usecase.dart';
 import '../widgets/articles_section.dart';
 import '../widgets/doctor_greeting_section.dart';
 import '../widgets/doctor_home_top_bar.dart';
@@ -27,15 +25,7 @@ class DoctorHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) {
-        final datasource = DoctorHomeRemoteDataSourceMock();
-        final repository = DoctorHomeRepositoryImpl(
-          remoteDataSource: datasource,
-          networkInfo: Object(),
-        );
-        final usecase = GetDoctorHomeDataUsecase(repository);
-        return DoctorHomeCubit(getDoctorHomeData: usecase)..loadData();
-      },
+      create: (_) => sl<DoctorHomeCubit>()..loadData(), // ← sl() بدل بناء يدوي
       child: const _DoctorHomeView(),
     );
   }

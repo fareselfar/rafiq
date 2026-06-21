@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rafiq/core/api/api_interceptors.dart';
 import 'package:rafiq/core/utils/constants.dart';
+import 'package:rafiq/core/di/injection_container.dart' as di;
 import 'package:rafiq/features/authentication/data/datasources/local/auth_shared_prefs.dart';
 import 'package:rafiq/features/authentication/data/datasources/remote/auth_api_remote_data_source.dart';
 import 'package:rafiq/features/authentication/data/repositories/auth_repository_impl.dart';
@@ -54,6 +55,13 @@ void main() async {
     localDataSource: AuthSharedPrefs(),
   );
   // ── Profile dependencies ───────────────────────────────────────────────────
+<<<<<<< HEAD
+=======
+  final profileRepo = ProfileRepositoryImpl(
+    remoteDataSource: ProfileRemoteApiDataSource(),
+  );
+  await di.init();
+>>>>>>> c4a9fa49c3c9a99d6d324d43827c68344bf54012
 
   runApp(
     EasyLocalization(

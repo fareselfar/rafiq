@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/di/injection_container.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/features/doctor_side/doctor_appointment/presentation/pages/doctor_appointments_screen.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_cubit.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/pages/doctor_articles_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/presentation/pages/doctor_home_screen.dart';
+<<<<<<< HEAD
 import 'package:rafiq/features/doctor_side/profile_doc/data/data_source/profile_doctor_remote_api_data_source.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/data/repo/profile_doctor_repository_impl.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/change_doctor_pass_usecase.dart';
@@ -14,6 +18,9 @@ import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/update_doc
 import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/update_payment_info_usecase.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_cubit.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
+=======
+import 'package:rafiq/features/profile_doc/presentation/screens/profile_doc_screen.dart';
+>>>>>>> c4a9fa49c3c9a99d6d324d43827c68344bf54012
 
 class DoctorHomeLayout extends StatefulWidget {
   final int initialIndex;
@@ -27,6 +34,7 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
   late int currentIndex;
 
   final List<Widget> tabs = [
+<<<<<<< HEAD
     DoctorHomeScreen(),
     DoctorAppointmentsScreen(
       doctorId: '',
@@ -35,6 +43,18 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
     Center(child: Text("مقالاتي")), // DoctorArticlesScreen()
     ProfileDocScreen(),
     // ProfileTab()
+=======
+    const DoctorHomeScreen(),
+    const DoctorAppointmentsScreen(
+      doctorId: '',
+      doctorName: '',
+    ), // DoctorAppointmentsScreen()
+    BlocProvider(
+      create: (_) => sl<DoctorArticlesCubit>(),
+      child:  const DoctorArticlesScreen(),
+    ),
+    const ProfileDocScreen(),
+>>>>>>> c4a9fa49c3c9a99d6d324d43827c68344bf54012
   ];
 
   @override
