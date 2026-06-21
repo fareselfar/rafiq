@@ -41,6 +41,7 @@ import 'package:rafiq/features/patient_profile/presentation/pages/change_passwor
 import 'package:rafiq/features/patient_profile/presentation/pages/profile_page.dart';
 
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
+import 'package:rafiq/features/splash/cubit/splash_cubit.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
 import 'routes.dart';
@@ -53,7 +54,13 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
-        return _buildRoute(const SplashScreen(), settings);
+  return _buildRoute(
+    BlocProvider(
+      create: (_) => sl<SplashCubit>(),
+      child: const SplashScreen(),
+    ),
+    settings,
+  );
       case Routes.userTypeScreen:
         return _buildRoute(const UserTypeScreen(), settings);
       case Routes.onbordingScreen:
