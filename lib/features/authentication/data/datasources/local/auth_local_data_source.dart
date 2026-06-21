@@ -5,4 +5,6 @@ abstract class AuthLocalDataSource {
   Future<String> getRole();
   Future<void> clearAll();
   Future<bool> isLoggedIn();
+  Future<bool> isFirstLaunch();
+  Future<void> setLaunched();
 }
