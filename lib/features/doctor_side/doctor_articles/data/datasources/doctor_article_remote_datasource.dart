@@ -14,15 +14,18 @@ abstract class DoctorArticleRemoteDatasource {
   Future<void> deleteArticle(int id);
 }
 
-class DoctorArticleRemoteDatasourceImpl implements DoctorArticleRemoteDatasource {
+class DoctorArticleRemoteDatasourceImpl
+    implements DoctorArticleRemoteDatasource {
   final Dio _dio;
   DoctorArticleRemoteDatasourceImpl(this._dio);
 
   @override
   Future<List<ArticleModel>> getMyArticles() async {
-    final response = await _dio.get('/api/Article/MyArticles');
+    final response = await _dio.get('/Article/MyArticles');
     final list = response.data as List<dynamic>;
-    return list.map((e) => ArticleModel.fromJson(e as Map<String, dynamic>)).toList();
+    return list
+        .map((e) => ArticleModel.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 
   @override
@@ -37,18 +40,18 @@ class DoctorArticleRemoteDatasourceImpl implements DoctorArticleRemoteDatasource
       'Title': title,
       'Content': content,
       'Category': category,
-      'ImagePath': shortDescription, // ShortDescription mapped to ImagePath field per API
+      'ShortDescription': shortDescription,
       if (image != null)
         'ProfileImage': await MultipartFile.fromFile(
           image.path,
           filename: image.path.split('/').last,
         ),
     });
-    await _dio.post('/api/Article/AddArticle', data: formData);
+    await _dio.post('/Article/AddArticle', data: formData);
   }
 
   @override
   Future<void> deleteArticle(int id) async {
-    await _dio.delete('/api/Article/DeleteArticle/$id');
+    await _dio.delete('/Article/DeleteArticle/$id');
   }
 }

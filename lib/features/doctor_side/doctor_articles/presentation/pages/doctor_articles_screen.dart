@@ -82,7 +82,6 @@ class _DoctorArticlesScreenState extends State<DoctorArticlesScreen> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Title + avatar
           Text(
             'المقالات',
             style: GoogleFonts.cairo(
@@ -91,7 +90,6 @@ class _DoctorArticlesScreenState extends State<DoctorArticlesScreen> {
               color: AppColors.textPrimary,
             ),
           ),
-          // Add article button
           GestureDetector(
             onTap: () => Navigator.push(
               context,
@@ -138,7 +136,7 @@ class _DoctorArticlesScreenState extends State<DoctorArticlesScreen> {
           children: [
             ArticleStatCard(
               title: 'قراءات الشهر',
-              value: '12,000 جنيه',
+              value: '00,000 مشاهده',
               icon: Icons.visibility_outlined,
               iconBgColor: Colors.blue.shade50,
               iconColor: Colors.blue,

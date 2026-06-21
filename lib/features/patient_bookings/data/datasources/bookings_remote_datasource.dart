@@ -1,38 +1,74 @@
-// features/bookings/data/datasources/bookings_remote_data_source.dart
+// features/patient_bookings/data/datasources/booking_remote_datasource.dart
 import 'package:dio/dio.dart';
-import 'package:rafiq/features/patient_bookings/data/models/bookings_model.dart';
+import '../models/slot_model.dart';
+import '../models/patient_appointment_model.dart';
 
-abstract class BookingsRemoteDataSource {
-  Future<List<BookingModel>> getBookings();
-  Future<void> cancelBooking(String id);
-  // إضافة ميثود التعديل بناءً على الفيجما
-  Future<void> rescheduleBooking(String id, String date, String time);
+abstract class BookingRemoteDatasource {
+  Future<List<SlotModel>> getAvailableSlots(int doctorId, DateTime date);
+  Future<int> bookAppointment(int doctorId, int slotId);
+  Future<List<PatientAppointmentModel>> getMyAppointments({String? status});
+  Future<bool> cancelAppointment(int appointmentId);
+  Future<bool> rescheduleAppointment(int appointmentId, int slotId);
 }
 
-class BookingsRemoteDataSourceImpl implements BookingsRemoteDataSource {
+class BookingRemoteDatasourceImpl implements BookingRemoteDatasource {
   final Dio dio;
-  BookingsRemoteDataSourceImpl(this.dio);
+  BookingRemoteDatasourceImpl(this.dio);
 
   @override
-  Future<List<BookingModel>> getBookings() async {
-    // لما الـ API يجهز هتشيل التعليق وتستخدم السطر ده:
-    // final response = await dio.get('/user/bookings');
-    // return (response.data['data'] as List).map((e) => BookingModel.fromJson(e)).toList();
+  Future<List<SlotModel>> getAvailableSlots(int doctorId, DateTime date) async {
+    final dateStr =
+        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
 
-    // حالياً هنرجّع Empty List أو ترمي Exception عشان الـ Repo يعالجه
-    throw UnimplementedError("الـ API تحت الإنشاء");
-  }
+    print('DoctorId = $doctorId');
+    print('Date = $dateStr');
 
-  @override
-  Future<void> cancelBooking(String id) async {
-    await dio.post('/bookings/$id/cancel');
-  }
-
-  @override
-  Future<void> rescheduleBooking(String id, String date, String time) async {
-    await dio.post(
-      '/bookings/$id/reschedule',
-      data: {'date': date, 'time': time},
+    final response = await dio.get(
+      '/Doctors/$doctorId/available-slots',
+      queryParameters: {'date': dateStr},
     );
+
+    print('Status = ${response.statusCode}');
+    print('Response = ${response.data}');
+
+    return (response.data as List).map((e) => SlotModel.fromJson(e)).toList();
+  }
+
+  @override
+  Future<int> bookAppointment(int doctorId, int slotId) async {
+    final response = await dio.post(
+      '/Doctors/book',
+      data: {'doctorId': doctorId, 'slotId': slotId},
+    );
+    // الباك بيرجع appointmentId في الـ response
+    return response.data['id'] ?? response.data ?? 0;
+  }
+
+  @override
+  Future<List<PatientAppointmentModel>> getMyAppointments({
+    String? status,
+  }) async {
+    final response = await dio.get(
+      '/Appointments/patient-bookings',
+      queryParameters: status != null ? {'status': status} : null,
+    );
+    return (response.data as List)
+        .map((e) => PatientAppointmentModel.fromJson(e))
+        .toList();
+  }
+
+  @override
+  Future<bool> cancelAppointment(int appointmentId) async {
+    await dio.put('/Appointments/cancel/$appointmentId');
+    return true;
+  }
+
+  @override
+  Future<bool> rescheduleAppointment(int appointmentId, int slotId) async {
+    await dio.put(
+      '/Appointments/Update-book',
+      data: {'appointmentId': appointmentId, 'slotId': slotId},
+    );
+    return true;
   }
 }

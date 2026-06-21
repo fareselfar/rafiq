@@ -1,56 +1,47 @@
-import 'package:dartz/dartz.dart';
+// features/patient_bookings/data/repositories/booking_repository_impl.dart
 import 'package:rafiq/features/patient_bookings/data/datasources/bookings_remote_datasource.dart';
-import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
+import 'package:rafiq/features/patient_bookings/domain/entities/patient_booking_entities.dart';
 import 'package:rafiq/features/patient_bookings/domain/repositories/bookings_repository.dart';
 
-class BookingsRepositoryImpl implements BookingsRepo {
-  final BookingsRemoteDataSource remoteDataSource;
-
-  BookingsRepositoryImpl({required this.remoteDataSource});
+import '../../domain/entities/slot_entity.dart';
+class BookingRepositoryImpl implements BookingRepository {
+  final BookingRemoteDatasource datasource;
+  BookingRepositoryImpl(this.datasource);
 
   @override
-  Future<Either<String, List<BookingEntity>>> getBookings() async {
-    try {
-      final remoteData = await remoteDataSource.getBookings();
-      return Right(remoteData);
-    } catch (e) {
-      return Left("عذراً، تعذر جلب الحجوزات حالياً");
-    }
+  Future<List<SlotEntity>> getAvailableSlots(int doctorId, DateTime date) async {
+    final models = await datasource.getAvailableSlots(doctorId, date);
+    return models.map((m) => SlotEntity(
+      id: m.id,
+      time: m.time,
+      isReserved: m.isReserved,
+    )).toList();
   }
 
   @override
-  Future<Either<String, BookingEntity>> getBookingDetails(String id) async {
-    try {
-      final bookings = await remoteDataSource.getBookings();
-      final booking = bookings.firstWhere((b) => b.id == id);
-      return Right(booking);
-    } catch (e) {
-      return Left("تعذر جلب تفاصيل الحجز");
-    }
+  Future<int> bookAppointment(int doctorId, int slotId) =>
+      datasource.bookAppointment(doctorId, slotId);
+
+  @override
+  Future<List<PatientAppointmentEntity>> getMyAppointments({String? status}) async {
+    final models = await datasource.getMyAppointments(status: status);
+    return models.map((m) => PatientAppointmentEntity(
+      id: m.id,
+      doctorName: m.doctorName,
+      specialization: m.specialization,
+      imagePath: m.imagePath,
+      appointmentDate: m.appointmentDate,
+      appointmentTime: m.appointmentTime,
+      location: m.location,
+      price: m.price,
+      status: m.status,
+    )).toList();
   }
 
   @override
-  Future<Either<String, Unit>> cancelBooking(String id) async {
-    try {
-      await remoteDataSource.cancelBooking(id);
-      return const Right(unit);
-    } catch (e) {
-      return Left("فشل إلغاء الحجز، حاول مرة أخرى");
-    }
-  }
+  Future<bool> cancelAppointment(int id) => datasource.cancelAppointment(id);
 
   @override
-  Future<Either<String, Unit>> rescheduleBooking({
-    required String id,
-    required DateTime newDate,
-    required String newTime,
-  }) async {
-    try {
-      final dateStr = "${newDate.year}-${newDate.month}-${newDate.day}";
-      await remoteDataSource.rescheduleBooking(id, dateStr, newTime);
-      return const Right(unit);
-    } catch (e) {
-      return Left("فشل في تحديث موعد الحجز");
-    }
-  }
+  Future<bool> rescheduleAppointment(int id, int slotId) =>
+      datasource.rescheduleAppointment(id, slotId);
 }

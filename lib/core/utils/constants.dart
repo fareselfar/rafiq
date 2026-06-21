@@ -5,7 +5,7 @@ class AppConstants {
   AppConstants._();
 
   // API Configuration
-  static const String baseUrl = 'http://rafiqapp.runasp.net';
+  static const String baseUrl = 'https://rafiqapp.runasp.net/api';
   static const String signUpEndpoint = '/Auth/register';
   static const String signInEndpoint = '/Auth/login';
   static const String changePassEndpoint = '/Appointments/change-password';
@@ -51,4 +51,5 @@ class AppConstants {
   static const String languageKey = 'language_code';
   static const String onboardingKey = 'onboarding_completed';
   static const String tokenKey = 'token';
+  static const String isFirstLaunchKey = 'is_first_launch';
 }

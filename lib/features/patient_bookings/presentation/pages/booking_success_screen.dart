@@ -3,23 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
-import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
+import 'package:rafiq/features/patient_bookings/domain/entities/booking_result_args.dart';
 import '../widgets/success_widgets/success_header.dart';
 import '../widgets/success_widgets/success_doctor_card.dart';
 import '../widgets/success_widgets/booking_details_grid.dart';
 import '../widgets/success_widgets/success_actions.dart';
 
 class BookingSuccessScreen extends StatelessWidget {
-  final BookingEntity booking;
-  final DateTime selectedDate;
-  final String selectedTime;
+  final BookingResultArgs args;
 
-  const BookingSuccessScreen({
-    super.key,
-    required this.booking,
-    required this.selectedDate,
-    required this.selectedTime,
-  });
+  const BookingSuccessScreen({super.key, required this.args});
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +24,23 @@ class BookingSuccessScreen extends StatelessWidget {
           child: Column(
             children: [
               const SuccessHeader(),
-
               const HeightSpace(20),
-              SuccessDoctorCard(booking: booking),
-
+              SuccessDoctorCard(args: args),
               const HeightSpace(30),
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  "تفاصيل الحجز",
-                  style: AppTypography.inputLabel.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  'تفاصيل الحجز',
+                  style: AppTypography.inputLabel.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               const HeightSpace(8),
-              BookingDetailsGrid(date: selectedDate, time: selectedTime),
-
+              BookingDetailsGrid(
+                date: args.date,
+                dayName: args.dayName,
+                time: args.time,
+                location: args.location,
+              ),
               const HeightSpace(20),
             ],
           ),

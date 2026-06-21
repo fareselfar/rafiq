@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
 
 abstract class DoctorsRepository {
-  Future<Either<Failure, List<DoctorsEntity>>> getDoctors();
-  Future<Either<Failure, DoctorsEntity>> getDoctorDetails(
+  Future<Either<Failure, List<DoctorEntity>>> getDoctors();
+  Future<Either<Failure, DoctorEntity>> getDoctorDetails(
     int id,
   ); // الـ ID بقى int
 }

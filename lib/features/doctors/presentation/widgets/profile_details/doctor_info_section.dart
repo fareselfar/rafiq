@@ -4,27 +4,32 @@ import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
-import 'package:rafiq/features/doctors/presentation/widgets/profile_details/custom_details_container.dart';
+import 'custom_details_container.dart';
 
 class DoctorInfoSection extends StatelessWidget {
-  final DoctorsEntity doctor;
+  final DoctorProfileEntity profile;
 
-  const DoctorInfoSection({super.key, required this.doctor});
+  const DoctorInfoSection({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
+    final hasImage = profile.imagePath != null && profile.imagePath!.isNotEmpty;
+
     return Column(
       children: [
         CircleAvatar(
           radius: 70.r,
-          backgroundImage: doctor.imageUrl.startsWith('http')
-              ? NetworkImage(doctor.imageUrl) as ImageProvider
-              : AssetImage(doctor.imageUrl),
+          backgroundColor: const Color(0xFFE3F2FD),
+          backgroundImage: hasImage ? NetworkImage(profile.imagePath!) : null,
+          onBackgroundImageError: hasImage ? (_, __) {} : null,
+  child: !hasImage
+      ? Icon(Icons.person, size:0.8, color: const Color(0xFF90CAF9))
+      : null,
         ),
         HeightSpace(8.h),
 
         Text(
-          doctor.name,
+          profile.fullName,
           style: AppTypography.doctorName,
           textAlign: TextAlign.center,
           maxLines: 2,
@@ -33,7 +38,7 @@ class DoctorInfoSection extends StatelessWidget {
 
         HeightSpace(5.h),
         Text(
-          doctor.specialization,
+          profile.specialization,
           style: AppTypography.bodymid.copyWith(color: AppColors.primary),
           textAlign: TextAlign.center,
         ),
@@ -46,10 +51,8 @@ class DoctorInfoSection extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.r),
           ),
           child: Text(
-            '⭐ ${doctor.rating} (${doctor.reviewCount} مراجعة)',
-            style: AppTypography.bodymid.copyWith(
-              color: AppColors.textSecondary,
-            ),
+            '⭐ ${profile.rate.toStringAsFixed(1)} (${profile.reviewsCount} مراجعة)',
+            style: AppTypography.bodymid.copyWith(color: AppColors.textSecondary),
           ),
         ),
         HeightSpace(12.h),
@@ -58,52 +61,52 @@ class DoctorInfoSection extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                    size: 18.sp,
-                    color: AppColors.textSecondary,
-                  ),
-                  SizedBox(width: 4.w),
-                  Flexible(
-                    child: Text(
-                      doctor.address,
-                      style: AppTypography.bodymid.copyWith(
-                        color: AppColors.textSecondary,
-                      ),
-                      textAlign: TextAlign.center,
-                      softWrap: true,
+              // العنوان
+              if (profile.address != null && profile.address!.isNotEmpty)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      size: 18.sp,
+                      color: AppColors.textSecondary,
                     ),
-                  ),
-                ],
-              ),
+                    SizedBox(width: 4.w),
+                    Flexible(
+                      child: Text(
+                        profile.address!,
+                        style: AppTypography.bodymid.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                      ),
+                    ),
+                  ],
+                ),
 
               HeightSpace(8.h),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'سعر الكشف : ',
-                    style: AppTypography.bodymid.copyWith(
-                      color: AppColors.textSecondary,
+              if (profile.price != null)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'سعر الكشف : ',
+                      style: AppTypography.bodymid.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
                     ),
-                  ),
-                  Flexible(
-                    child: Text(
-                      '${doctor.consultationPrice} جنيه',
+                    Text(
+                      '${profile.price!.toInt()} جنيه',
                       style: AppTypography.bodymid.copyWith(
                         color: AppColors.primary,
                       ),
-                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
             ],
           ),
         ),
@@ -115,7 +118,7 @@ class DoctorInfoSection extends StatelessWidget {
             Expanded(
               child: CustomDetailsContainer(
                 icon: Icons.workspace_premium_outlined,
-                title: '+${doctor.yearsOfExperience}',
+                title: '+${profile.yearsOfExperience}',
                 subTitle: 'سنوات خبرة',
               ),
             ),
@@ -123,7 +126,7 @@ class DoctorInfoSection extends StatelessWidget {
             Expanded(
               child: CustomDetailsContainer(
                 icon: Icons.groups_outlined,
-                title: '+${doctor.patientCount}',
+                title: '+${profile.patientsCount}',
                 subTitle: 'مريض',
               ),
             ),
@@ -131,7 +134,7 @@ class DoctorInfoSection extends StatelessWidget {
             Expanded(
               child: CustomDetailsContainer(
                 icon: Icons.access_time,
-                title: '${doctor.waitingTime} د',
+                title: '${profile.waitingTime} د',
                 subTitle: 'مدة الانتظار',
               ),
             ),
@@ -149,9 +152,9 @@ class DoctorInfoSection extends StatelessWidget {
             ),
             HeightSpace(8.h),
             Text(
-              doctor.bio.isEmpty
-                  ? "لا توجد نبذة تعريفية متاحة حالياً."
-                  : doctor.bio,
+              profile.bio.isEmpty
+                  ? 'لا توجد نبذة تعريفية متاحة حالياً.'
+                  : profile.bio,
               style: AppTypography.profileServiceNameStyle,
               textAlign: TextAlign.right,
               textDirection: TextDirection.rtl,

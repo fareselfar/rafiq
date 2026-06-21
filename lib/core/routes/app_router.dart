@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:rafiq/core/di/injection_container.dart';
 import 'package:rafiq/features/articles/presentation/pages/articles_screen.dart';
 import 'package:rafiq/features/authentication/data/models/reset_pass_arrgs.dart';
 import 'package:rafiq/features/authentication/presentation/screens/forget_password_screen.dart';
@@ -23,7 +24,15 @@ import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/m
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/edit_profile_page.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/upload_file_screen.dart';
 import 'package:rafiq/features/patient_bookings/data/models/payment_arguments.dart';
+import 'package:rafiq/features/doctors/presentation/pages/doctor_details_screen.dart';
+import 'package:rafiq/features/edit_profile/presentation/pages/edit_medical_files.dart';
+import 'package:rafiq/features/edit_profile/presentation/pages/medical_files.dart';
+import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
+import 'package:rafiq/features/edit_profile/presentation/pages/upload_file_screen.dart';
+import 'package:rafiq/features/patient_bookings/data/models/appointment_details_model.dart';
+import 'package:rafiq/features/patient_bookings/domain/entities/booking_result_args.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
+import 'package:rafiq/features/patient_bookings/presentation/bloc/book_appointment_cubit.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/book_appointment_screen.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/booking_details_screen.dart';
 import 'package:rafiq/features/patient_bookings/presentation/pages/booking_success_screen.dart';
@@ -32,8 +41,6 @@ import 'package:rafiq/features/patient_bookings/presentation/pages/edit_appointm
 import 'package:rafiq/features/patient_bookings/presentation/pages/payment_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/success_reset_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
-import 'package:rafiq/features/doctors/domain/entities/doctors_entity.dart';
-import 'package:rafiq/features/doctors/presentation/pages/doctor_details_screen.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
 import 'package:rafiq/features/patient_home/data/datasources/home_remote_datasource.dart';
 import 'package:rafiq/features/patient_home/data/repositories/home_repository_impl.dart';
@@ -52,6 +59,7 @@ import 'package:rafiq/features/specialization/domain/usecase/get_specialization_
 import 'package:rafiq/features/specialization/presentation/bloc/specialization_cubit.dart';
 
 import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
+import 'package:rafiq/features/splash/cubit/splash_cubit.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
 import 'routes.dart';
@@ -64,7 +72,13 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
-        return _buildRoute(const SplashScreen(), settings);
+  return _buildRoute(
+    BlocProvider(
+      create: (_) => sl<SplashCubit>(),
+      child: const SplashScreen(),
+    ),
+    settings,
+  );
       case Routes.userTypeScreen:
         return _buildRoute(const UserTypeScreen(), settings);
       case Routes.onbordingScreen:
@@ -107,41 +121,48 @@ class AppRouter {
         );
       case Routes.doctorsScreen:
         return _buildRoute(const DoctorsScreen(), settings);
-      case Routes.doctorDetailsScreen:
-        final doctor = settings.arguments as DoctorsEntity;
-        return _buildRoute(DoctorDetailsScreen(doctor: doctor), settings);
-      case Routes.bookAppointmentScreen:
-        final booking = settings.arguments as BookingEntity;
-        return _buildRoute(BookAppointmentScreen(booking: booking), settings);
 
-      case Routes.paymentScreen:
-        final args = settings.arguments as PaymentArguments;
+      case Routes.doctorDetailsScreen:
+        final doctorId = settings.arguments as int;
+        return _buildRoute(DoctorDetailsScreen(doctorId: doctorId), settings);
+
+      case Routes.bookingDetailsScreen:
+        final appointmentId = settings.arguments as int;
         return _buildRoute(
-          PaymentScreen(
-            booking: args.booking,
-            selectedDate: args.date,
-            selectedTime: args.time,
+          BookingDetailsScreen(appointmentId: appointmentId),
+          settings,
+        );
+
+      case Routes.bookAppointmentScreen:
+        final args = settings.arguments as BookingArgs;
+        return _buildRoute(
+          BlocProvider(
+            create: (_) => sl<BookAppointmentCubit>()
+              ..loadSlots(
+                args.doctorId,
+                DateTime.now().add(const Duration(days: 1)),
+              ),
+            child: BookAppointmentScreen(args: args),
           ),
           settings,
         );
+      case Routes.paymentScreen:
+        final args = settings.arguments as AppointmentDetailsModel;
+        return _buildRoute(PaymentScreen(), settings);
 
       case Routes.bookingSuccessScreen:
-        final args = settings.arguments as PaymentArguments;
+        final args = settings.arguments as BookingResultArgs;
+        return _buildRoute(BookingSuccessScreen(args: args), settings);
+
+      case Routes.editAppointmentScreen:
+        final args = settings.arguments as Map<String, dynamic>;
         return _buildRoute(
-          BookingSuccessScreen(
-            booking: args.booking,
-            selectedDate: args.date,
-            selectedTime: args.time,
+          EditAppointmentScreen(
+            appointmentId: args['appointmentId'] as int,
+            args: args['bookingArgs'] as BookingArgs,
           ),
           settings,
         );
-      case Routes.bookingDetailsScreen:
-        final args = settings.arguments as BookingEntity;
-        return _buildRoute(BookingDetailsScreen(booking: args), settings);
-      case Routes.editAppointmentScreen:
-        final booking = settings.arguments as BookingEntity;
-        return _buildRoute(EditAppointmentScreen(booking: booking), settings);
-
       case Routes.specializationScreen:
         return _buildRoute(
           BlocProvider(
