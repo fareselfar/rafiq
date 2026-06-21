@@ -1,4 +1,5 @@
-// presentation/screens/book_appointment_screen.dart
+// lib/features/patient_bookings/presentation/pages/book_appointment_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +31,11 @@ class BookAppointmentScreen extends StatefulWidget {
 }
 
 class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
-  DateTime selectedDate = DateTime.now().add(const Duration(days: 1));
+  DateTime selectedDate = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  );
 
   String? selectedSlotTime;
 
@@ -44,8 +49,18 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
       'السبت',
       'الأحد',
     ];
-
     return days[weekday - 1];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<BookAppointmentCubit>().loadSlots(
+        widget.args.doctorId,
+        selectedDate,
+      );
+    });
   }
 
   void _onDateChanged(DateTime date) {
@@ -53,7 +68,6 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
       selectedDate = date;
       selectedSlotTime = null;
     });
-
     context.read<BookAppointmentCubit>().loadSlots(widget.args.doctorId, date);
   }
 
@@ -87,10 +101,10 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   Widget build(BuildContext context) {
     return BlocListener<BookAppointmentCubit, BookAppointmentState>(
       listener: _handleBookingState,
-
       child: BlocBuilder<BookAppointmentCubit, BookAppointmentState>(
         builder: (context, state) {
           final bool isLoading = state is SlotsLoading;
+
           return Scaffold(
             backgroundColor: AppColors.backGround,
             appBar: const BookingAppBar(title: 'حجز موعد'),
@@ -103,48 +117,34 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           DoctorBriefInfo(booking: widget.args),
-
                           const HeightSpace(20),
-
                           BookingSelectionHeader(selectedDate: selectedDate),
-
                           const HeightSpace(10),
-
                           BookingDateSelector(
                             selectedDate: selectedDate,
                             onDateSelected: _onDateChanged,
                           ),
-
                           const HeightSpace(12),
-
                           BookingCalendarPicker(
                             initialDate: selectedDate,
                             onDateSelected: _onDateChanged,
                           ),
-
                           const HeightSpace(24),
-
                           Text(
                             'المواعيد المتاحة',
                             style: AppTypography.doctorName.copyWith(
                               fontSize: 16.sp,
                             ),
                           ),
-
                           const HeightSpace(12),
-
                           AvailableSlotsSection(
                             onSlotSelected: (slot) {
-                              setState(() {
-                                selectedSlotTime = slot.time;
-                              });
-
+                              setState(() => selectedSlotTime = slot.time);
                               context.read<BookAppointmentCubit>().selectSlot(
                                 slot.id,
                               );
                             },
                           ),
-
                           SizedBox(height: 120.h),
                         ],
                       ),

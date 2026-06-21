@@ -8,6 +8,7 @@ import 'package:rafiq/features/authentication/presentation/screens/get_start.dar
 import 'package:rafiq/features/authentication/presentation/screens/login_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/reset_pass_screen.dart';
 import 'package:rafiq/features/authentication/presentation/screens/register_screen.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/pages/add_article_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home_layout/presentation/pages/doctor_home_layout_page.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/change_doc_pass.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/edit_clinic.dart';
@@ -181,6 +182,10 @@ class AppRouter {
           DoctorHomeLayout(initialIndex: initialIndex),
           settings,
         );
+
+        case Routes.addArticle:
+        return _buildRoute(const AddArticleScreen(), settings);
+      
       case Routes.home:
         return _buildRoute(Home(), settings);
       case Routes.editMedicalFileScreen:
