@@ -11,7 +11,7 @@ class SlotModel {
   });
 
   factory SlotModel.fromJson(Map<String, dynamic> json) {
-    final rawTime = json['fromTime'] as String? ?? '';  // ← fromTime مش time
+    final rawTime = json['fromTime'] as String? ?? ''; 
   return SlotModel(
     id: json['id'] ?? 0,
     time: _formatTime(rawTime),

@@ -20,12 +20,9 @@ class DoctorHomeLayout extends StatefulWidget {
 class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
   late int currentIndex;
 
-  final List<Widget> tabs = [
+  late final List<Widget> tabs = [
     const DoctorHomeScreen(),
-    const DoctorAppointmentsScreen(
-      doctorId: '',
-      doctorName: '',
-    ), // DoctorAppointmentsScreen()
+    const DoctorAppointmentsScreen(doctorId: '', doctorName: ''),
     BlocProvider(
       create: (_) => sl<DoctorArticlesCubit>(),
       child: const DoctorArticlesScreen(),
@@ -36,14 +33,13 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
   @override
   void initState() {
     super.initState();
-    print("DOCTOR HOME LAYOUT OPENED");
     currentIndex = widget.initialIndex;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: tabs[currentIndex],
+      body: IndexedStack(index: currentIndex, children: tabs),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           border: Border(
@@ -60,11 +56,7 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
             fontWeight: FontWeight.w600,
           ),
           unselectedLabelStyle: TextStyle(fontSize: 12.sp),
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
+          onTap: (index) => setState(() => currentIndex = index),
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_filled),

@@ -28,11 +28,10 @@ import 'package:rafiq/features/patient_bookings/data/repositories/patient_bookin
 import 'package:rafiq/features/patient_bookings/domain/repositories/bookings_repository.dart';
 import 'package:rafiq/features/patient_bookings/domain/repositories/patient_bookings_repository.dart';
 import 'package:rafiq/features/patient_bookings/domain/usecases/booking_usecases.dart';
+import 'package:rafiq/features/patient_bookings/domain/usecases/booking_usecases.dart'
+    as booking_uc;
 import 'package:rafiq/features/patient_bookings/domain/usecases/patient_bookings_usecases.dart'
-    hide
-        GetMyAppointmentsUseCase,
-        CancelAppointmentUseCase,
-        RescheduleAppointmentUseCase;
+    as patient_uc;
 import 'package:rafiq/features/patient_bookings/presentation/bloc/appointments_cubit.dart';
 import 'package:rafiq/features/patient_bookings/presentation/bloc/book_appointment_cubit.dart';
 import '../network/network_info.dart';
@@ -147,8 +146,6 @@ Future<void> init() async {
   sl.registerFactory(() => DoctorProfileCubit(sl()));
   // ─────────────────────────────────────────────────────────
 
-  // في injection_container.dart أضف:
-
   // ── Patient Bookings ──────────────────────────────────────
   sl.registerFactory<PatientBookingsDatasource>(
     () => PatientBookingsDatasourceImpl(sl()),
@@ -157,7 +154,7 @@ Future<void> init() async {
     () => PatientBookingsRepositoryImpl(sl()),
   );
   sl.registerFactory(() => GetMyAppointmentsUseCase(sl()));
-  sl.registerFactory(() => GetAppointmentDetailsUseCase(sl()));
+  sl.registerFactory(() => patient_uc.GetAppointmentDetailsUseCase(sl()));
   sl.registerFactory(() => CancelAppointmentUseCase(sl()));
   sl.registerFactory(() => RescheduleAppointmentUseCase(sl()));
   sl.registerFactory(
@@ -169,22 +166,22 @@ Future<void> init() async {
     ),
   );
 
-  // ── Book Appointment ──────────────────────────────────────
+  // ── Patient Bookings ──────────────────────────────────────
+  
 
+  // ── Book Appointment ──────────────────────────────────────
   sl.registerFactory<BookingRemoteDatasource>(
     () => BookingRemoteDatasourceImpl(sl()),
   );
-
   sl.registerFactory<BookingRepository>(() => BookingRepositoryImpl(sl()));
 
-  sl.registerFactory(() => GetAvailableSlotsUseCase(sl()));
-
-  sl.registerFactory(() => BookAppointmentUseCase(sl()));
+  sl.registerFactory(() => booking_uc.GetAvailableSlotsUseCase(sl()));
+  sl.registerFactory(() => booking_uc.BookAppointmentUseCase(sl()));
 
   sl.registerFactory(
     () => BookAppointmentCubit(
-      sl<GetAvailableSlotsUseCase>(),
-      sl<BookAppointmentUseCase>(),
+      sl<booking_uc.GetAvailableSlotsUseCase>(),
+      sl<booking_uc.BookAppointmentUseCase>(),
     ),
   );
 
