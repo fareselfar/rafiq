@@ -10,7 +10,8 @@ class DoctorArticleCard extends StatelessWidget {
   final ArticleEntity article;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
-  final VoidCallback? onPublish; // shown only for drafts
+  final VoidCallback? onPublish;
+  final VoidCallback onTap;
 
   const DoctorArticleCard({
     super.key,
@@ -18,117 +19,121 @@ class DoctorArticleCard extends StatelessWidget {
     required this.onEdit,
     required this.onDelete,
     this.onPublish,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     final isDraft = !article.isPublished;
 
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      padding: EdgeInsets.all(14.r),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Article info
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      article.title,
-                      style: AppTypography.profileNameStyle.copyWith(fontSize: 15.sp),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const HeightSpace(6),
-                    Row(
-                      children: [
-                        _CategoryChip(label: article.category),
-                        const WidthSpace(8),
-                        Icon(Icons.access_time_rounded,
-                            size: 14.sp, color: AppColors.textSecondary),
-                        const WidthSpace(4),
-                        Text(
-                          article.timeAge,
-                          style: GoogleFonts.cairo(
-                            fontSize: 12.sp,
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const WidthSpace(12),
-              // Thumbnail
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10.r),
-                child: article.imagePath.isNotEmpty
-                    ? Image.network(
-                        article.imagePath,
-                        width: 72.w,
-                        height: 72.h,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _PlaceholderImage(),
-                      )
-                    : _PlaceholderImage(),
-              ),
-            ],
-          ),
-          if (isDraft) ...[
-            const HeightSpace(4),
-            Align(
-              alignment: AlignmentDirectional.centerEnd,
-              child: _DraftBadge(),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        padding: EdgeInsets.all(14.r),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
             ),
           ],
-          const HeightSpace(10),
-          const Divider(height: 1),
-          const HeightSpace(10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              if (isDraft && onPublish != null)
-                _ActionChip(
-                  label: 'نشر',
-                  color: AppColors.primary,
-                  icon: Icons.publish_rounded,
-                  onTap: onPublish!,
-                  filled: true,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Article info
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        article.title,
+                        style: AppTypography.profileNameStyle.copyWith(fontSize: 15.sp),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const HeightSpace(6),
+                      Row(
+                        children: [
+                          _CategoryChip(label: article.category),
+                          const WidthSpace(8),
+                          Icon(Icons.access_time_rounded,
+                              size: 14.sp, color: AppColors.textSecondary),
+                          const WidthSpace(4),
+                          Text(
+                            article.timeAge,
+                            style: GoogleFonts.cairo(
+                              fontSize: 12.sp,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              if (isDraft && onPublish != null) const WidthSpace(8),
-              _ActionChip(
-                label: 'تعديل',
-                color: AppColors.textPrimary,
-                icon: Icons.edit_outlined,
-                onTap: onEdit,
-              ),
-              const WidthSpace(8),
-              _ActionChip(
-                label: 'حذف',
-                color: AppColors.red,
-                icon: Icons.delete_outline_rounded,
-                onTap: onDelete,
+                const WidthSpace(12),
+                // Thumbnail
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10.r),
+                  child: article.imagePath.isNotEmpty
+                      ? Image.network(
+                          article.imagePath,
+                          width: 72.w,
+                          height: 72.h,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => _PlaceholderImage(),
+                        )
+                      : _PlaceholderImage(),
+                ),
+              ],
+            ),
+            if (isDraft) ...[
+              const HeightSpace(4),
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: _DraftBadge(),
               ),
             ],
-          ),
-        ],
+            const HeightSpace(10),
+            const Divider(height: 1),
+            const HeightSpace(10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (isDraft && onPublish != null)
+                  _ActionChip(
+                    label: 'نشر',
+                    color: AppColors.primary,
+                    icon: Icons.publish_rounded,
+                    onTap: onPublish!,
+                    filled: true,
+                  ),
+                if (isDraft && onPublish != null) const WidthSpace(8),
+                _ActionChip(
+                  label: 'تعديل',
+                  color: AppColors.textPrimary,
+                  icon: Icons.edit_outlined,
+                  onTap: onEdit,
+                ),
+                const WidthSpace(8),
+                _ActionChip(
+                  label: 'حذف',
+                  color: AppColors.red,
+                  icon: Icons.delete_outline_rounded,
+                  onTap: onDelete,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

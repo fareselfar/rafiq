@@ -12,9 +12,6 @@ import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_det
 import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_details/booking_details_gridviow.dart';
 import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_details/booking_doctor_details_card.dart';
 import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_details/booking_status.dart';
-import 'package:rafiq/features/patient_bookings/presentation/widgets/payment_widgets/payment_bill_summary.dart';
-
-// استيراد ملف الـ Shimmer الجديد (تأكد من ضبط المسار حسب مشروعك)
 import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_details/booking_details_shimmer.dart';
 
 class BookingDetailsScreen extends StatelessWidget {

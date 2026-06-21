@@ -1,4 +1,5 @@
 // features/patient_bookings/data/datasources/booking_remote_datasource.dart
+
 import 'package:dio/dio.dart';
 import '../models/slot_model.dart';
 import '../models/patient_appointment_model.dart';
@@ -20,18 +21,22 @@ class BookingRemoteDatasourceImpl implements BookingRemoteDatasource {
     final dateStr =
         '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
 
-    print('DoctorId = $doctorId');
-    print('Date = $dateStr');
+    print('🔍 getAvailableSlots → DoctorId=$doctorId, Date=$dateStr');
 
     final response = await dio.get(
       '/Doctors/$doctorId/available-slots',
       queryParameters: {'date': dateStr},
     );
 
-    print('Status = ${response.statusCode}');
-    print('Response = ${response.data}');
+    print('✅ Slots response: ${response.data}');
 
-    return (response.data as List).map((e) => SlotModel.fromJson(e)).toList();
+    final slots = (response.data as List)
+        .map((e) => SlotModel.fromJson(e))
+        .toList();
+
+    slots.sort((a, b) => a.rawMinutes.compareTo(b.rawMinutes));
+    
+    return slots;
   }
 
   @override
@@ -40,7 +45,6 @@ class BookingRemoteDatasourceImpl implements BookingRemoteDatasource {
       '/Doctors/book',
       data: {'doctorId': doctorId, 'slotId': slotId},
     );
-    // الباك بيرجع appointmentId في الـ response
     return response.data['id'] ?? response.data ?? 0;
   }
 

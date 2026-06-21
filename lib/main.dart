@@ -102,7 +102,7 @@ class Rafiq extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           themeMode: ThemeMode.light,
-          initialRoute: Routes.userTypeScreen,
+          initialRoute: Routes.doctorHome,
           onGenerateRoute: AppRouter.generateRoute,
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,

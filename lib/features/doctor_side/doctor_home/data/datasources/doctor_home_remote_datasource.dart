@@ -6,6 +6,8 @@ import '../models/doctor_home_model.dart';
 
 abstract class DoctorHomeRemoteDataSource {
   Future<DoctorHomeModel> getDoctorHomeData();
+  Future<void> acceptAppointment(String appointmentId);
+  Future<void> cancelAppointment(String appointmentId);
 }
 
 class DoctorHomeRemoteDataSourceImpl implements DoctorHomeRemoteDataSource {
@@ -44,5 +46,36 @@ class DoctorHomeRemoteDataSourceImpl implements DoctorHomeRemoteDataSource {
           );
       }
     }
+  }
+
+  @override
+  Future<void> acceptAppointment(String appointmentId) async {
+    try {
+      await dio.put(
+        '/Appointments/ConfirmAppointment',
+        queryParameters: {'id': appointmentId},
+      );
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
+
+  @override
+  Future<void> cancelAppointment(String appointmentId) async {
+    try {
+      await dio.put(
+        '/Appointments/CancelAppointment',
+        queryParameters: {'id': appointmentId},
+      );
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
+
+  Exception _handleDioError(DioException e) {
+    return ServerException(
+      message: e.response?.data?['message'] ?? 'خطأ في العملية',
+      statusCode: e.response?.statusCode ?? 500,
+    );
   }
 }
