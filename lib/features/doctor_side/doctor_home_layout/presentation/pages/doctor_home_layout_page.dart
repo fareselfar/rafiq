@@ -17,9 +17,6 @@ import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/update_doc
 import 'package:rafiq/features/doctor_side/profile_doc/domain/uscases/update_payment_info_usecase.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_cubit.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
-import 'package:rafiq/features/profile_doc/presentation/screens/profile_doc_screen.dart';
-
-import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
 
 class DoctorHomeLayout extends StatefulWidget {
   final int initialIndex;
@@ -84,7 +81,7 @@ class _DoctorHomeLayoutState extends State<DoctorHomeLayout> {
         ),
       ),
       child: Scaffold(
-        body: IndexedStack(index: currentIndex, children: tabs),,
+        body: IndexedStack(index: currentIndex, children: tabs),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             border: Border(

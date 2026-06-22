@@ -9,8 +9,8 @@ import 'package:rafiq/features/patient_home/presentation/bloc/home_cubit.dart';
 import 'package:rafiq/features/patient_home/presentation/widgets/custom_home_search_widget.dart';
 
 class HomeSearchScreen extends StatefulWidget {
-  const HomeSearchScreen({super.key});
-
+  const HomeSearchScreen({super.key, this.specialization});
+  final String? specialization;
   @override
   State<HomeSearchScreen> createState() => _HomeSearchScreenState();
 }
@@ -19,6 +19,19 @@ class _HomeSearchScreenState extends State<HomeSearchScreen> {
   final TextEditingController searchController = TextEditingController();
 
   bool isSearching = false;
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.specialization != null) {
+      isSearching = true;
+      searchController.text = widget.specialization!;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.read<SearchCubit>().search(widget.specialization!);
+      });
+    }
+  }
 
   @override
   void dispose() {

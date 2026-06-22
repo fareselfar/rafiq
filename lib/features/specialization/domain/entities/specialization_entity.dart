@@ -1,11 +1,13 @@
-import 'package:equatable/equatable.dart';
-
-class SpecializationEntity extends Equatable {
-  final String id;
+class SpecializationEntity {
+  final int id;
   final String name;
+  final String iconUrl;
+  final int doctorsCount;
 
-  const SpecializationEntity({required this.id, required this.name});
-
-  @override
-  List<Object?> get props => [id, name];
+  const SpecializationEntity({
+    required this.id,
+    required this.name,
+    required this.iconUrl,
+    required this.doctorsCount,
+  });
 }

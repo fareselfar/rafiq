@@ -24,12 +24,7 @@ import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/e
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/medical_files.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/edit_profile_page.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/upload_file_screen.dart';
-import 'package:rafiq/features/patient_bookings/data/models/payment_arguments.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctor_details_screen.dart';
-import 'package:rafiq/features/edit_profile/presentation/pages/edit_medical_files.dart';
-import 'package:rafiq/features/edit_profile/presentation/pages/medical_files.dart';
-import 'package:rafiq/features/edit_profile/presentation/pages/edit_profile_page.dart';
-import 'package:rafiq/features/edit_profile/presentation/pages/upload_file_screen.dart';
 import 'package:rafiq/features/patient_bookings/data/models/appointment_details_model.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/booking_result_args.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/bookings_entity.dart';
@@ -73,13 +68,13 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
-  return _buildRoute(
-    BlocProvider(
-      create: (_) => sl<SplashCubit>(),
-      child: const SplashScreen(),
-    ),
-    settings,
-  );
+        return _buildRoute(
+          BlocProvider(
+            create: (_) => sl<SplashCubit>(),
+            child: const SplashScreen(),
+          ),
+          settings,
+        );
       case Routes.userTypeScreen:
         return _buildRoute(const UserTypeScreen(), settings);
       case Routes.onbordingScreen:
@@ -280,11 +275,9 @@ class AppRouter {
           settings,
         );
 
-        case Routes.addArticle:
+      case Routes.addArticle:
         return _buildRoute(const AddArticleScreen(), settings);
-      
-      case Routes.home:
-        return _buildRoute(Home(), settings);
+
       case Routes.editMedicalFileScreen:
         final cubit = settings.arguments as ProfileCubit;
         return _buildRoute(
