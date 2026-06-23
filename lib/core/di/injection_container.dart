@@ -27,7 +27,6 @@ import 'package:rafiq/features/patient_bookings/data/repositories/bookings_repos
 import 'package:rafiq/features/patient_bookings/data/repositories/patient_bookings_repository_impl.dart';
 import 'package:rafiq/features/patient_bookings/domain/repositories/bookings_repository.dart';
 import 'package:rafiq/features/patient_bookings/domain/repositories/patient_bookings_repository.dart';
-import 'package:rafiq/features/patient_bookings/domain/usecases/booking_usecases.dart';
 import 'package:rafiq/features/patient_bookings/domain/usecases/booking_usecases.dart'
     as booking_uc;
 import 'package:rafiq/features/patient_bookings/domain/usecases/patient_bookings_usecases.dart'
@@ -156,24 +155,28 @@ Future<void> init() async {
   sl.registerFactory<PatientBookingsDatasource>(
     () => PatientBookingsDatasourceImpl(sl()),
   );
+
   sl.registerFactory<PatientBookingsRepository>(
     () => PatientBookingsRepositoryImpl(sl()),
   );
-  sl.registerFactory(() => GetMyAppointmentsUseCase(sl()));
+
+  // التعديل الجذري هنا: حددنا صراحة استخدام الكلاس من ملف patient_bookings_usecases.dart
+  sl.registerFactory(() => patient_uc.GetMyAppointmentsUseCase(sl()));
   sl.registerFactory(() => patient_uc.GetAppointmentDetailsUseCase(sl()));
-  sl.registerFactory(() => CancelAppointmentUseCase(sl()));
-  sl.registerFactory(() => RescheduleAppointmentUseCase(sl()));
+  sl.registerFactory(() => patient_uc.CancelAppointmentUseCase(sl()));
+  sl.registerFactory(() => patient_uc.RescheduleAppointmentUseCase(sl()));
+
   sl.registerFactory(
     () => AppointmentsCubit(
-      getAppointmentsUseCase: sl(),
-      getDetailsUseCase: sl(),
-      cancelUseCase: sl(),
-      rescheduleUseCase: sl(),
+      getAppointmentsUseCase:
+          sl<
+            patient_uc.GetMyAppointmentsUseCase
+          >(), // حددنا النوع هنا صراحةً لـ GetIt
+      getDetailsUseCase: sl<patient_uc.GetAppointmentDetailsUseCase>(),
+      cancelUseCase: sl<patient_uc.CancelAppointmentUseCase>(),
+      rescheduleUseCase: sl<patient_uc.RescheduleAppointmentUseCase>(),
     ),
   );
-
-  // ── Patient Bookings ──────────────────────────────────────
-  
 
   // ── Book Appointment ──────────────────────────────────────
   sl.registerFactory<BookingRemoteDatasource>(

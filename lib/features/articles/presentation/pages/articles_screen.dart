@@ -89,7 +89,7 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
             Expanded(
               child: ListView.separated(
                 itemCount: filteredArticles.length,
-                separatorBuilder: (_, __) => HeightSpace(16),
+                separatorBuilder: (_, _) => HeightSpace(16),
                 itemBuilder: (context, index) {
                   final article = filteredArticles[index];
 

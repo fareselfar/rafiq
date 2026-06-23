@@ -19,7 +19,7 @@ class SlotsShimmer extends StatelessWidget {
         mainAxisSpacing: 12.h,
       ),
       itemCount: 9,
-      itemBuilder: (_, __) {
+      itemBuilder: (_, _) {
         return Shimmer.fromColors(
           baseColor:
               Colors.grey.shade300,

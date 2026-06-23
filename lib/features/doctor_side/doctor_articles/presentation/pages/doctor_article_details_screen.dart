@@ -104,7 +104,7 @@ class DoctorArticleDetailsScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 18.r,
-                        backgroundColor: AppColors.primary.withOpacity(0.1),
+                        backgroundColor: AppColors.primary.withValues(alpha: 0.1),
                         child: Icon(
                           Icons.person,
                           color: AppColors.primary,
@@ -213,7 +213,7 @@ class _CategoryBadge extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Text(

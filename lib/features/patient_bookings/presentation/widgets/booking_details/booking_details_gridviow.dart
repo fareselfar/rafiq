@@ -42,9 +42,9 @@ class BookingDetailsGridView extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.05),
+            color: AppColors.primary.withValues(alpha: 0.25),
             blurRadius: 10.r,
-            offset: const Offset(0, 4),
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -66,13 +66,14 @@ class BookingDetailsGridView extends StatelessWidget {
               ),
             ],
           ),
+          const Spacer(),
           Flexible(
             child: Text(
               value,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
               ),

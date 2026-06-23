@@ -19,7 +19,7 @@ class DoctorImage extends StatelessWidget {
       radius: 32.r,
       backgroundColor: const Color(0xFFE3F2FD),
       backgroundImage: _hasValidImage ? NetworkImage(imageUrl!) : null,
-      onBackgroundImageError: _hasValidImage ? (_, __) {} : null,
+      onBackgroundImageError: _hasValidImage ? (_, _) {} : null,
       child: !_hasValidImage
           ? Icon(Icons.person, size: 32.r, color: const Color(0xFF90CAF9))
           : null,

@@ -32,7 +32,13 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
       ? state as DoctorAppointmentsLoaded
       : null;
 
-  /// Monday of the week containing [date]
+  /// حساب بداية الـ Window (يومين قبل اليوم المختار) لتوسيط اليوم الحالي
+  DateTime _calculateWindowStart(DateTime date) {
+    final target = date.subtract(const Duration(days: 2));
+    return DateTime(target.year, target.month, target.day);
+  }
+
+  /// Monday of the week containing [date] (للسيرفر فقط لأن السيرفر يحتاج بداية أسبوع)
   DateTime _weekStart(DateTime date) {
     final diff = date.weekday - DateTime.monday;
     final monday = date.subtract(Duration(days: diff));
@@ -41,10 +47,11 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
 
   // ── Load ───────────────────────────────────────────────────────────────────
 
-  Future<void> loadSchedule({DateTime? initialDay}) async {
+  Future<void> loadSchedule({DateTime? initialDay, DateTime? customWindowStart}) async {
     final today = initialDay ?? DateTime.now();
     emit(const DoctorAppointmentsLoading());
 
+    // السيرفر يحتاج الـ weekStart لجلب البيانات، لكن الـ UI سيعرض الـ Window
     final result = await getWeeklySchedule(
       doctorId: doctorId,
       weekStart: _weekStart(today),
@@ -52,44 +59,62 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
 
     result.fold(
       (f) => emit(DoctorAppointmentsError(f.message)),
-      (schedule) => emit(
-        DoctorAppointmentsLoaded(schedule: schedule, selectedDay: today),
-      ),
+      (schedule) {
+        // إذا لم نرسل windowStart مخصص، نحسبه تلقائياً ليتم توسيط اليوم
+        final calculatedWindow = customWindowStart ?? _calculateWindowStart(today);
+        emit(
+          DoctorAppointmentsLoaded(
+            schedule: schedule, 
+            selectedDay: today,
+            windowStart: calculatedWindow, // تم حل المشكلة هنا بتمرير القيمة الابتدائية
+          ),
+        );
+      },
     );
   }
 
-  // ── Week navigation ────────────────────────────────────────────────────────
+  // ── Window navigation (Shift Window) ───────────────────────────────────────
 
-  Future<void> goToPreviousWeek() async {
+  Future<void> goToPreviousWindow() async {
     final loaded = _loaded;
     if (loaded == null) return;
 
-    final newWeekStart = loaded.schedule.weekStart.subtract(
-      const Duration(days: 7),
-    );
-    await _fetchWeek(
-      newWeekStart,
-      loaded.selectedDay.subtract(const Duration(days: 7)),
-    );
+    // تحريك النافذة 7 أيام للخلف
+    final newWindowStart = loaded.windowStart.subtract(const Duration(days: 7));
+    
+    // إذا كان اليوم المختار ما زال داخل النافذة الجديدة، نحتفظ به، وإلا نختار أول يوم في النافذة الجديدة
+    DateTime newSelected = loaded.selectedDay;
+    final windowEnd = newWindowStart.add(const Duration(days: 8));
+    if (newSelected.isBefore(newWindowStart) || newSelected.isAfter(windowEnd)) {
+      newSelected = newWindowStart.add(const Duration(days: 2)); // نضع الاختيار على ثالث يوم بالنافذة الجديدة
+    }
+
+    await _fetchWindow(newWindowStart, newSelected);
   }
 
-  Future<void> goToNextWeek() async {
+  Future<void> goToNextWindow() async {
     final loaded = _loaded;
     if (loaded == null) return;
 
-    final newWeekStart = loaded.schedule.weekStart.add(const Duration(days: 7));
-    await _fetchWeek(
-      newWeekStart,
-      loaded.selectedDay.add(const Duration(days: 7)),
-    );
+    // تحريك النافذة 7 أيام للأمام
+    final newWindowStart = loaded.windowStart.add(const Duration(days: 7));
+    
+    // التحقق من بقاء اليوم المختار داخل النافذة
+    DateTime newSelected = loaded.selectedDay;
+    final windowEnd = newWindowStart.add(const Duration(days: 8));
+    if (newSelected.isBefore(newWindowStart) || newSelected.isAfter(windowEnd)) {
+      newSelected = newWindowStart.add(const Duration(days: 2));
+    }
+
+    await _fetchWindow(newWindowStart, newSelected);
   }
 
-  Future<void> _fetchWeek(DateTime weekStart, DateTime newSelectedDay) async {
+  Future<void> _fetchWindow(DateTime targetWindowStart, DateTime newSelectedDay) async {
     emit(const DoctorAppointmentsLoading());
 
     final result = await getWeeklySchedule(
       doctorId: doctorId,
-      weekStart: weekStart,
+      weekStart: _weekStart(newSelectedDay),
     );
 
     result.fold(
@@ -98,6 +123,7 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
         DoctorAppointmentsLoaded(
           schedule: schedule,
           selectedDay: newSelectedDay,
+          windowStart: targetWindowStart,
         ),
       ),
     );
@@ -108,22 +134,27 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
   void selectDay(DateTime day) {
     final loaded = _loaded;
     if (loaded == null) return;
-    emit(loaded.copyWith(selectedDay: day, clearSelectedSlot: true));
+
+    DateTime currentWindowStart = loaded.windowStart;
+    final windowEnd = currentWindowStart.add(const Duration(days: 8));
+
+    // لو المستخدم اختار يوم خارج الـ Window المعروضة حالياً، نقوم بتحريك الـ Window تلقائياً
+    if (day.isBefore(currentWindowStart) || day.isAfter(windowEnd)) {
+      currentWindowStart = _calculateWindowStart(day);
+      // نقوم بإعادة التحميل لتحديث بيانات السيرفر لليوم الجديد والـ Window الجديدة
+      loadSchedule(initialDay: day, customWindowStart: currentWindowStart);
+    } else {
+      // اليوم داخل الـ Window الحالية، نغير الاختيار فقط بدون إعادة تحميل من السيرفر
+      emit(loaded.copyWith(selectedDay: day, clearSelectedSlot: true));
+    }
   }
 
-  // ── Slot selection ─────────────────────────────────────────────────────────
-
+  // ── Remaining actions remain unchanged ─────────────────────────────────────
   void selectSlot(AppointmentSlotEntity slot) {
     final loaded = _loaded;
     if (loaded == null) return;
-    // Toggle: tap same slot again to deselect
     final isSame = loaded.selectedSlot?.id == slot.id;
-    emit(
-      loaded.copyWith(
-        selectedSlot: isSame ? null : slot,
-        clearSelectedSlot: isSame,
-      ),
-    );
+    emit(loaded.copyWith(selectedSlot: isSame ? null : slot, clearSelectedSlot: isSame));
   }
 
   void clearSelectedSlot() {
@@ -132,77 +163,44 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
     emit(loaded.copyWith(clearSelectedSlot: true));
   }
 
-  // ── Cancel full day ────────────────────────────────────────────────────────
-
   Future<void> cancelDay() async {
     final loaded = _loaded;
     if (loaded == null) return;
-
     emit(loaded.copyWith(isCancellingDay: true));
-
-    final result = await cancelFullDay(
-      doctorId: doctorId,
-      day: loaded.selectedDay,
-    );
-
+    final result = await cancelFullDay(doctorId: doctorId, day: loaded.selectedDay);
     result.fold((f) => emit(DoctorAppointmentsError(f.message)), (_) {
       emit(const DoctorAppointmentsActionSuccess('تم إلغاء اليوم بنجاح'));
-      // Reload same week
-      loadSchedule(initialDay: loaded.selectedDay);
+      loadSchedule(initialDay: loaded.selectedDay, customWindowStart: loaded.windowStart);
     });
   }
-
-  // ── Cancel single slot ─────────────────────────────────────────────────────
 
   Future<void> cancelSelectedSlot() async {
     final loaded = _loaded;
     if (loaded == null || loaded.selectedSlot == null) return;
-
     emit(loaded.copyWith(isSlotActionLoading: true));
-
     final result = await cancelSlot(slotId: loaded.selectedSlot!.id);
-
     result.fold((f) => emit(DoctorAppointmentsError(f.message)), (_) {
       emit(const DoctorAppointmentsActionSuccess('تم إلغاء الموعد بنجاح'));
-      loadSchedule(initialDay: loaded.selectedDay);
+      loadSchedule(initialDay: loaded.selectedDay, customWindowStart: loaded.windowStart);
     });
   }
 
-  // ── Edit single slot ───────────────────────────────────────────────────────
-
-  Future<void> editSelectedSlot({
-    required DateTime newDateTime,
-    required int newDurationMinutes,
-  }) async {
+  Future<void> editSelectedSlot({required DateTime newDateTime, required int newDurationMinutes}) async {
     final loaded = _loaded;
     if (loaded == null || loaded.selectedSlot == null) return;
-
     emit(loaded.copyWith(isSlotActionLoading: true));
-
-    final result = await editSlot(
-      slotId: loaded.selectedSlot!.id,
-      newDateTime: newDateTime,
-      newDurationMinutes: newDurationMinutes,
-    );
-
+    final result = await editSlot(slotId: loaded.selectedSlot!.id, newDateTime: newDateTime, newDurationMinutes: newDurationMinutes);
     result.fold((f) => emit(DoctorAppointmentsError(f.message)), (_) {
       emit(const DoctorAppointmentsActionSuccess('تم تعديل الموعد بنجاح'));
-      loadSchedule(initialDay: loaded.selectedDay);
+      loadSchedule(initialDay: loaded.selectedDay, customWindowStart: loaded.windowStart);
     });
   }
 
-  Future<void> addNewAvailability({
-    required DateTime date,
-    required TimeOfDay from,
-    required TimeOfDay to,
-  }) async {
+  Future<void> addNewAvailability({required DateTime date, required TimeOfDay from, required TimeOfDay to}) async {
     final loaded = _loaded;
     if (loaded == null) return;
-
     emit(loaded.copyWith(isSlotActionLoading: true));
-
     final result = await addAvailability(date: date, from: from, to: to);
-
     result.fold((f) => emit(DoctorAppointmentsError(f.message)), (_) {
       emit(const DoctorAppointmentsActionSuccess('تم إضافة الموعد بنجاح'));
       loadSchedule(initialDay: date);

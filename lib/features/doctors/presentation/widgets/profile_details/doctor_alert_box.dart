@@ -10,9 +10,9 @@ class DoctorAlertBox extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,7 +39,7 @@ class DoctorAlertBox extends StatelessWidget {
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.w500,
-              color: AppColors.selectedText.withOpacity(0.8),
+              color: AppColors.selectedText.withValues(alpha: 0.8),
             ),
             textAlign: TextAlign.center,
           ),

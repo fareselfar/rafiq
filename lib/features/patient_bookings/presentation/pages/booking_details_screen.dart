@@ -11,7 +11,6 @@ import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_app
 import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_details/booking_details_actions.dart';
 import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_details/booking_details_gridviow.dart';
 import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_details/booking_doctor_details_card.dart';
-import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_details/booking_status.dart';
 import 'package:rafiq/features/patient_bookings/presentation/widgets/booking_details/booking_details_shimmer.dart';
 
 class BookingDetailsScreen extends StatelessWidget {
@@ -65,7 +64,6 @@ class BookingDetailsScreen extends StatelessWidget {
                               children: [
                                 BookingDoctorDetailsCard(details: details),
                                 const HeightSpace(20),
-                                BookingStatusWidget(details: details),
                                 const HeightSpace(20),
                                 Align(
                                   alignment: Alignment.centerRight,

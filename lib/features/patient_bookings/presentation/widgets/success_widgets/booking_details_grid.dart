@@ -41,10 +41,12 @@ class BookingDetailsGrid extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(18.r),
-        border: Border(left: BorderSide(color: AppColors.primary, width: 1.w)),
+        border: Border(
+          left: BorderSide(color: AppColors.primary, width: 1.w),
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(.25),
+            color: AppColors.primary.withValues(alpha: .25),
             blurRadius: 10.r,
             offset: const Offset(0, 6),
           ),

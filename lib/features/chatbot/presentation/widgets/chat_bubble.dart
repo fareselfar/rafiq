@@ -51,7 +51,7 @@ class ChatBubble extends StatelessWidget {
               borderRadius: borderRadius,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 5,
                   offset: const Offset(0, 6),
                 ),
@@ -72,7 +72,7 @@ class ChatBubble extends StatelessWidget {
                   DateFormatter.formatTimeOnly(message.time),
                   style: TextStyle(
                     fontSize: 10.sp,
-                    color: textColor.withOpacity(0.7),
+                    color: textColor.withValues(alpha: 0.7),
                   ),
                 ),
               ],

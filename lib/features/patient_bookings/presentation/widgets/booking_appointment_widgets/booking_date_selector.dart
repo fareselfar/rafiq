@@ -38,7 +38,7 @@ class BookingDateSelector extends StatelessWidget {
         clipBehavior: Clip.none,
         padding: EdgeInsets.symmetric(vertical: 8.h),
         itemCount: 7,
-        separatorBuilder: (_, __) => SizedBox(width: 16.w),
+        separatorBuilder: (_, _) => SizedBox(width: 16.w),
         itemBuilder: (context, index) {
           // ← بدأنا من النهارده (index 0 = اليوم)
           final date = DateTime.now().add(Duration(days: index));
@@ -60,8 +60,8 @@ class BookingDateSelector extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: isSelected
-                        ? AppColors.primary.withOpacity(0.3)
-                        : Colors.black.withOpacity(0.02),
+                        ? AppColors.primary.withValues(alpha: 0.3)
+                        : Colors.black.withValues(alpha: 0.02),
                     blurRadius: isSelected ? 10 : 4,
                     spreadRadius: isSelected ? 1 : 0,
                     offset: Offset(0, isSelected ? 6 : 2),
