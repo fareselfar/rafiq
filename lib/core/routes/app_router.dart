@@ -277,12 +277,6 @@ class AppRouter {
       case Routes.addArticle:
         return _buildRoute(const AddArticleScreen(), settings);
 
-      case Routes.home:
-        case Routes.addArticle:
-        return _buildRoute(const AddArticleScreen(), settings);
-      
-      // case Routes.home:
-      //   return _buildRoute(Home(), settings);
       case Routes.editMedicalFileScreen:
         final cubit = settings.arguments as ProfileCubit;
         return _buildRoute(

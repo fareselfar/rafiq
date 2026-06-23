@@ -9,6 +9,7 @@ import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/data/models/update_clinic_info_request.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/widgets/custom_date_picker.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_cubit.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_state.dart';
 import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
@@ -123,29 +124,16 @@ class _EditClinicState extends State<EditClinic> {
                           children: [
                             SizedBox(
                               width: 144.w,
-                              child: CustomTextField(
-                                prefixIcon: Icon(Icons.access_time),
-                                label: "مواعيد العمل",
+                              child: CustomDatePicker(
                                 controller: _fromController,
-                                onFieldSubmitted: () {
-                                  pickTime(_fromController);
-                                },
-
-                                validator: (value) =>
-                                    Validators.required(value),
+                                hint: "من",
                               ),
                             ),
                             SizedBox(
                               width: 144.w,
-                              child: CustomTextField(
-                                prefixIcon: Icon(Icons.access_time),
+                              child: CustomDatePicker(
                                 controller: _toController,
-                                onFieldSubmitted: () {
-                                  pickTime(_toController);
-                                },
-
-                                validator: (value) =>
-                                    Validators.required(value),
+                                hint: "الي",
                               ),
                             ),
                           ],

@@ -49,7 +49,6 @@ final sl = GetIt.instance;
 Future<void> init() async {
   // ── External ──────────────────────────────────────────────
   sl.registerLazySingleton(() => InternetConnectionChecker.createInstance());
-
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   sl.registerLazySingleton<Dio>(() {
@@ -173,14 +172,12 @@ Future<void> init() async {
   );
 
   // ── Patient Bookings ──────────────────────────────────────
-  
 
   // ── Book Appointment ──────────────────────────────────────
   sl.registerFactory<BookingRemoteDatasource>(
     () => BookingRemoteDatasourceImpl(sl()),
   );
   sl.registerFactory<BookingRepository>(() => BookingRepositoryImpl(sl()));
-
   sl.registerFactory(() => booking_uc.GetAvailableSlotsUseCase(sl()));
   sl.registerFactory(() => booking_uc.BookAppointmentUseCase(sl()));
 
