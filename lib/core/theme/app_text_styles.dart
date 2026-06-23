@@ -67,6 +67,12 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     color: AppColors.inputTextFormStyle,
   );
+  static TextStyle paymentTiltle = TextStyle(
+    fontFamily: _fontFamily,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.doctorName,
+  );
 
   static TextStyle inputHint = TextStyle(
     fontFamily: _fontFamily,

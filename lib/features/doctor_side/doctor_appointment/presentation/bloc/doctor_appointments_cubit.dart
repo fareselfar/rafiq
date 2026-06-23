@@ -15,7 +15,6 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
   final CancelSlotUsecase cancelSlot;
   final AddAvailabilityUsecase addAvailability;
 
-
   final String doctorId;
 
   DoctorAppointmentsCubit({
@@ -23,14 +22,15 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
     required this.cancelFullDay,
     required this.editSlot,
     required this.cancelSlot,
-    required this.addAvailability, 
+    required this.addAvailability,
     required this.doctorId,
   }) : super(const DoctorAppointmentsInitial());
 
   // ── Helpers ────────────────────────────────────────────────────────────────
 
-  DoctorAppointmentsLoaded? get _loaded =>
-      state is DoctorAppointmentsLoaded ? state as DoctorAppointmentsLoaded : null;
+  DoctorAppointmentsLoaded? get _loaded => state is DoctorAppointmentsLoaded
+      ? state as DoctorAppointmentsLoaded
+      : null;
 
   /// Monday of the week containing [date]
   DateTime _weekStart(DateTime date) {
@@ -52,10 +52,9 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
 
     result.fold(
       (f) => emit(DoctorAppointmentsError(f.message)),
-      (schedule) => emit(DoctorAppointmentsLoaded(
-        schedule: schedule,
-        selectedDay: today,
-      )),
+      (schedule) => emit(
+        DoctorAppointmentsLoaded(schedule: schedule, selectedDay: today),
+      ),
     );
   }
 
@@ -65,8 +64,13 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
     final loaded = _loaded;
     if (loaded == null) return;
 
-    final newWeekStart = loaded.schedule.weekStart.subtract(const Duration(days: 7));
-    await _fetchWeek(newWeekStart, loaded.selectedDay.subtract(const Duration(days: 7)));
+    final newWeekStart = loaded.schedule.weekStart.subtract(
+      const Duration(days: 7),
+    );
+    await _fetchWeek(
+      newWeekStart,
+      loaded.selectedDay.subtract(const Duration(days: 7)),
+    );
   }
 
   Future<void> goToNextWeek() async {
@@ -74,7 +78,10 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
     if (loaded == null) return;
 
     final newWeekStart = loaded.schedule.weekStart.add(const Duration(days: 7));
-    await _fetchWeek(newWeekStart, loaded.selectedDay.add(const Duration(days: 7)));
+    await _fetchWeek(
+      newWeekStart,
+      loaded.selectedDay.add(const Duration(days: 7)),
+    );
   }
 
   Future<void> _fetchWeek(DateTime weekStart, DateTime newSelectedDay) async {
@@ -87,10 +94,12 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
 
     result.fold(
       (f) => emit(DoctorAppointmentsError(f.message)),
-      (schedule) => emit(DoctorAppointmentsLoaded(
-        schedule: schedule,
-        selectedDay: newSelectedDay,
-      )),
+      (schedule) => emit(
+        DoctorAppointmentsLoaded(
+          schedule: schedule,
+          selectedDay: newSelectedDay,
+        ),
+      ),
     );
   }
 
@@ -109,10 +118,12 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
     if (loaded == null) return;
     // Toggle: tap same slot again to deselect
     final isSame = loaded.selectedSlot?.id == slot.id;
-    emit(loaded.copyWith(
-      selectedSlot: isSame ? null : slot,
-      clearSelectedSlot: isSame,
-    ));
+    emit(
+      loaded.copyWith(
+        selectedSlot: isSame ? null : slot,
+        clearSelectedSlot: isSame,
+      ),
+    );
   }
 
   void clearSelectedSlot() {
@@ -134,14 +145,11 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
       day: loaded.selectedDay,
     );
 
-    result.fold(
-      (f) => emit(DoctorAppointmentsError(f.message)),
-      (_) {
-        emit(const DoctorAppointmentsActionSuccess('تم إلغاء اليوم بنجاح'));
-        // Reload same week
-        loadSchedule(initialDay: loaded.selectedDay);
-      },
-    );
+    result.fold((f) => emit(DoctorAppointmentsError(f.message)), (_) {
+      emit(const DoctorAppointmentsActionSuccess('تم إلغاء اليوم بنجاح'));
+      // Reload same week
+      loadSchedule(initialDay: loaded.selectedDay);
+    });
   }
 
   // ── Cancel single slot ─────────────────────────────────────────────────────
@@ -154,13 +162,10 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
 
     final result = await cancelSlot(slotId: loaded.selectedSlot!.id);
 
-    result.fold(
-      (f) => emit(DoctorAppointmentsError(f.message)),
-      (_) {
-        emit(const DoctorAppointmentsActionSuccess('تم إلغاء الموعد بنجاح'));
-        loadSchedule(initialDay: loaded.selectedDay);
-      },
-    );
+    result.fold((f) => emit(DoctorAppointmentsError(f.message)), (_) {
+      emit(const DoctorAppointmentsActionSuccess('تم إلغاء الموعد بنجاح'));
+      loadSchedule(initialDay: loaded.selectedDay);
+    });
   }
 
   // ── Edit single slot ───────────────────────────────────────────────────────
@@ -180,33 +185,27 @@ class DoctorAppointmentsCubit extends Cubit<DoctorAppointmentsState> {
       newDurationMinutes: newDurationMinutes,
     );
 
-    result.fold(
-      (f) => emit(DoctorAppointmentsError(f.message)),
-      (_) {
-        emit(const DoctorAppointmentsActionSuccess('تم تعديل الموعد بنجاح'));
-        loadSchedule(initialDay: loaded.selectedDay);
-      },
-    );
+    result.fold((f) => emit(DoctorAppointmentsError(f.message)), (_) {
+      emit(const DoctorAppointmentsActionSuccess('تم تعديل الموعد بنجاح'));
+      loadSchedule(initialDay: loaded.selectedDay);
+    });
   }
 
   Future<void> addNewAvailability({
-  required DateTime date,
-  required TimeOfDay from,
-  required TimeOfDay to,
-}) async {
-  final loaded = _loaded;
-  if (loaded == null) return;
+    required DateTime date,
+    required TimeOfDay from,
+    required TimeOfDay to,
+  }) async {
+    final loaded = _loaded;
+    if (loaded == null) return;
 
-  emit(loaded.copyWith(isSlotActionLoading: true));
+    emit(loaded.copyWith(isSlotActionLoading: true));
 
-  final result = await addAvailability(date: date, from: from, to: to);
+    final result = await addAvailability(date: date, from: from, to: to);
 
-  result.fold(
-    (f) => emit(DoctorAppointmentsError(f.message)),
-    (_) {
+    result.fold((f) => emit(DoctorAppointmentsError(f.message)), (_) {
       emit(const DoctorAppointmentsActionSuccess('تم إضافة الموعد بنجاح'));
       loadSchedule(initialDay: date);
-    },
-  );
-}
+    });
+  }
 }

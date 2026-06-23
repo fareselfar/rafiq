@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/assets_manger.dart';
@@ -6,6 +7,15 @@ import 'package:rafiq/features/patient_bookings/presentation/pages/patient_booki
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
 import 'package:rafiq/features/patient_home/presentation/pages/patient_home.dart';
+import 'package:rafiq/features/patient_profile/data/datasources/profile_remote_api_data_source.dart';
+import 'package:rafiq/features/patient_profile/data/repositories/profile_repository_impl.dart';
+import 'package:rafiq/features/patient_profile/domain/usecases/change_pass_usecase.dart';
+import 'package:rafiq/features/patient_profile/domain/usecases/get_files_usecase.dart';
+import 'package:rafiq/features/patient_profile/domain/usecases/profile_usecase.dart';
+import 'package:rafiq/features/patient_profile/domain/usecases/update_medical_record_usecase.dart';
+import 'package:rafiq/features/patient_profile/domain/usecases/update_profile_usecase.dart';
+import 'package:rafiq/features/patient_profile/domain/usecases/upload_files_usecase.dart';
+import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
 import 'package:rafiq/features/patient_profile/presentation/pages/profile_page.dart';
 
 class PatientHomeLayout extends StatefulWidget {
@@ -18,6 +28,9 @@ class PatientHomeLayout extends StatefulWidget {
 }
 
 class _PatientHomeLayoutState extends State<PatientHomeLayout> {
+  final profileRepo = ProfileRepositoryImpl(
+    remoteDataSource: ProfileRemoteApiDataSource(),
+  );
   late int currentIndex;
   bool _isNavBarVisible = true;
 
@@ -40,21 +53,33 @@ class _PatientHomeLayoutState extends State<PatientHomeLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: currentIndex == 0,
-      onPopInvokedWithResult: (didPop, result) {
-        if (didPop) return;
+    return BlocProvider(
+      create: (_) => ProfileCubit(
+        updateMedicalRecordUseCase: UpdateMedicalRecordUseCase(
+          repository: profileRepo,
+        ),
+        getFilesUseCase: GetFilesUseCase(repository: profileRepo),
+        uploadFileUseCase: UploadFileUseCase(repository: profileRepo),
+        updateProfileUseCase: UpdateProfileUseCase(repository: profileRepo),
+        changePassUseCase: ChangePassUseCase(repository: profileRepo),
+        getProfileUsecase: GetProfileUsecase(repository: profileRepo),
+      )..getProfile(),
+      child: PopScope(
+        canPop: currentIndex == 0,
+        onPopInvokedWithResult: (didPop, result) {
+          if (didPop) return;
 
-        if (currentIndex != 0) {
-          setState(() {
-            currentIndex = 0;
-            _updateNavVisibility(0);
-          });
-        }
-      },
-      child: Scaffold(
-        body: tabs[currentIndex],
-        bottomNavigationBar: _isNavBarVisible ? _buttonNavBar() : null,
+          if (currentIndex != 0) {
+            setState(() {
+              currentIndex = 0;
+              _updateNavVisibility(0);
+            });
+          }
+        },
+        child: Scaffold(
+          body: tabs[currentIndex],
+          bottomNavigationBar: _isNavBarVisible ? _buttonNavBar() : null,
+        ),
       ),
     );
   }

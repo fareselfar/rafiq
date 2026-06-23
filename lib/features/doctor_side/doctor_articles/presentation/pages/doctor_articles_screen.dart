@@ -7,6 +7,7 @@ import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_cubit.dart';
 import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_state.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/pages/doctor_article_details_screen.dart';
 import '../widgets/doctor_article_card.dart';
 import '../widgets/delete_article_dialog.dart';
 import '../widgets/article_stat_card.dart';
@@ -82,7 +83,6 @@ class _DoctorArticlesScreenState extends State<DoctorArticlesScreen> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Title + avatar
           Text(
             'المقالات',
             style: GoogleFonts.cairo(
@@ -91,7 +91,6 @@ class _DoctorArticlesScreenState extends State<DoctorArticlesScreen> {
               color: AppColors.textPrimary,
             ),
           ),
-          // Add article button
           GestureDetector(
             onTap: () => Navigator.push(
               context,
@@ -138,7 +137,7 @@ class _DoctorArticlesScreenState extends State<DoctorArticlesScreen> {
           children: [
             ArticleStatCard(
               title: 'قراءات الشهر',
-              value: '12,000 جنيه',
+              value: '00,000 مشاهده',
               icon: Icons.visibility_outlined,
               iconBgColor: Colors.blue.shade50,
               iconColor: Colors.blue,
@@ -175,6 +174,15 @@ class _DoctorArticlesScreenState extends State<DoctorArticlesScreen> {
         final article = state.articles[index];
         return DoctorArticleCard(
           article: article,
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BlocProvider.value(
+                value: context.read<DoctorArticlesCubit>(),
+                child: DoctorArticleDetailsScreen(article: article),
+              ),
+            ),
+          ),
           onEdit: () => Navigator.push(
             context,
             MaterialPageRoute(

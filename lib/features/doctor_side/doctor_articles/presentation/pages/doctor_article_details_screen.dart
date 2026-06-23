@@ -50,24 +50,30 @@ class DoctorArticleDetailsScreen extends StatelessWidget {
         builder: (context, state) {
           return SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Meta row
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 12.h,
+                  ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.access_time_rounded,
-                              size: 14.sp, color: AppColors.textSecondary),
+                          Icon(
+                            Icons.access_time_rounded,
+                            size: 14.sp,
+                            color: AppColors.textSecondary,
+                          ),
                           const WidthSpace(4),
                           Text(
                             article.timeAge,
                             style: GoogleFonts.cairo(
-                                fontSize: 12.sp,
-                                color: AppColors.textSecondary),
+                              fontSize: 12.sp,
+                              color: AppColors.textSecondary,
+                            ),
                           ),
                         ],
                       ),
@@ -77,7 +83,6 @@ class DoctorArticleDetailsScreen extends StatelessWidget {
                   ),
                 ),
 
-                // Title
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Text(
@@ -92,25 +97,27 @@ class DoctorArticleDetailsScreen extends StatelessWidget {
                 ),
                 const HeightSpace(12),
 
-                // Doctor info row
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      CircleAvatar(
+                        radius: 18.r,
+                        backgroundColor: AppColors.primary.withOpacity(0.1),
+                        child: Icon(
+                          Icons.person,
+                          color: AppColors.primary,
+                          size: 20.sp,
+                        ),
+                      ),
+                      const WidthSpace(8),
                       Text(
-                        'د. مالك محمد',
+                        'د. فارس محفوظ الفار',
                         style: GoogleFonts.cairo(
                           fontSize: 14.sp,
                           color: AppColors.textSecondary,
                         ),
-                      ),
-                      const WidthSpace(8),
-                      CircleAvatar(
-                        radius: 18.r,
-                        backgroundColor: AppColors.primary.withOpacity(0.1),
-                        child: Icon(Icons.person,
-                            color: AppColors.primary, size: 20.sp),
                       ),
                     ],
                   ),

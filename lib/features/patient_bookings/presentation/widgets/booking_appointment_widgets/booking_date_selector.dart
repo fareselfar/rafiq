@@ -1,4 +1,5 @@
-// presentation/widgets/booking_appointment_widgets/booking_date_selector.dart
+// lib/features/patient_bookings/presentation/widgets/booking_appointment_widgets/booking_date_selector.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
@@ -37,11 +38,14 @@ class BookingDateSelector extends StatelessWidget {
         clipBehavior: Clip.none,
         padding: EdgeInsets.symmetric(vertical: 8.h),
         itemCount: 7,
-        separatorBuilder: (_, _) => SizedBox(width: 16.w),
+        separatorBuilder: (_, __) => SizedBox(width: 16.w),
         itemBuilder: (context, index) {
-          DateTime date = DateTime.now().add(Duration(days: index + 1)); // الحجز يبدأ من الغد بناءً على الـ Cubit عندك
-          bool isSelected =
-              date.day == selectedDate.day && date.month == selectedDate.month;
+          // ← بدأنا من النهارده (index 0 = اليوم)
+          final date = DateTime.now().add(Duration(days: index));
+          final isSelected =
+              date.day == selectedDate.day &&
+              date.month == selectedDate.month &&
+              date.year == selectedDate.year;
 
           return GestureDetector(
             onTap: () => onDateSelected(date),
@@ -55,8 +59,8 @@ class BookingDateSelector extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: isSelected 
-                        ? AppColors.primary.withOpacity(0.3) 
+                    color: isSelected
+                        ? AppColors.primary.withOpacity(0.3)
                         : Colors.black.withOpacity(0.02),
                     blurRadius: isSelected ? 10 : 4,
                     spreadRadius: isSelected ? 1 : 0,

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/utils/ui_utils.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
+import 'package:rafiq/core/widgets/custom_dialog.dart';
 import 'package:rafiq/core/widgets/custom_text_form_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/patient_profile/data/models/update_medical_record_request.dart';
@@ -49,14 +50,18 @@ class _EditMedicalFileScreenState extends State<EditMedicalFileScreen> {
       listener: (context, state) {
         if (state is MedicalRecordUpdated) {
           UiUtils.hideDialog(context);
-
-          UiUtils.showMessage(
-            message: state.message,
-            bgColor: Colors.green,
-            fgColor: Colors.white,
-          );
-
+          context.read<ProfileCubit>().getProfile();
           Navigator.pop(context);
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return CustomDialog(
+                title: "تم تحديث البيانات بنجاح",
+                isButton: false,
+              );
+            },
+          );
         }
         if (state is MedicalRecordLoading) {
           UiUtils.showLoading(context);

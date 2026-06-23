@@ -1,4 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:rafiq/core/errors/app_exception.dart';
+import 'package:rafiq/core/errors/failuree.dart';
+import 'package:rafiq/features/patient_home/domain/entities/search_doctor_entity.dart';
 import '../../../../core/errors/failure.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/home_entity.dart';
@@ -31,6 +34,19 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(ServerFailure(message: e.message));
     } on NetworkException catch (e) {
       return Left(NetworkFailure(message: e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failures, List<SearchDoctorEntity>>> searchDoctors(
+    String query,
+  ) async {
+    try {
+      final result = await remoteDataSource.searchDoctors(query);
+
+      return Right(result);
+    } on RemoteException catch (e) {
+      return Left(Failures(message: e.message));
     }
   }
 }

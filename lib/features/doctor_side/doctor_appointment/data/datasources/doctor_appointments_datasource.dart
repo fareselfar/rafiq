@@ -1,4 +1,4 @@
-// lib/features/doctor_side/doctor_appointments/data/datasources/doctor_appointments_remote_datasource.dart
+// lib/features/doctor_side/doctor_appointment/data/datasources/doctor_appointments_remote_datasource.dart
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +18,16 @@ abstract class DoctorAppointmentsDatasource {
   });
 }
 
-class DoctorAppointmentsRemoteDatasource implements DoctorAppointmentsDatasource {
+class DoctorAppointmentsRemoteDatasource
+    implements DoctorAppointmentsDatasource {
   final Dio dio;
 
   DoctorAppointmentsRemoteDatasource({required this.dio});
 
   @override
-  Future<WeeklyScheduleModel> getWeeklySchedule({required DateTime weekStart}) async {
+  Future<WeeklyScheduleModel> getWeeklySchedule({
+    required DateTime weekStart,
+  }) async {
     try {
       final allSlots = <dynamic>[];
       final allAppointments = <dynamic>[];
@@ -59,7 +62,6 @@ class DoctorAppointmentsRemoteDatasource implements DoctorAppointmentsDatasource
     }
   }
 
-  // ← الميثود الصح هنا مش فيها remoteDataSource
   @override
   Future<void> addAvailability({
     required DateTime date,
@@ -107,10 +109,7 @@ class DoctorAppointmentsRemoteDatasource implements DoctorAppointmentsDatasource
     required String newFromTime,
   }) async {
     try {
-      await dio.put(
-        '/Availability/$slotId',
-        data: {'fromTime': newFromTime},
-      );
+      await dio.put('/Availability/$slotId', data: {'fromTime': newFromTime});
     } on DioException catch (e) {
       _handleError(e);
     }
