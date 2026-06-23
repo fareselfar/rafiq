@@ -21,7 +21,7 @@ class SuccessDoctorCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.25),
+            color: AppColors.primary.withValues(alpha: 0.25),
             blurRadius: 10.r,
             offset: const Offset(0, 6),
           ),
@@ -69,7 +69,7 @@ class SuccessDoctorCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                 child: Text(
-                  'استشارة',
+                  'كشف',
                   style: TextStyle(
                     color: const Color(0xFF00CC99),
                     fontSize: 11.sp,
@@ -79,7 +79,7 @@ class SuccessDoctorCard extends StatelessWidget {
               ),
             ],
           ),
-          const HeightSpace(12),
+          const HeightSpace(4),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

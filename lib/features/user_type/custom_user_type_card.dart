@@ -61,8 +61,8 @@ class UserTypeCard extends StatelessWidget {
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
                 color: (isSelected
-                    ? selectedColor.withOpacity(0.1)
-                    : unSelectedColor.withOpacity(0.1)),
+                    ? selectedColor.withValues(alpha: 0.1)
+                    : unSelectedColor.withValues(alpha: 0.1)),
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(15.r),
               ),

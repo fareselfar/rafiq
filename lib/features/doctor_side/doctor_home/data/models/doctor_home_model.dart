@@ -63,12 +63,11 @@ class DoctorTodayAppointmentModel extends DoctorTodayAppointmentEntity {
   });
 
   factory DoctorTodayAppointmentModel.fromJson(Map<String, dynamic> json) {
-    // appointmentDate: "2026-02-25T10:00:00"
     final dateStr = json['appointmentDate'] as String? ?? '';
     final time = _formatTime(dateStr);
 
     return DoctorTodayAppointmentModel(
-      id: '',
+      id: (json['id'] as int?)?.toString() ?? '',
       patientName: json['patientName'] as String? ?? '',
       patientAvatarUrl: '',
       time: time,

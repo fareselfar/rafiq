@@ -69,10 +69,7 @@ class _DoctorAppointmentsView extends StatelessWidget {
               );
             }
             if (state is DoctorAppointmentsLoaded) {
-              return _ContentView(
-                state: state,
-                doctorName: doctorName,
-              );
+              return _ContentView(state: state, doctorName: doctorName);
             }
             return const SizedBox.shrink();
           },
@@ -134,13 +131,12 @@ class _ContentView extends StatelessWidget {
             ),
             const HeightSpace(16),
             WeekNavigator(
-              weekStart: state.schedule.weekStart,
-              onPrevious: cubit.goToPreviousWeek,
-              onNext: cubit.goToNextWeek,
+              onPrevious: cubit.goToPreviousWindow,
+              onNext: cubit.goToNextWindow,
             ),
             const HeightSpace(16),
             WeekDatePicker(
-              weekStart: state.schedule.weekStart,
+              windowStart: state.windowStart,
               selectedDay: state.selectedDay,
               onDaySelected: cubit.selectDay,
             ),
@@ -173,7 +169,9 @@ class _ContentView extends StatelessWidget {
   }
 
   void _showAddAvailability(
-      BuildContext context, DoctorAppointmentsCubit cubit) {
+    BuildContext context,
+    DoctorAppointmentsCubit cubit,
+  ) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -236,14 +234,18 @@ class _ErrorView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline_rounded,
-                color: AppColors.error, size: 56.sp),
+            Icon(
+              Icons.error_outline_rounded,
+              color: AppColors.error,
+              size: 56.sp,
+            ),
             const HeightSpace(16),
             Text(
               message,
               textAlign: TextAlign.center,
-              style: AppTypography.bodySmall
-                  .copyWith(color: AppColors.textSecondary),
+              style: AppTypography.bodySmall.copyWith(
+                color: AppColors.textSecondary,
+              ),
             ),
             const HeightSpace(20),
             CustomButton(

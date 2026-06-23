@@ -1,4 +1,5 @@
 // features/patient_bookings/data/repositories/booking_repository_impl.dart
+import 'package:rafiq/core/errors/exceptions.dart';
 import 'package:rafiq/features/patient_bookings/data/datasources/bookings_remote_datasource.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/patient_booking_entities.dart';
 import 'package:rafiq/features/patient_bookings/domain/repositories/bookings_repository.dart';
@@ -19,9 +20,13 @@ class BookingRepositoryImpl implements BookingRepository {
   }
 
   @override
-  Future<int> bookAppointment(int doctorId, int slotId) =>
-      datasource.bookAppointment(doctorId, slotId);
-
+Future<bool> bookAppointment(int doctorId, int slotId) async {
+  try {
+    return await datasource.bookAppointment(doctorId, slotId);
+  } catch (e) {
+    throw ServerException(message: 'Failed to book appointment: ${e.toString()}');
+  }
+}
   @override
   Future<List<PatientAppointmentEntity>> getMyAppointments({String? status}) async {
     final models = await datasource.getMyAppointments(status: status);

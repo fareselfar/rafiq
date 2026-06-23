@@ -65,7 +65,6 @@ class BookingDetailsScreen extends StatelessWidget {
                               children: [
                                 BookingDoctorDetailsCard(details: details),
                                 const HeightSpace(20),
-                                BookingStatusWidget(details: details),
                                 const HeightSpace(20),
                                 Align(
                                   alignment: Alignment.centerRight,

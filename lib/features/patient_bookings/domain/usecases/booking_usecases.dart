@@ -14,8 +14,9 @@ class GetAvailableSlotsUseCase {
 class BookAppointmentUseCase {
   final BookingRepository repository;
   BookAppointmentUseCase(this.repository);
-  Future<int> call(int doctorId, int slotId) =>
-      repository.bookAppointment(doctorId, slotId);
+  Future<bool> call(int doctorId, int slotId) async {
+    return await repository.bookAppointment(doctorId, slotId);
+  }
 }
 
 class GetMyAppointmentsUseCase {

@@ -14,10 +14,10 @@ class PrivacyNote extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.nots,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFFFE58F).withOpacity(0.5)),
+        border: Border.all(color: const Color(0xFFFFE58F).withValues(alpha: 0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.25),
+            color: Colors.black.withValues(alpha: 0.25),
             blurRadius: 4,
             spreadRadius: 0,
             offset: const Offset(0, 6),

@@ -11,8 +11,7 @@ class SlotsLoaded extends BookAppointmentState {
 }
 class BookingInProgress extends BookAppointmentState {}
 class BookingSuccess extends BookAppointmentState {
-  final int appointmentId;
-  BookingSuccess(this.appointmentId);
+  BookingSuccess();
 }
 class BookAppointmentError extends BookAppointmentState {
   final String message;

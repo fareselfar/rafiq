@@ -76,7 +76,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
       context.navigateTo(
         Routes.bookingSuccessScreen,
         arguments: BookingResultArgs(
-          appointmentId: state.appointmentId,
+          appointmentId:
+              context.read<BookAppointmentCubit>().selectedSlotId ?? 0,
           doctorName: widget.args.doctorName,
           specialization: widget.args.specialization,
           imagePath: widget.args.imagePath,

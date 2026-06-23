@@ -20,7 +20,6 @@ import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presenta
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/profits.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_cubit.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
-import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/edit_medical_files.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/medical_files.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/edit_profile_page.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/upload_file_screen.dart';

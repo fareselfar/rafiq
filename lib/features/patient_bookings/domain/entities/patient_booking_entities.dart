@@ -29,6 +29,7 @@ class PatientAppointmentEntity {
 class AppointmentDetailsEntity {
   final int id;
   final String doctorName;
+  final int doctorId;
   final String specialization;
   final String? imagePath;
   final double rate;
@@ -44,6 +45,7 @@ class AppointmentDetailsEntity {
 
   const AppointmentDetailsEntity({
     required this.id,
+    required this.doctorId,
     required this.doctorName,
     required this.specialization,
     this.imagePath,
