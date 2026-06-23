@@ -1,11 +1,16 @@
 // lib/features/doctor_side/doctor_home/presentation/widgets/articles_section.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rafiq/core/di/injection_container.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/custom_button.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/domain/entities/article_entity.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_cubit.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/pages/doctor_article_details_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/domain/entities/doctor_article_entity.dart';
 import 'doctor_section_header.dart';
 import 'featured_article_card.dart';
@@ -130,7 +135,34 @@ class _ArticlesList extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: articles.length,
       separatorBuilder: (_, _) => const HeightSpace(12),
-      itemBuilder: (_, i) => FeaturedArticleCard(article: articles[i]),
+      itemBuilder: (_, i) {
+        final article = articles[i];
+
+        return FeaturedArticleCard(
+          article: article,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => BlocProvider(
+                  create: (_) => sl<DoctorArticlesCubit>(),
+                  child: DoctorArticleDetailsScreen(
+                    article: ArticleEntity(
+                      id: int.tryParse(article.id) ?? 0,
+                      title: article.title,
+                      content: article.description,
+                      imagePath: article.imageUrl,
+                      category: '',
+                      timeAge: article.publishedSince,
+                      isPublished: true,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

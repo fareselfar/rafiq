@@ -4,12 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/di/injection_container.dart';
+import 'package:rafiq/core/routes/routes.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/theme/app_text_styles.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_cubit.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/bloc/doctor_articles_state.dart';
+import 'package:rafiq/features/doctor_side/doctor_articles/presentation/pages/doctor_articles_screen.dart';
+
 import 'package:rafiq/features/doctor_side/doctor_home/data/datasources/doctor_home_dummy_data.dart';
+import 'package:rafiq/features/doctor_side/doctor_home/domain/entities/doctor_article_entity.dart';
 import 'package:rafiq/features/doctor_side/doctor_home/presentation/bloc/doctor_home_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
 import '../../domain/entities/doctor_home_entity.dart';
 import '../widgets/articles_section.dart';
 import '../widgets/doctor_greeting_section.dart';
@@ -104,7 +111,50 @@ class _HomeContentView extends StatelessWidget {
 
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: ArticlesSection(articles: data.articles),
+              child: BlocProvider(
+                create: (_) => sl<DoctorArticlesCubit>()..loadArticles(),
+                child: BlocBuilder<DoctorArticlesCubit, DoctorArticlesState>(
+                  builder: (context, state) {
+                    if (state is DoctorArticlesLoaded) {
+                      final articles = state.articles
+                          .take(2)
+                          .map(
+                            (e) => DoctorArticleEntity(
+                              id: e.id.toString(),
+                              title: e.title,
+                              description: e.content,
+                              imageUrl: e.imagePath,
+                              publishedSince: e.timeAge,
+                              viewsCount: 0,
+                            ),
+                          )
+                          .toList();
+
+                      return ArticlesSection(
+                        articles: articles,
+                        onViewAll: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => BlocProvider(
+                                create: (_) =>
+                                    sl<DoctorArticlesCubit>()..loadArticles(),
+                                child: const DoctorArticlesScreen(),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+
+                    if (state is DoctorArticlesLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    return const SizedBox();
+                  },
+                ),
+              ),
             ),
 
             HeightSpace(24),
