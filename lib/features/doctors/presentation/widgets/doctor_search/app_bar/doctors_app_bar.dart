@@ -17,10 +17,6 @@ class DoctorsAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: AppColors.surface,
       elevation: 0,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_forward, color: AppColors.primary),
-        onPressed: () => Navigator.pop(context),
-      ),
       title: Text('الأطباء', style: AppTypography.appBarTitelStyle),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(110.h),

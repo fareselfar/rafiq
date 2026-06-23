@@ -3,17 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
-import 'package:rafiq/core/theme/app_text_styles.dart';
-
 
 class WeekNavigator extends StatelessWidget {
-  final DateTime weekStart;
   final VoidCallback onPrevious;
   final VoidCallback onNext;
 
   const WeekNavigator({
     super.key,
-    required this.weekStart,
     required this.onPrevious,
     required this.onNext,
   });
@@ -23,21 +19,21 @@ class WeekNavigator extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _WeekNavButton(label: '> الأسبوع القادم', onTap: onNext),
-          const Spacer(),
-          _WeekNavButton(label: '< الأسبوع السابق', onTap: onPrevious),
+          _WindowNavButton(icon: Icons.arrow_back_ios_new_rounded, onTap: onNext), // التالي (يسار للـ RTL أو يمين حسب اتجاه التطبيق)
+          _WindowNavButton(icon: Icons.arrow_forward_ios_rounded, onTap: onPrevious), // السابق
         ],
       ),
     );
   }
 }
 
-class _WeekNavButton extends StatelessWidget {
-  final String label;
+class _WindowNavButton extends StatelessWidget {
+  final IconData icon;
   final VoidCallback onTap;
 
-  const _WeekNavButton({required this.label, required this.onTap});
+  const _WindowNavButton({required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -45,18 +41,16 @@ class _WeekNavButton extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
+        padding: EdgeInsets.all(10.w),
         decoration: BoxDecoration(
           color: AppColors.surface,
-          borderRadius: BorderRadius.circular(20.r),
+          shape: BoxShape.circle,
           border: Border.all(color: AppColors.border),
         ),
-        child: Text(
-          label,
-          style: AppTypography.bodySmall.copyWith(
-            color: AppColors.textSecondary,
-            fontSize: 11.sp,
-          ),
+        child: Icon(
+          icon,
+          size: 16.sp,
+          color: AppColors.textSecondary,
         ),
       ),
     );

@@ -54,7 +54,6 @@ class EditAppointmentScreen extends StatelessWidget {
   }
 }
 
-// ─── View ─────────────────────────────────────────────────────────────────────
 
 class _EditAppointmentView extends StatelessWidget {
   final int appointmentId;

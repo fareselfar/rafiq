@@ -66,10 +66,10 @@ class _SlotRow extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.r),
           border: isSelected
               ? Border.all(color: AppColors.primary, width: 1.5)
-              : Border.all(color: AppColors.border.withOpacity(0.4)),
+              : Border.all(color: AppColors.border.withValues(alpha: 0.4)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 6,
               offset: const Offset(0, 1),
             ),
@@ -202,9 +202,9 @@ class _SlotStatusChip extends StatelessWidget {
         );
       case DoctorAppointmentStatus.pending:
         return _ChipConfig(
-          label: 'قيد العمل',
-          bg: AppColors.lightBlue,
-          fg: AppColors.primary,
+          label: 'قيد الانتظار',
+          bg: const Color(0xFFFEF9C3),
+          fg: const Color(0xFF92400E),
         );
       case DoctorAppointmentStatus.cancelled:
         return _ChipConfig(
@@ -250,7 +250,7 @@ class _SlotActionPanel extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -53,7 +53,7 @@ class _AppointmentsShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: 3,
-      itemBuilder: (_, __) => Shimmer.fromColors(
+      itemBuilder: (_, _) => Shimmer.fromColors(
         baseColor: Colors.grey.shade300,
         highlightColor: Colors.grey.shade100,
         child: Container(

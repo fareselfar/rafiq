@@ -76,7 +76,7 @@ class OptionsDocCard extends StatelessWidget {
 
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                Routes.login,
+                Routes.userTypeScreen,
                 (route) => false,
               );
             },

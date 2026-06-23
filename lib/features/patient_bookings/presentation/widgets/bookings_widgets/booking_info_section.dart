@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rafiq/core/utils/date_utils.dart';
 import 'package:rafiq/features/patient_bookings/domain/entities/patient_booking_entities.dart';
 import 'package:rafiq/features/patient_bookings/presentation/widgets/bookings_widgets/info_item.dart';
 
@@ -18,7 +17,7 @@ class BookingInfoSection extends StatelessWidget {
             Expanded(
               child: InfoItem(
                 icon: Icons.calendar_today,
-                text: formatDate(booking.appointmentDate as DateTime),
+                text: booking.appointmentDate,
               ),
             ),
             Expanded(

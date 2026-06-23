@@ -59,8 +59,8 @@ class BookingAppointmentShimmerBody extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 7,
-              separatorBuilder: (_, __) => SizedBox(width: 16.w),
-              itemBuilder: (_, __) => Container(
+              separatorBuilder: (_, _) => SizedBox(width: 16.w),
+              itemBuilder: (_, _) => Container(
                 width: 65.w,
                 padding: EdgeInsets.symmetric(vertical: 8.h),
                 decoration: BoxDecoration(
@@ -124,7 +124,7 @@ class BookingAppointmentShimmerBody extends StatelessWidget {
               mainAxisSpacing: 12.h,
             ),
             itemCount: 6,
-            itemBuilder: (_, __) => Container(
+            itemBuilder: (_, _) => Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12.r),

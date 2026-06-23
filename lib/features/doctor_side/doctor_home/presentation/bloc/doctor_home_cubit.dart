@@ -1,5 +1,3 @@
-// lib/features/doctor_side/doctor_home/presentation/cubit/doctor_home_cubit.dart
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/doctor_home_entity.dart';
@@ -11,7 +9,7 @@ class DoctorHomeCubit extends Cubit<DoctorHomeState> {
   final GetDoctorHomeDataUsecase getDoctorHomeData;
 
   DoctorHomeCubit({required this.getDoctorHomeData})
-    : super(const DoctorHomeInitial());
+      : super(const DoctorHomeInitial());
 
   Future<void> loadData() async {
     emit(const DoctorHomeLoading());
@@ -23,4 +21,6 @@ class DoctorHomeCubit extends Cubit<DoctorHomeState> {
       (data) => emit(DoctorHomeLoaded(data)),
     );
   }
+
+
 }

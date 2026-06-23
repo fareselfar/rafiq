@@ -40,7 +40,7 @@ class CustomDetailsContainer extends StatelessWidget {
           Text(
             subTitle,
             style: TextStyle(
-              color: AppColors.selectedText.withOpacity(0.8),
+              color: AppColors.selectedText.withValues(alpha: 0.8),
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
             ),

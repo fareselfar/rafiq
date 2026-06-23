@@ -60,7 +60,7 @@ class OptionsCard extends StatelessWidget {
 
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                Routes.login,
+                Routes.userTypeScreen,
                 (route) => false,
               );
             },

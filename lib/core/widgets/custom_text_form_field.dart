@@ -112,7 +112,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             hintStyle:
                 widget.hintStyle ??
                 TextStyle(
-                  color: AppColors.hintStyle.withOpacity(0.6),
+                  color: AppColors.hintStyle.withValues(alpha: 0.6),
                   fontSize: 14,
                 ),
 

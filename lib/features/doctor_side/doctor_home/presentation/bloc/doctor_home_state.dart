@@ -22,6 +22,11 @@ class DoctorHomeLoaded extends DoctorHomeState {
 
   const DoctorHomeLoaded(this.data);
 
+  // إضافة copyWith لتحديث الـ Entity بسهولة
+  DoctorHomeLoaded copyWith({DoctorHomeEntity? data}) {
+    return DoctorHomeLoaded(data ?? this.data);
+  }
+
   @override
   List<Object?> get props => [data];
 }

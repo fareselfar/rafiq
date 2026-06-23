@@ -6,7 +6,7 @@ import '../models/patient_appointment_model.dart';
 
 abstract class BookingRemoteDatasource {
   Future<List<SlotModel>> getAvailableSlots(int doctorId, DateTime date);
-  Future<int> bookAppointment(int doctorId, int slotId);
+  Future<bool> bookAppointment(int doctorId, int slotId);
   Future<List<PatientAppointmentModel>> getMyAppointments({String? status});
   Future<bool> cancelAppointment(int appointmentId);
   Future<bool> rescheduleAppointment(int appointmentId, int slotId);
@@ -35,17 +35,24 @@ class BookingRemoteDatasourceImpl implements BookingRemoteDatasource {
         .toList();
 
     slots.sort((a, b) => a.rawMinutes.compareTo(b.rawMinutes));
-    
+
     return slots;
   }
 
   @override
-  Future<int> bookAppointment(int doctorId, int slotId) async {
+  Future<bool> bookAppointment(int doctorId, int slotId) async {
     final response = await dio.post(
       '/Doctors/book',
-      data: {'doctorId': doctorId, 'slotId': slotId},
+      data: {
+        'doctorId': doctorId, 
+        'slotId': slotId,
+      },
     );
-    return response.data['id'] ?? response.data ?? 0;
+
+    if (response.data is bool) {
+      return response.data as bool;
+    }
+    return response.statusCode == 200;
   }
 
   @override

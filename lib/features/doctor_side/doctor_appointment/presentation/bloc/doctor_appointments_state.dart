@@ -19,13 +19,15 @@ class DoctorAppointmentsLoading extends DoctorAppointmentsState {
 class DoctorAppointmentsLoaded extends DoctorAppointmentsState {
   final WeeklyScheduleEntity schedule;
   final DateTime selectedDay;
-  final AppointmentSlotEntity? selectedSlot; 
+  final DateTime windowStart; 
+  final AppointmentSlotEntity? selectedSlot;
   final bool isCancellingDay;
   final bool isSlotActionLoading;
 
   const DoctorAppointmentsLoaded({
     required this.schedule,
     required this.selectedDay,
+    required this.windowStart,
     this.selectedSlot,
     this.isCancellingDay = false,
     this.isSlotActionLoading = false,
@@ -34,6 +36,7 @@ class DoctorAppointmentsLoaded extends DoctorAppointmentsState {
   DoctorAppointmentsLoaded copyWith({
     WeeklyScheduleEntity? schedule,
     DateTime? selectedDay,
+    DateTime? windowStart,
     AppointmentSlotEntity? selectedSlot,
     bool clearSelectedSlot = false,
     bool? isCancellingDay,
@@ -42,20 +45,24 @@ class DoctorAppointmentsLoaded extends DoctorAppointmentsState {
     return DoctorAppointmentsLoaded(
       schedule: schedule ?? this.schedule,
       selectedDay: selectedDay ?? this.selectedDay,
-      selectedSlot: clearSelectedSlot ? null : selectedSlot ?? this.selectedSlot,
-      isCancellingDay: isCancellingDay ?? this.isCancellingDay,
-      isSlotActionLoading: isSlotActionLoading ?? this.isSlotActionLoading,
+      windowStart: windowStart ?? this.windowStart,
+      selectedSlot: clearSelectedSlot
+          ? null
+          : (selectedSlot ?? this.selectedSlot),
+      isCancellingDay: isCancellingDay ?? false,
+      isSlotActionLoading: isSlotActionLoading ?? false,
     );
   }
 
   @override
   List<Object?> get props => [
-        schedule,
-        selectedDay,
-        selectedSlot,
-        isCancellingDay,
-        isSlotActionLoading,
-      ];
+    schedule,
+    selectedDay,
+    windowStart,
+    selectedSlot,
+    isCancellingDay,
+    isSlotActionLoading,
+  ];
 }
 
 class DoctorAppointmentsError extends DoctorAppointmentsState {

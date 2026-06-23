@@ -9,7 +9,6 @@ import 'package:rafiq/core/widgets/spacing_widget.dart';
 import 'package:rafiq/features/patient_profile/data/models/file_model.dart';
 import 'package:rafiq/features/patient_profile/data/models/file_type.dart';
 import 'package:rafiq/features/patient_profile/presentation/widgets/card_widget.dart';
-import 'package:rafiq/features/patient_profile/presentation/widgets/small_card.dart';
 
 class FileCard extends StatelessWidget {
   const FileCard({
