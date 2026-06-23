@@ -9,10 +9,11 @@ class SpecializationCubit extends Cubit<SpecializationState> {
     : super(SpecializationInitial());
 
   Future<void> getSpecializations() async {
+    print("GET SPECIALIZATIONS START");
     emit(SpecializationLoading());
 
     final result = await getSpecializationsUseCase();
-
+    print("GET SPECIALIZATIONS END");
     result.fold(
       (failure) {
         emit(SpecializationError(failure.message));

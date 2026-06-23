@@ -1,18 +1,21 @@
 // features/patient_bookings/data/models/slot_model.dart
 
-import '../../domain/entities/slot_entity.dart'; // تأكد من مسار الـ Entity عندك
-
-class SlotModel extends SlotEntity {
-  final int rawMinutes; // للترتيب لو حبيت ترتب المواعيد
+class SlotModel {
+  final int id;
+  final String time;
+  final bool isReserved;
+  final int rawMinutes; // للترتيب — مش للعرض
 
   const SlotModel({
-    required super.id,
-    required super.time,
-    required super.isReserved,
+    required this.id,
+    required this.time,
+    required this.isReserved,
     required this.rawMinutes,
   });
 
   factory SlotModel.fromJson(Map<String, dynamic> json) {
+    // الباك PatientForAvailableSlotDto بيبعت:
+    // { "id": 1, "time": "13:00:00", "isReserved": false }
     final rawTime =
         json['time'] as String? ?? json['fromTime'] as String? ?? '';
 
@@ -25,6 +28,7 @@ class SlotModel extends SlotEntity {
     );
   }
 
+  /// "13:00:00" → 780 (للترتيب)
   static int _toMinutes(String raw) {
     if (raw.isEmpty) return 0;
     try {

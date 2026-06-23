@@ -23,7 +23,7 @@ import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.d
 import 'package:rafiq/features/patient_profile/presentation/bloc/profile_state.dart';
 
 class PatientHomeScreen extends StatefulWidget {
-  const PatientHomeScreen({super.key});
+  PatientHomeScreen({super.key});
 
   @override
   State<PatientHomeScreen> createState() => _PatientHomeScreenState();

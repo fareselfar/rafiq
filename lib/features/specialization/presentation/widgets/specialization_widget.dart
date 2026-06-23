@@ -21,7 +21,7 @@ class SpecializationWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          height: 200.h,
+          height: double.infinity,
           width: 162.w,
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.primary, width: 1.w),
@@ -35,9 +35,9 @@ class SpecializationWidget extends StatelessWidget {
               children: [
                 Image.asset(
                   getSpecializationImage(specializationEntity.name),
-                  width: 70,
+                  width: 50.w,
                 ),
-                HeightSpace(8),
+                HeightSpace(6),
                 Text(
                   specializationEntity.name,
                   maxLines: 2,
@@ -45,10 +45,10 @@ class SpecializationWidget extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.changa(
                     fontWeight: FontWeight.w600,
-                    fontSize: 24.sp,
+                    fontSize: 22.sp,
                   ),
                 ),
-                HeightSpace(8),
+                HeightSpace(4),
                 Text(
                   '${specializationEntity.doctorsCount} طبيب',
                   style: GoogleFonts.cairo(

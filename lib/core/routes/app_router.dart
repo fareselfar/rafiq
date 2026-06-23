@@ -12,6 +12,7 @@ import 'package:rafiq/features/authentication/presentation/screens/register_scre
 import 'package:rafiq/features/doctor_side/doctor_articles/presentation/pages/add_article_screen.dart';
 import 'package:rafiq/features/doctor_side/doctor_home_layout/presentation/pages/doctor_home_layout_page.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/domain/entity/Profile_doctor_entity.dart';
+import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/doctor_notification_screen.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/change_doc_pass.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/edit_clinic.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/edit_doc_profile.dart';
@@ -19,7 +20,6 @@ import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presenta
 import 'package:rafiq/features/doctor_side/profile_doc/edit_profile_doc/presentation/screens/profits.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/bloc/doctor_profile_cubit.dart';
 import 'package:rafiq/features/doctor_side/profile_doc/presentation/screens/profile_doc_screen.dart';
-import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/edit_medical_files.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/medical_files.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/edit_profile_page.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/upload_file_screen.dart';
@@ -37,12 +37,23 @@ import 'package:rafiq/features/patient_bookings/presentation/pages/payment_scree
 import 'package:rafiq/features/authentication/presentation/screens/success_reset_screen.dart';
 import 'package:rafiq/features/chatbot/presentation/pages/chatbot_page.dart';
 import 'package:rafiq/features/doctors/presentation/pages/doctors_screen.dart';
+import 'package:rafiq/features/patient_home/data/datasources/home_remote_datasource.dart';
+import 'package:rafiq/features/patient_home/data/repositories/home_repository_impl.dart';
+import 'package:rafiq/features/patient_home/domain/usecases/search_doctor_usecase.dart';
+import 'package:rafiq/features/patient_home/presentation/bloc/home_cubit.dart';
+import 'package:rafiq/features/patient_home/presentation/pages/home_search_screen.dart';
 import 'package:rafiq/features/patient_home_layout/presentation/pages/patient_home_layout_screen.dart';
 import 'package:rafiq/features/onbording/screens/onbording_screens.dart';
 import 'package:rafiq/core/enums/user_type.dart';
 import 'package:rafiq/features/patient_profile/presentation/bloc/profile_cubit.dart';
 import 'package:rafiq/features/patient_profile/edit_profile/presentation/pages/change_password.dart';
 import 'package:rafiq/features/patient_profile/presentation/pages/profile_page.dart';
+import 'package:rafiq/features/specialization/data/datasources/specialization_remote_api_data_source.dart';
+import 'package:rafiq/features/specialization/data/repositories/specialization_repository_impl.dart';
+import 'package:rafiq/features/specialization/domain/usecase/get_specialization_usecase.dart';
+import 'package:rafiq/features/specialization/presentation/bloc/specialization_cubit.dart';
+
+import 'package:rafiq/features/specialization/presentation/pages/specializations_screen.dart';
 import 'package:rafiq/features/splash/cubit/splash_cubit.dart';
 import 'package:rafiq/features/splash/splash_screen.dart';
 import 'package:rafiq/features/verify_otp/screens/verify_otp_screen.dart';
@@ -56,13 +67,13 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
-  return _buildRoute(
-    BlocProvider(
-      create: (_) => sl<SplashCubit>(),
-      child: const SplashScreen(),
-    ),
-    settings,
-  );
+        return _buildRoute(
+          BlocProvider(
+            create: (_) => sl<SplashCubit>(),
+            child: const SplashScreen(),
+          ),
+          settings,
+        );
       case Routes.userTypeScreen:
         return _buildRoute(const UserTypeScreen(), settings);
       case Routes.onbordingScreen:
@@ -147,20 +158,20 @@ class AppRouter {
           ),
           settings,
         );
-      // case Routes.specializationScreen:
-      //   return _buildRoute(
-      //     BlocProvider(
-      //       create: (_) => SpecializationCubit(
-      //         getSpecializationsUseCase: GetSpecializationsUseCase(
-      //           repository: SpecializationRepositoryImpl(
-      //             remoteDataSource: SpecializationRemoteDataSourceImpl(),
-      //           ),
-      //         ),
-      //       ),
-      //       child: const SpecializationsScreen(),
-      //     ),
-      //     settings,
-      //   );
+      case Routes.specializationScreen:
+        return _buildRoute(
+          BlocProvider(
+            create: (_) => SpecializationCubit(
+              getSpecializationsUseCase: GetSpecializationsUseCase(
+                repository: SpecializationRepositoryImpl(
+                  remoteDataSource: SpecializationRemoteDataSourceImpl(),
+                ),
+              ),
+            ),
+            child: const SpecializationsScreen(),
+          ),
+          settings,
+        );
 
       case Routes.paymentInfo:
         final cubit = settings.arguments as DoctorProfileCubit;
@@ -202,6 +213,24 @@ class AppRouter {
 
       case Routes.docProfile:
         return _buildRoute(const ProfileDocScreen(), settings);
+
+      case Routes.homeSearchScreen:
+        final specialization = settings.arguments as String?;
+        return _buildRoute(
+          BlocProvider(
+            create: (_) => SearchCubit(
+              searchDoctorsUseCase: SearchDoctorsUseCase(
+                repository: HomeRepositoryImpl(
+                  remoteDataSource: HomeRemoteDataSourceImpl(),
+                ),
+              ),
+            ),
+            child: HomeSearchScreen(specialization: specialization),
+          ),
+          settings,
+        );
+      case Routes.doctorNotificationScreen:
+        return _buildRoute(const DoctorNotificationScreen(), settings);
       case Routes.changeDocPassword:
         final cubit = settings.arguments as DoctorProfileCubit;
         return _buildRoute(
@@ -245,6 +274,10 @@ class AppRouter {
           settings,
         );
 
+      case Routes.addArticle:
+        return _buildRoute(const AddArticleScreen(), settings);
+
+      case Routes.home:
         case Routes.addArticle:
         return _buildRoute(const AddArticleScreen(), settings);
       

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rafiq/core/theme/app_colors.dart';
 import 'package:rafiq/core/widgets/custom_search_field.dart';
 import 'package:rafiq/core/widgets/spacing_widget.dart';
+import 'package:rafiq/features/doctors/presentation/widgets/doctor_search/doctor_card/doctor_card.dart';
 import 'package:rafiq/features/patient_home/presentation/bloc/home_cubit.dart';
 import 'package:rafiq/features/patient_home/presentation/widgets/custom_home_search_widget.dart';
 
