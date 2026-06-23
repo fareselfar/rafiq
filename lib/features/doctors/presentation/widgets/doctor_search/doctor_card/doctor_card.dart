@@ -23,7 +23,7 @@ class DoctorCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF468EEC).withOpacity(0.25),
+            color: const Color(0xFF468EEC).withValues(alpha: 0.25),
             blurRadius: 4.r,
             offset: const Offset(0, 5),
           ),

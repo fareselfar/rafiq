@@ -55,17 +55,24 @@ class DoctorArticleCard extends StatelessWidget {
                     children: [
                       Text(
                         article.title,
-                        style: AppTypography.profileNameStyle.copyWith(fontSize: 15.sp),
-                        maxLines: 2,
+                        style: AppTypography.profileNameStyle.copyWith(
+                          fontSize: 15.sp,
+                        ),
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const HeightSpace(6),
                       Row(
                         children: [
-                          _CategoryChip(label: article.category),
+                          Expanded(
+                            child: _CategoryChip(label: article.category),
+                          ),
                           const WidthSpace(8),
-                          Icon(Icons.access_time_rounded,
-                              size: 14.sp, color: AppColors.textSecondary),
+                          Icon(
+                            Icons.access_time_rounded,
+                            size: 14.sp,
+                            color: AppColors.textSecondary,
+                          ),
                           const WidthSpace(4),
                           Text(
                             article.timeAge,
@@ -80,7 +87,6 @@ class DoctorArticleCard extends StatelessWidget {
                   ),
                 ),
                 const WidthSpace(12),
-                // Thumbnail
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10.r),
                   child: article.imagePath.isNotEmpty
@@ -89,7 +95,7 @@ class DoctorArticleCard extends StatelessWidget {
                           width: 72.w,
                           height: 72.h,
                           fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => _PlaceholderImage(),
+                          errorBuilder: (_, _, _) => _PlaceholderImage(),
                         )
                       : _PlaceholderImage(),
                 ),
@@ -148,11 +154,13 @@ class _CategoryChip extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 3.h),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Text(
         label,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: GoogleFonts.cairo(
           fontSize: 11.sp,
           fontWeight: FontWeight.w600,
@@ -174,6 +182,8 @@ class _DraftBadge extends StatelessWidget {
       ),
       child: Text(
         'مسوده',
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: GoogleFonts.cairo(
           fontSize: 11.sp,
           color: Colors.grey.shade700,
@@ -206,7 +216,7 @@ class _ActionChip extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
         decoration: BoxDecoration(
-          color: filled ? color : color.withOpacity(0.08),
+          color: filled ? color : color.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(8.r),
         ),
         child: Row(
@@ -216,6 +226,8 @@ class _ActionChip extends StatelessWidget {
             const WidthSpace(4),
             Text(
               label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: GoogleFonts.cairo(
                 fontSize: 13.sp,
                 fontWeight: FontWeight.w600,

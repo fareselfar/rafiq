@@ -18,7 +18,7 @@ class SuccessActions extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.05),
+            color: Colors.black.withValues(alpha: .05),
             blurRadius: 20,
             offset: const Offset(0, -6),
           ),
@@ -32,7 +32,7 @@ class SuccessActions extends StatelessWidget {
               text: "الانتقال الى حجوزاتي",
               onPressed: () {
                 context.navigateAndRemoveUntil(
-                  Routes.patientHome,
+                  Routes.bookingsScreen,
                   arguments: 3,
                 );
               },
@@ -42,7 +42,7 @@ class SuccessActions extends StatelessWidget {
             CustomButton(
               text: "العودة الى الرئيسية",
               onPressed: () {
-                context.navigateAndRemoveUntil("/patienthome");
+                context.navigateAndRemoveUntil(Routes.patientHome);
               },
               type: ButtonType.outlined,
               width: double.infinity,

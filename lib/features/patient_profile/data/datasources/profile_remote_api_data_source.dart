@@ -150,7 +150,7 @@ class ProfileRemoteApiDataSource implements ProfileRemoteDataSource {
 
       final response = await dio.get(
         AppConstants.getUploadFileEndpoint,
-        queryParameters: {if (fileType != null) 'fileType': fileType},
+        queryParameters: {'fileType': ?fileType},
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
       print("FILE TYPE SENT => $fileType");

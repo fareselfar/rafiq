@@ -14,24 +14,16 @@ class SpecializationRemoteDataSourceImpl
   @override
   Future<List<SpecializationResponse>> getSpecializations() async {
     try {
-      print("API CALL START");
-      final token = await AuthSharedPrefs().getToken();
-      final response = await dio.get(
-        AppConstants.getSpecializationsEndpoint,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
-
-      print("API RESPONSE:");
-      print(response.data);
-      print(response.data.runtimeType);
+      final response = await dio.get(AppConstants.getSpecializationsEndpoint);
 
       return (response.data as List)
           .map((e) => SpecializationResponse.fromJson(e))
           .toList();
-    } catch (e, s) {
-      print("SPECIALIZATION ERROR => $e");
-      print(s);
-      rethrow;
+    } on DioException catch (e) {
+      throw RemoteException(
+        message:
+            e.response?.data['message'] ?? 'Failed to load specializations',
+      );
     }
   }
 }

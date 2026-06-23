@@ -38,8 +38,13 @@ class BookAppointmentCubit extends Cubit<BookAppointmentState> {
     if (selectedSlotId == null) return;
     emit(BookingInProgress());
     try {
-      final appointmentId = await bookUseCase(doctorId, selectedSlotId!);
-      emit(BookingSuccess(appointmentId));
+      final isSuccess = await bookUseCase(doctorId, selectedSlotId!);
+      
+      if (isSuccess) {
+        emit(BookingSuccess());
+      } else {
+        emit(BookAppointmentError('فشل تأكيد الحجز، الموعد قد يكون محجوزاً بالفعل'));
+      }
     } catch (e) {
       emit(BookAppointmentError(e.toString()));
     }

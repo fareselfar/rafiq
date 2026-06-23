@@ -20,7 +20,8 @@ class SlotModel {
         json['time'] as String? ?? json['fromTime'] as String? ?? '';
 
     return SlotModel(
-      id: json['id'] ?? 0,
+      // هنا اتأكدنا إنه int ومستحيل يقلب String
+      id: json['id'] as int? ?? 0,
       time: _formatTime(rawTime),
       isReserved: json['isReserved'] ?? json['isClosed'] ?? false,
       rawMinutes: _toMinutes(rawTime),

@@ -35,7 +35,7 @@ class PasswordChanged extends ProfileState {
 class ProfileUpdated extends ProfileState {
   final String message;
 
-  ProfileUpdated(this.message);
+  const ProfileUpdated(this.message);
 }
 
 class UpdateProfileLoading extends ProfileState {}
@@ -57,13 +57,13 @@ class FilesLoading extends ProfileState {}
 class FilesUploaded extends ProfileState {
   final String message;
 
-  FilesUploaded(this.message);
+  const FilesUploaded(this.message);
 }
 
 class FilesError extends ProfileState {
   final String message;
 
-  FilesError(this.message);
+  const FilesError(this.message);
 }
 
 class FilesListLoading extends ProfileState {}
@@ -71,13 +71,13 @@ class FilesListLoading extends ProfileState {}
 class FilesListLoaded extends ProfileState {
   final List<MedicalFileResponse> files;
 
-  FilesListLoaded(this.files);
+  const FilesListLoaded(this.files);
 }
 
 class FilesListError extends ProfileState {
   final String message;
 
-  FilesListError(this.message);
+  const FilesListError(this.message);
 }
 
 class MedicalRecordLoading extends ProfileState {}

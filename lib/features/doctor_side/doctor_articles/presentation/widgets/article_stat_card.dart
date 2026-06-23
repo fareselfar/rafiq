@@ -29,7 +29,7 @@ class ArticleStatCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 3),
           ),
@@ -43,8 +43,11 @@ class ArticleStatCard extends StatelessWidget {
             children: [
               Text(
                 title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.cairo(
                   fontSize: 13.sp,
+
                   color: AppColors.textSecondary,
                 ),
               ),

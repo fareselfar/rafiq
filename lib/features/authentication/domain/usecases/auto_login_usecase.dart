@@ -10,7 +10,7 @@ class AutoLoginUseCase {
   Future<AutoLoginResult> call() async {
     final token = await _localDataSource.getToken();
 
-    if (token == null || token.isEmpty) {
+    if (token.isEmpty) {
       return AutoLoginResult.notLoggedIn;
     }
 
@@ -21,7 +21,7 @@ class AutoLoginUseCase {
     }
 
     final role = await _localDataSource.getRole();
-    if (role == null || role.isEmpty) {
+    if (role.isEmpty) {
       return AutoLoginResult.notLoggedIn;
     }
 

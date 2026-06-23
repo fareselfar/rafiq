@@ -4,6 +4,7 @@
 class AppointmentDetailsModel {
   final int id;
   final String doctorName;
+  final int doctorId;
   final String specialization;
   final String? imagePath;
   final double rate;
@@ -19,6 +20,7 @@ class AppointmentDetailsModel {
 
   const AppointmentDetailsModel({
     required this.id,
+    required this.doctorId,
     required this.doctorName,
     required this.specialization,
     this.imagePath,
@@ -37,6 +39,7 @@ class AppointmentDetailsModel {
   factory AppointmentDetailsModel.fromJson(Map<String, dynamic> json) {
     return AppointmentDetailsModel(
       id: json['id'] ?? 0,
+      doctorId: json['doctorId'] ?? 0,
       doctorName: json['doctorName'] ?? '',
       specialization: json['specialization'] ?? '',
       imagePath: (() {
