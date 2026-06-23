@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:rafiq/core/errors/app_exception.dart';
 import 'package:rafiq/core/utils/constants.dart';
 import 'package:rafiq/features/authentication/data/datasources/local/auth_shared_prefs.dart';
 import 'package:rafiq/features/specialization/data/datasources/specialization_remote_datasource.dart';
