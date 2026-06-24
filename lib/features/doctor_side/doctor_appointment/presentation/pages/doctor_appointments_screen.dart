@@ -40,7 +40,7 @@ class DoctorAppointmentsScreen extends StatelessWidget {
         addAvailability: sl(),
         doctorId: doctorId,
       )..loadSchedule(),
-      child: _DoctorAppointmentsView(doctorName: doctorName),
+      child: SafeArea(child: _DoctorAppointmentsView(doctorName: doctorName)),
     );
   }
 }
@@ -121,11 +121,11 @@ class _ContentView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DoctorAppointmentAppBar(
-              doctorName: doctorName,
-              onNotificationTap: () {},
-              onAvatarTap: () {},
-            ),
+            // DoctorAppointmentAppBar(
+            //   doctorName: doctorName,
+            //   onNotificationTap: () {},
+            //   onAvatarTap: () {},
+            // ),
             AppointmentsTopBar(
               onAddAppointment: () => _showAddAvailability(context, cubit),
             ),
